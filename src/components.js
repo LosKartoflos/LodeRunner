@@ -57,7 +57,7 @@ Crafty.c('Pole', {
 // This is the player-controlled character
 Crafty.c('PlayerCharacter', {
     init: function() {
-        this.requires('Actor, Fourway, Color, Collision')
+        this.requires('Actor, Fourway, Color, Collision') //insted of Fourway use .twoway(2) or .gravity(?). must work somehow
                 .fourway(4)
                 .color('rgb(150, 150, 150)')
                 .stopOnSolids()
