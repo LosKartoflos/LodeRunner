@@ -70,14 +70,21 @@ Crafty.c('PlayerCharacter', {
 
         return this;
     },
-	// Stops the movement
-    stopMovement: function() {
-        this._speed = 0;
+	stopMovement: function () {
         if (this._movement) {
             this.x -= this._movement.x;
-            this.y -= this._movement.y;
-        }
-    },
+            if (this.hit('Solid') != false) {
+                this.x += this._movement.x;
+                this.y -= this._movement.y;
+                if (this.hit('Solid') != false) {
+                    this.x -= this._movement.x;
+                  //  this.y -= this._movement.y;
+                }
+            }
+        } else {
+            this._speed = 0;
+            }
+        },
 	 // Respond to this player collecting a Treasure
 	collectTreasure: function(data) {
 	treasure = data[0].obj;
@@ -93,6 +100,6 @@ Crafty.c('Treasure', {
 	
 	collect: function() {
 	this.destroy();
-	// Crafty.trigger('TreasureCollected', this);
+	Crafty.trigger('TreasureCollected', this);
 }
 });

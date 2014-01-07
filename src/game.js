@@ -57,34 +57,35 @@
 		
 			for (var x = 0; x < Game.map_grid.width; x++) {    
 					
-					if (x == 0 || x == Game.map_grid.width - 1 || y == 0 || y == Game.map_grid.height - 1) {																					
-					Crafty.e('Frame').at(x, y);						
-					}
-			
-				while(map[y][x] == 'W' || map[y][x] == 'X' || map[y][x] == 'H' || map[y][x] == '-'){
-									
- 				
-					while (map[y][x] == 'W'){
-					Crafty.e('Stone').at(x+1, y+1);					
-					x++;
-					}
-					
-					while (map[y][x] == 'H'){
-					Crafty.e('Ladder').at(x+1, y+1);
-					x++;
-					}
-					while (map[y][x] == '-'){
-					Crafty.e('Pole').at(x+1, y+1);
-					x++;
-					}					
-				}			                
+				if (x == 0 || x == Game.map_grid.width - 1 || y == 0 || y == Game.map_grid.height - 1) {																					
+				Crafty.e('Frame').at(x, y);										
+				}			
+					while(map[y][x] == 'W' || map[y][x] == 'X' || map[y][x] == 'H' || map[y][x] == '-'){
+														
+						while (map[y][x] == 'W'){
+						Crafty.e('Stone').at(x+1, y+1);					
+						x++;
+						}
+						
+						while (map[y][x] == 'H'){
+						Crafty.e('Ladder').at(x+1, y+1);
+						x++;
+						}
+						while (map[y][x] == '-'){
+						Crafty.e('Pole').at(x+1, y+1);
+						x++;
+						}					
+					}			                
                 if (map[y][x] == 'T'){
 				Crafty.e('Treasure').at(x+1, y+1);				
 				}
 				if (map[y][x] == 'P'){
-				Crafty.e('PlayerCharacter').at(x+1, y+1);				
+				Crafty.e('PlayerCharacter').at(x+1, y+1);
+					
+				Crafty.e('Frame').at(33, 23);			// fehlerkaschierung
 				}	
             } 
         }					
-    }		
+    }
+  
 }
