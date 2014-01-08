@@ -24,7 +24,7 @@
         Crafty.init(Game.width(), Game.height());
         Crafty.background('rgb(0, 0, 0)');
 		
-		//nur 32 * 23 Felder wegen Umrandung 
+		//nur 32 * 23 Felder wegen Umrandung  //CHAR AT
 		var	map = [	
 		'................................',		
 		'................................',
