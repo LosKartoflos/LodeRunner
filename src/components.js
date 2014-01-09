@@ -93,8 +93,8 @@ Crafty.c('PlayerCharacter', {
 	// this entity hits an entity with the "Solid" component
     stopOnSolids: function() {
         this.onHit('Solid', this.stopMovement);
-
-        return this;
+		
+        return this;		
     },
 	stopMovement: function () {
         if (this._movement) {
