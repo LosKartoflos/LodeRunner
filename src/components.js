@@ -57,9 +57,9 @@ Crafty.c('Pole', {
 // This is the player-controlled character
 Crafty.c('PlayerCharacter', {
     init: function() {
-        this.requires('Actor, Twoway, Color, Collision, Gravity') 
-                .twoway(2)
-				.gravity('Solid')
+        this.requires('Actor, Multiway, Color, Collision, Gravity')// Multiway: Character goes in the direction of the degree number. Right Arrow = 0 (Clockwise). Number in the Beginnig is the speed.
+                .multiway(4,{UP_ARROW: -90, DOWN_ARROW: 90, RIGHT_ARROW: 0, LEFT_ARROW: 180})
+		.gravity('Solid')
                 .color('rgb(150, 150, 150)')
                 .stopOnSolids()
 				.onHit('Treasure', this.collectTreasure);
@@ -67,7 +67,7 @@ Crafty.c('PlayerCharacter', {
 	//"Reads" the map. Each Block around the player is saved in an array.
 	//Index 1 is the block in the upper left corner and then its clockwise around till 8. 0 is the Block in the middle (where the Player is/was).
 	//As input you need an x and y coordinate. It returns an array with the "code-letters" of the Block.
-	/*surroundingBlock: function (x_pos, y_pos) {
+	surroundingBlock: function (x_pos, y_pos) {
 		var block = [];
 		x_pos = Math.round(x_pos);
 		y_pos = Math.round(y_pos);
@@ -88,7 +88,7 @@ Crafty.c('PlayerCharacter', {
 	standingOn: function (x_pos, y_pos)
 	{
 		return Crafty.map[this.y_pos].charAt(this.x_pos);
-	}*/
+	},
 	// Registers a stop-movement function to be called when
 	// this entity hits an entity with the "Solid" component
     stopOnSolids: function() {
