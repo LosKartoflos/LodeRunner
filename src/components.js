@@ -67,12 +67,14 @@ Crafty.c('PlayerCharacter', {
 	//"Reads" the map. Each Block around the player is saved in an array.
 	//Index 1 is the block in the upper left corner and then its clockwise around till 8. 0 is the Block in the middle (where the Player is/was).
 	//It returns an array with the "code-letters" of the Block.
-	surroundingBlock: function (x_pos, y_pos) {
+	surroundingBlock: function () {
 		var block = [];
-                //var x_pos = Crafty.e('PlayerCharacter')
-                //var y_pos = Crafty.e('PlayerCharacter')
+                var x_pos = this.y;
+                var y_pos = this.x;
 		x_pos = Math.round(x_pos);
 		y_pos = Math.round(y_pos);
+                
+                
 		
 		block [0] = standingOn(x_pos, y_pos);//middle
 		block [1] = standingOn(x_pos -1, y_pos -1);
