@@ -64,48 +64,50 @@ Crafty.c('PlayerCharacter', {
                 .stopOnSolids()
 		.onHit('Treasure', this.collectTreasure);
     },
+        //Wird nicht benötigt ist sinnlos
 	//"Reads" the map. Each Block around the player is saved in an array.
-	//Index 1 is the block in the upper left corner and then its clockwise around till 8. 0 is the Block in the middle (where the Player is/was).
+	//Index 0 is the block in the upper left corner and then its clockwise around till 8. 
 	//It returns an array with the "code-letters" of the Block.
-	surroundingBlock: function () {
+	/*surroundingBlock: function () {
 		var block = [];
                 var x_pos = this.y;
                 var y_pos = this.x;
 		x_pos = Math.round(x_pos);
 		y_pos = Math.round(y_pos);
                 
-                
-		
-		block [0] = standingOn(x_pos, y_pos);//middle
-		block [1] = standingOn(x_pos -1, y_pos -1);
-		block [2] = standingOn(x_pos , y_pos -1);//ceeiling
-		block [3] = standingOn(x_pos +1 , y_pos -1);
-		block [4] = standingOn(x_pos +1, y_pos);//right
-		block [5] = standingOn(x_pos +1, y_pos +1);
-		block [6] = standingOn(x_pos , y_pos +1);//bottom
-		block [7] = standingOn(x_pos -1, y_pos +1);
-		block [8] = standingOn(x_pos -1, y_pos );//left
+		block [0] = standingOn(x_pos -1, y_pos -1);
+		block [1] = standingOn(x_pos , y_pos -1);//ceeiling
+		block [2] = standingOn(x_pos +1 , y_pos -1);
+		block [3] = standingOn(x_pos +1, y_pos);//right
+		block [4] = standingOn(x_pos +1, y_pos +1);
+		block [5] = standingOn(x_pos , y_pos +1);//bottom
+		block [6] = standingOn(x_pos -1, y_pos +1);
+		block [7] = standingOn(x_pos -1, y_pos );//left
 		
 		return this.block;
-	},
-	//Returns the Block, which the Player is standing on
-	standingOn: function (x_pos, y_pos)
-	{
-                x_pos = Math.round(x_pos);
-		y_pos = Math.round(y_pos);
-            
-		return Crafty.map[y_pos].charAt(x_pos);
+	},*/
+	//Returns the Block ID (Stone, Ladder, etc.).
+        //Needs map coordinates not pixels
+	blockIs: function (map_x, map_y)
+	{          
+		return Crafty.map[map_y].charAt(map_x);
 	},
         //says you, if there is a special type of Block, at specific position aroud the player.
         //returns true and false
         // blockType: Enter the letter of the Block (for exmaple 'H' for Ledder)
-        // postion: like the positions at surroundingBlock. E.g. 0 is the middle and 2 the Block above. Numbers from 0 until 8
+        // postion: position 0 is the block in the upper left corner and then its clockwise around till 8. 
         checkBlock : function (blockType, position)
         {
             var blockArray = Crafty.e('PlayerCharacter').surroundingBlock();
             if(blockType == blockArray[position]);
         },  
-
+        pixCoordToMapCoord_LeftAndUp: function ()
+        {
+            var mapCoordY = (this.y - 1)/ this.h;
+            var mapCoordX = (this.x - 1) / this.w;
+            
+            return [mapCoordY, mapCoordX];
+        },
 	// Registers a stop-movement function to be called when
 	// this entity hits an entity with the "Solid" component
     stopOnSolids: function() {

@@ -22,7 +22,7 @@
     start: function() {
 // Start crafty and set a background color so that we can see it's working
         Crafty.init(Game.width(), Game.height());
-        document.getElementById("cr-stage").onmousemove = mouse;
+        document.getElementById("cr-stage").onmousemove = mouse; //is for showing mouse coordinates
         Crafty.background('rgb(0, 0, 0)');
 		
 		//nur 32 * 23 Felder wegen Umrandung  //CHAR AT
@@ -91,7 +91,7 @@
   
 }
 
-//shows x and y coordinate where the mouse is (doesn't work
+//shows x and y coordinate where the mouse is 
 function mouse(e)
 {
   var x = e.pageX - document.getElementById('cr-stage').offsetLeft;
