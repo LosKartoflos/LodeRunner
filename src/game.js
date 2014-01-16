@@ -1,4 +1,31 @@
-	Game = {
+//nur 32 * 23 Felder wegen Umrandung  //CHAR AT
+		var	map = [	
+		'................................',		
+		'................................',
+		'....T...........................',
+		'WWWWWWWWWHWWWWWWW...............',
+		'.........H-------------.........',
+		'.........H....WWH...............',
+		'.........H....WWH......T........',
+		'.........H....WWH....WWWWHWWWWWW',
+		'.........H....WWH........H......',
+		'.........H....WWH........H......',
+		'.........H....WWH.......TH......',
+		'WWWWHWWWWW....WWWWWWHWWWWWWWWWWW',
+		'....H...............H...........',
+		'....H...............H...........',
+		'....H...............H...........',
+		'WWWWWWWWWWWWHWWWWWWWHWWWWWWWWWWW',
+		'............H.......H...........',
+		'............H.......H...........',		
+		'.........T..H-------H...T.......',
+		'......HWWWWWWW......WWWWWWWWWWWH',
+		'......H........................H',
+		'......H........P...T...........H',
+		'WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW'							
+		];
+
+Game = {
 // This defines our grid's size and the size of each of its tiles
     map_grid: {
         width: 34,			
@@ -25,32 +52,7 @@
         document.getElementById("cr-stage").onmousemove = mouse; //is for showing mouse coordinates
         Crafty.background('rgb(0, 0, 0)');
 		
-		//nur 32 * 23 Felder wegen Umrandung  //CHAR AT
-		var	map = [	
-		'................................',		
-		'................................',
-		'....T...........................',
-		'WWWWWWWWWHWWWWWWW...............',
-		'.........H-------------.........',
-		'.........H....WWH...............',
-		'.........H....WWH......T........',
-		'.........H....WWH....WWWWHWWWWWW',
-		'.........H....WWH........H......',
-		'.........H....WWH........H......',
-		'.........H....WWH.......TH......',
-		'WWWWHWWWWW....WWWWWWHWWWWWWWWWWW',
-		'....H...............H...........',
-		'....H...............H...........',
-		'....H...............H...........',
-		'WWWWWWWWWWWWHWWWWWWWHWWWWWWWWWWW',
-		'............H.......H...........',
-		'............H.......H...........',		
-		'.........T..H-------H...T.......',
-		'......HWWWWWWW......WWWWWWWWWWWH',
-		'......H........................H',
-		'......H........P...T...........H',
-		'WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW'							
-		];
+		
 		
 
 // Place a tree at every edge square on our grid of 16x16 tiles

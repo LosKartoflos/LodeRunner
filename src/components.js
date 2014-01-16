@@ -26,7 +26,6 @@ Crafty.c('Actor', {
     },
 });
 
-// A Tree is just an Actor with a certain color
 Crafty.c('Frame', {
     init: function() {
         this.requires('Actor, Color, Solid')
@@ -34,7 +33,6 @@ Crafty.c('Frame', {
     },
 });
 
-// A Bush is just an Actor with a certain color
 Crafty.c('Stone', {
     init: function() {
         this.requires('Actor, Color, Solid')
@@ -88,25 +86,42 @@ Crafty.c('PlayerCharacter', {
 	},*/
 	//Returns the Block ID (Stone, Ladder, etc.).
         //Needs map coordinates not pixels
-	blockIs: function (map_x, map_y)
+	blockIs: function (mapCoordY, mapCoordX)
 	{          
-		return Crafty.map[map_y].charAt(map_x);
+                return Game.map[mapCoordY].charAt(mapCoordX);
 	},
         //says you, if there is a special type of Block, at specific position aroud the player.
         //returns true and false
         // blockType: Enter the letter of the Block (for exmaple 'H' for Ledder)
         // postion: position 0 is the block in the upper left corner and then its clockwise around till 8. 
-        checkBlock : function (blockType, position)
+        /*checkBlock : function (blockType, position)
         {
             var blockArray = Crafty.e('PlayerCharacter').surroundingBlock();
             if(blockType == blockArray[position]);
-        },  
-        pixCoordToMapCoord_LeftAndUp: function ()
+        },*/
+    
+        //Detects the upcoming block und -x and -y direction
+        detectNextBlock_LeftAndUp: function ()
         {
             var mapCoordY = (this.y - 1)/ this.h;
             var mapCoordX = (this.x - 1) / this.w;
             
-            return [mapCoordY, mapCoordX];
+            return(blockIs(mapCoordY, mapCoordX));
+        },
+        //Detects the upcoming block und +x and +y direction
+        detectNextBlock_RightAndDown: function ()
+        {
+            var mapCoordY = (this.y + this.h)/ this.h;
+            var mapCoordX = (this.x + this.w) / this.w;
+            
+            return(blockIs(mapCoordY, mapCoordX));
+        },
+        //Ables/disables climbing ability. Leads Player to the next leader, when the Ladder is within one Block
+        climbMaster: function ()
+        {
+            if(key_down() ==  2){
+                
+            }
         },
 	// Registers a stop-movement function to be called when
 	// this entity hits an entity with the "Solid" component
@@ -137,6 +152,22 @@ Crafty.c('PlayerCharacter', {
 	}
 	
 });
+
+//returns number for arrow_keys
+function key_down(e)
+{
+    var key_id = e.keyCode || e.which;
+    
+    if (key_id == 40)//down key
+        return 0;
+    if (key_id == 37)//left key
+        return 1;
+    if (key_id == 38)//up key
+        return 2;
+    if (key_id == 39)//right key
+        return 3;
+}
+
 Crafty.c('Treasure', {
     init: function() {
         this.requires('Actor, Color')
