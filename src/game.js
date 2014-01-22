@@ -1,30 +1,3 @@
-//nur 32 * 23 Felder wegen Umrandung  //CHAR AT
-		var	map = [	
-		'................................',		
-		'................................',
-		'....T...........................',
-		'WWWWWWWWWHWWWWWWW...............',
-		'.........H-------------.........',
-		'.........H....WWH...............',
-		'.........H....WWH......T........',
-		'.........H....WWH....WWWWHWWWWWW',
-		'.........H....WWH........H......',
-		'.........H....WWH........H......',
-		'.........H....WWH.......TH......',
-		'WWWWHWWWWW....WWWWWWHWWWWWWWWWWW',
-		'....H...............H...........',
-		'....H...............H...........',
-		'....H...............H...........',
-		'WWWWWWWWWWWWHWWWWWWWHWWWWWWWWWWW',
-		'............H.......H...........',
-		'............H.......H...........',		
-		'.........T..H-------H...T.......',
-		'......HWWWWWWW......WWWWWWWWWWWH',
-		'......H........................H',
-		'......H........P...T...........H',
-		'WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW'							
-		];
-
 Game = {
 // This defines our grid's size and the size of each of its tiles
     map_grid: {
@@ -49,50 +22,13 @@ Game = {
     start: function() {
 // Start crafty and set a background color so that we can see it's working
         Crafty.init(Game.width(), Game.height());
-        document.getElementById("cr-stage").onmousemove = mouse; //is for showing mouse coordinates
+       // document.getElementById("cr-stage").onmousemove = mouse;
         Crafty.background('rgb(0, 0, 0)');
-		
-		
-		
-
-// Place a tree at every edge square on our grid of 16x16 tiles
-        for (var y = 0; y < Game.map_grid.height; y++) {
-		
-			for (var x = 0; x < Game.map_grid.width; x++) {    
-					
-				if (x == 0 || x == Game.map_grid.width - 1 || y == 0 || y == Game.map_grid.height - 1) {																					
-				Crafty.e('Frame').at(x, y);										
-				}			
-					while(map[y][x] == 'W' || map[y][x] == 'X' || map[y][x] == 'H' || map[y][x] == '-'){
-														
-						while (map[y][x] == 'W'){
-						Crafty.e('Stone').at(x+1, y+1);					
-						x++;
-						}
-						
-						while (map[y][x] == 'H'){
-						Crafty.e('Ladder').at(x+1, y+1);
-						x++;
-						}
-						while (map[y][x] == '-'){
-						Crafty.e('Pole').at(x+1, y+1);
-						x++;
-						}					
-					}			                
-                if (map[y][x] == 'T'){
-				Crafty.e('Treasure').at(x+1, y+1);				
-				}
-				if (map[y][x] == 'P'){
-				Crafty.e('PlayerCharacter').at(x+1, y+1);
-					
-				Crafty.e('Frame').at(33, 23);			// fehlerkaschierung
-				}	
-            } 
-        }					
-    }
-  
+		Crafty.scene('Loading');
+        //Crafty.scene('Game');
+        //Crafty.scene('NextLevel');       
+    } 
 }
-
 //shows x and y coordinate where the mouse is 
 function mouse(e)
 {

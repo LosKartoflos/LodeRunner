@@ -25,30 +25,42 @@ Crafty.c('Actor', {
         this.requires('2D, Canvas, Grid');
     },
 });
-
 Crafty.c('Frame', {
     init: function() {
         this.requires('Actor, Color, Solid')
-                .color('rgb(220, 220, 220)');
+                .color('rgb(254, 254, 254)');
     },
 });
 
-Crafty.c('Stone', {
+ 
+Crafty.c('Stone', {   //ohne spritemapping
     init: function() {
-        this.requires('Actor, Color, Solid')
-                .color('rgb(139,26,26)');
+        this.requires('Actor, Solid, Image')                
+                .image("assets/stone.png");
+    },
+});
+//Crafty.c('Stone', { //für spritemapping
+//    init: function() {
+//        this.requires('Actor, Solid, spr_stone');                              
+//    },
+//});
+Crafty.c('Concrete', {   
+    init: function() {
+        this.requires('Actor, Solid, Image')                
+                .image("assets/concrete.png");
     },
 });
 Crafty.c('Ladder', {
     init: function() {
-        this.requires('Actor, Color')
-                .color('rgb(205,193,197)');
+        this.requires('Actor, Image')                
+                .image("assets/ladder.png");
+               
     },
 });
 Crafty.c('Pole', {
     init: function() {
-        this.requires('Actor, Color')
-                .color('rgb(230,230,230)');
+        this.requires('Actor, Image')
+                .image("assets/pole.png");
     },
 });
 
@@ -57,9 +69,10 @@ Crafty.c('PlayerCharacter', {
     init: function() {
         this.requires('Actor, Multiway, Color, Collision, Gravity')// Multiway: Character goes in the direction of the degree number. Right Arrow = 0 (Clockwise). Number in the Beginnig is the speed.
                 .multiway(4,{UP_ARROW: -90, DOWN_ARROW: 90, RIGHT_ARROW: 0, LEFT_ARROW: 180})
-		.gravity('Solid')
+				.gravity('Solid')
                 .color('rgb(150, 150, 150)')
                 .stopOnSolids()
+				.onHit('Ladder', this.antigravity)   // ist nur vorrübergehend, damit man das level beenden kann
 		.onHit('Treasure', this.collectTreasure);
     },
         //Wird nicht benötigt ist sinnlos
@@ -170,8 +183,8 @@ function key_down(e)
 
 Crafty.c('Treasure', {
     init: function() {
-        this.requires('Actor, Color')
-                .color('rgb(245,184,0)');
+        this.requires('Actor, Image')
+                .image("assets/treasure.png");
     },
 	
 	collect: function() {
