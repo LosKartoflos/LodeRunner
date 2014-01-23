@@ -63,16 +63,25 @@ Crafty.c('Pole', {
                 .image("assets/pole.png");
     },
 });
+ 
+//The Deegre directionn vor Multiway
+var upDeg = -90;
+var downDeg = 90;
+var rightDeg = 0;
+var leftDeg = 180;
 
 // This is the player-controlled character
 Crafty.c('PlayerCharacter', {
+    
+   
+    
     init: function() {
         this.requires('Actor, Multiway, Color, Collision, Gravity')// Multiway: Character goes in the direction of the degree number. Right Arrow = 0 (Clockwise). Number in the Beginnig is the speed.
-                .multiway(4,{UP_ARROW: -90, DOWN_ARROW: 90, RIGHT_ARROW: 0, LEFT_ARROW: 180})
-				.gravity('Solid')
+                .multiway(4,{UP_ARROW: upDeg, DOWN_ARROW: downDeg, RIGHT_ARROW: rightDeg, LEFT_ARROW: leftDeg})
+		.gravity('Solid')
                 .color('rgb(150, 150, 150)')
                 .stopOnSolids()
-				.onHit('Ladder', this.antigravity)   // ist nur vorrübergehend, damit man das level beenden kann
+		//.onHit('Ladder', this.antigravity)   // ist nur vorrübergehend, damit man das level beenden kann
 		.onHit('Treasure', this.collectTreasure);
     },
         //Wird nicht benötigt ist sinnlos
@@ -113,26 +122,46 @@ Crafty.c('PlayerCharacter', {
             if(blockType == blockArray[position]);
         },*/
     
-        //Detects the upcoming block und -x and -y direction
-        detectNextBlock_LeftAndUp: function ()
+        //Detects the upcoming block in -x direction 
+        detectNextBlock_Left: function ()
         {
-            var mapCoordY = (this.y - 1)/ this.h;
+            var mapCoordY = (this.y )/ this.h;
             var mapCoordX = (this.x - 1) / this.w;
             
             return(blockIs(mapCoordY, mapCoordX));
         },
-        //Detects the upcoming block und +x and +y direction
-        detectNextBlock_RightAndDown: function ()
+        //Detects the upcoming block -y direction
+        detectNextBlock_Up: function ()
+        {
+            var mapCoordY = (this.y - 1)/ this.h;
+            var mapCoordX = (this.x ) / this.w;
+            
+            return(blockIs(mapCoordY, mapCoordX));
+        },
+        //Detects the upcoming block +x direction
+        detectNextBlock_Right: function ()
+        {
+            var mapCoordY = (this.y)/ this.h;
+            var mapCoordX = (this.x + this.w) / this.w;
+            
+            return(blockIs(mapCoordY, mapCoordX));
+        },
+        //Detects the upcoming block und +y direction
+        detectNextBlock_Down: function ()
         {
             var mapCoordY = (this.y + this.h)/ this.h;
-            var mapCoordX = (this.x + this.w) / this.w;
+            var mapCoordX = (this.x) / this.w;
             
             return(blockIs(mapCoordY, mapCoordX));
         },
         //Ables/disables climbing ability. Leads Player to the next leader, when the Ladder is within one Block
         climbMaster: function ()
         {
-            if(key_down() ==  2){
+            //2 = is up
+            if(key_down() ==  2 && this.detectNextBlock_Up() == 'H' || this.detectNextBlock_LeftAndUp() == 'h'){
+                this.antigravity();
+            }
+            if(key_down() ==  2 && this.detectNextBlock_Up() != 'H' || this.detectNextBlock_LeftAndUp() != 'h'){
                 
             }
         },

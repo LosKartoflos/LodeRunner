@@ -1,4 +1,33 @@
+//für die Bewegung zum testen
+
 var level1 =[                     	
+    '................................',
+    '................................',
+    'WWWWWWWWWHWWWWWW................',
+    '.........H......................',
+    '.........H....WWH...............',
+    '.........H....WWH...............',
+    '.........H....WWH....WWWWHWWWWWW',
+    '.........H....WWH........H......',
+    '.........H....WWH........H......',
+    '.........H....WWH........H......',
+    'WWWWHWWWWW....WWWWWWHWWWWWWWWWWW',
+    '....H...............H...........',
+    '....H...............H...........',
+    '....H......P........H...........',
+    'WWWWWWWWWWWWHWWWWWWWHWWWWWWWWWWW',
+    '............H.......H...........',
+    '............H.......H...........',		
+    '............H.......H...........',
+    '......HWWWWWWW......WWWWWWWWWWWH',
+    '......H........................H',
+    '......H........................H',
+    'WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW',
+    '',  // nicht entfernen!
+    ''   // nicht entfernen!   
+    ];
+
+/*var level1 =[                     	
     '.........................T......',
     '....T..P.................h......',
     'CWCCWCCCWHWWWWWWC........h......',
@@ -23,7 +52,7 @@ var level1 =[
     'WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW',
     '',  // nicht entfernen!
     ''   // nicht entfernen!   
-    ];
+    ];*/
 	
 	var level2 =[
     '..........T.....................',
