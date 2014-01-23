@@ -1,4 +1,4 @@
-var map =[                     	
+var level1 =[                     	
     '.........................T......',
     '....T..P.................h......',
     'CWCCWCCCWHWWWWWWC........h......',
@@ -24,8 +24,49 @@ var map =[
     '',  // nicht entfernen!
     ''   // nicht entfernen!   
     ];
-
+	
+	var level2 =[
+    '..........T.....................',
+    '..........h.....................',
+    'WWWW......h.......WWWWHWWWWWWWWW',
+    '..WWW.....h......WWW..H.........',
+    '...WWW....h.....WW....H.........',
+    'T..WWWW...h...TWWW....H......T..',
+    'WWHWWWWW..h..WWWWWHWWWWWWWWWWWWW',
+    '..H....WW.h.WW....H.............',
+    '..H.....W.H.W.....H.............',
+    '..H......CHC......H.....T.......',
+    'HWWWH.....H......WHWWHWWW.......',
+    'H...H................H..........',
+    'H...H.....T..........H..........',
+    'H...H.....W..........H..........',
+    'H...H................H..........',
+    'H...HWWWWWWWWHWWWWWWWHWWWWWWWHWW',
+    'H............H...............H..',
+    'H......T.....H...------WWWWWWHWW',
+    'H......WWCCCCHWWWW...........H..',
+    'H............................H..',
+    'H...............P............H..',
+    'WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW',
+    '',
+    ''
+    ];    
+	
+	var levelcounter = 0;
+	
+	
 Crafty.scene('Game', function() {
+
+    var map;
+ 
+    if(levelcounter == 0){
+		map = level1;
+    }
+    console.log(levelcounter);
+	
+    if(levelcounter >= 4){
+		map = level2;
+    }
     
     for (var y = 0; y < Game.map_grid.height; y++) {
 
@@ -72,6 +113,7 @@ Crafty.scene('Game', function() {
                     this.end_postion = this.bind('TreasureCollected', function() { 
                        if (!Crafty('Treasure').length){
                            Crafty("2D").destroy();
+						   levelcounter++;
                            Crafty.scene('NextLevel'); 
                        }         
                     }); 
