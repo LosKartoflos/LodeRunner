@@ -181,6 +181,8 @@ Crafty.c('PlayerCharacter', {
                 this.gravity('Solid');
                 this.multiway(4,{RIGHT_ARROW: rightDeg, LEFT_ARROW: leftDeg});
             }
+            
+            setTimeout(climbMaster, 10);
         },
 	// Registers a stop-movement function to be called when
 	// this entity hits an entity with the "Solid" component
