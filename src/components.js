@@ -1,4 +1,5 @@
-// The Grid component allows an element to be located
+
+// // The Grid component allows an element to be located
 // on a grid of tiles
 Crafty.c('Grid', {
     init: function() {
@@ -70,20 +71,24 @@ var downDeg = 90;
 var rightDeg = 0;
 var leftDeg = 180;
 
+//setInterval(Crafty.e('PlayerCharacter').h += 10, 1000);
 // This is the player-controlled character
+
 Crafty.c('PlayerCharacter', {
     
    
     
     init: function() {
         this.requires('Actor, Multiway, Color, Collision, Gravity')// Multiway: Character goes in the direction of the degree number. Right Arrow = 0 (Clockwise). Number in the Beginnig is the speed.
-                .multiway(4,{UP_ARROW: upDeg, DOWN_ARROW: downDeg, RIGHT_ARROW: rightDeg, LEFT_ARROW: leftDeg})
+                //.multiway(4,{UP_ARROW: upDeg, DOWN_ARROW: downDeg, RIGHT_ARROW: rightDeg, LEFT_ARROW: leftDeg})
+                .multiway(4,{RIGHT_ARROW: rightDeg, LEFT_ARROW: leftDeg})
 		.gravity('Solid')
                 .color('rgb(150, 150, 150)')
                 .stopOnSolids()
 		//.onHit('Ladder', this.antigravity)   // ist nur vorrübergehend, damit man das level beenden kann
 		.onHit('Treasure', this.collectTreasure);
     },
+
         //Wird nicht benötigt ist sinnlos
 	//"Reads" the map. Each Block around the player is saved in an array.
 	//Index 0 is the block in the upper left corner and then its clockwise around till 8. 
@@ -160,9 +165,21 @@ Crafty.c('PlayerCharacter', {
             //2 = is up
             if(key_down() ==  2 && this.detectNextBlock_Up() == 'H' || this.detectNextBlock_LeftAndUp() == 'h'){
                 this.antigravity();
+                this.multiway(4,{UP_ARROW: upDeg, RIGHT_ARROW: rightDeg, LEFT_ARROW: leftDeg});
             }
-            if(key_down() ==  2 && this.detectNextBlock_Up() != 'H' || this.detectNextBlock_LeftAndUp() != 'h'){
-                
+            else if(key_down() ==  2 && this.detectNextBlock_Up() != 'H' || this.detectNextBlock_LeftAndUp() != 'h'){
+                this.gravity('Solid');
+                this.multiway(4,{RIGHT_ARROW: rightDeg, LEFT_ARROW: leftDeg});
+            }
+            
+            //4 = is down
+            if(key_down() ==  2 && this.detectNextBlock_Up() == 'H' || this.detectNextBlock_LeftAndUp() == 'h'){
+                this.antigravity();
+                this.multiway(4,{DOWN_ARROW: downDeg, RIGHT_ARROW: rightDeg, LEFT_ARROW: leftDeg});
+            }
+            else if(key_down() ==  2 && this.detectNextBlock_Up() != 'H' || this.detectNextBlock_LeftAndUp() != 'h'){
+                this.gravity('Solid');
+                this.multiway(4,{RIGHT_ARROW: rightDeg, LEFT_ARROW: leftDeg});
             }
         },
 	// Registers a stop-movement function to be called when
@@ -193,6 +210,7 @@ Crafty.c('PlayerCharacter', {
 		treasure.collect();
 	}
 	
+        
 });
 
 //returns number for arrow_keys

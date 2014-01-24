@@ -1,33 +1,33 @@
 //für die Bewegung zum testen
+/*
+var level1 =[                     	
+    '..........T.....................',
+    '..........h.....................',
+    'WWWW......h.......WWWWHWWWWWWWWW',
+    '..WWW.....h......WWW..H.........',
+    '...WWW....h.....WW....H.........',
+    'T..WWWW...h...TWWW....H......T..',
+    'WWHWWWWW..h..WWWWWHWWWWWWWWWWWWW',
+    '..H....WW.h.WW....H.............',
+    '..H.....W.H.W.....H.............',
+    '..H......CHC......H.....T.......',
+    'HWWWH.....H......WHWWHWWW.......',
+    'H...H................H..........',
+    'H...H.....T..........H..........',
+    'H...H.....W..........H..........',
+    'H...H................H..........',
+    'H...HWWWWWWWWHWWWWWWWHWWWWWWWHWW',
+    'H............H...............H..',
+    'H......T.....H...------WWWWWWHWW',
+    'H......WWCCCCHWWWW...........H..',
+    'H............................H..',
+    'H...............P............H..',
+    'WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW',
+    '',
+    ''
+    ];*/
 
 var level1 =[                     	
-    '................................',
-    '................................',
-    'WWWWWWWWWHWWWWWW................',
-    '.........H......................',
-    '.........H....WWH...............',
-    '.........H....WWH...............',
-    '.........H....WWH....WWWWHWWWWWW',
-    '.........H....WWH........H......',
-    '.........H....WWH........H......',
-    '.........H....WWH........H......',
-    'WWWWHWWWWW....WWWWWWHWWWWWWWWWWW',
-    '....H...............H...........',
-    '....H...............H...........',
-    '....H......P........H...........',
-    'WWWWWWWWWWWWHWWWWWWWHWWWWWWWWWWW',
-    '............H.......H...........',
-    '............H.......H...........',		
-    '............H.......H...........',
-    '......HWWWWWWW......WWWWWWWWWWWH',
-    '......H........................H',
-    '......H........................H',
-    'WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW',
-    '',  // nicht entfernen!
-    ''   // nicht entfernen!   
-    ];
-
-/*var level1 =[                     	
     '.........................T......',
     '....T..P.................h......',
     'CWCCWCCCWHWWWWWWC........h......',
@@ -52,7 +52,7 @@ var level1 =[
     'WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW',
     '',  // nicht entfernen!
     ''   // nicht entfernen!   
-    ];*/
+    ];
 	
 	var level2 =[
     '..........T.....................',
@@ -120,11 +120,11 @@ Crafty.scene('Game', function() {
                     Crafty.e('Treasure').at(x+1, y+1);				
                 }
                 if (map[y][x] == 'P'){
-                    Crafty.e('PlayerCharacter').at(x+1, y+1);                               					
+                    Crafty.e('PlayerCharacter').at(x+1, y+1);  
                 }					
         } 
     }        
-  
+   
     
     this.show_ladder = this.bind('TreasureCollected', function() {   
         if (Crafty('Treasure').length == 1){
