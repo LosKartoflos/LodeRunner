@@ -174,7 +174,7 @@ this.unbind('KeyDown', this.restart_game);
 
 Crafty.scene('Loading', function(){
 
-  Crafty.load(['assets/16x16_forest_1.gif', 'assets/stone.png'], function(){
+  Crafty.load(['assets/16x16_forest_1.gif', 'assets/stone.png', 'assets/ladder.png', 'assets/pole.png', 'assets/treasure.png', 'assets/concrete.png',], function(){
 
     Crafty.sprite(16, 'assets/16x16_forest_1.gif', {  // kommt noch nicht zum einsatz
         spr_stone: [0, 0]
