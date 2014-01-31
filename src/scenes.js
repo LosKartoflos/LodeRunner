@@ -30,7 +30,7 @@ var level1 =[
 var level1 =[                     	
     '.........................T......',
     '....T..P.................h......',
-    'CWCCWCCCWHWWWWWWC........h......',
+    'WWWWWWWWWHWWWWWWW........h......',
     '.........H---------------h......',
     '.........H....WWH........h......',
     '.........H....WWH......T.h......',
@@ -64,7 +64,7 @@ var level1 =[
     'WWHWWWWW..h..WWWWWHWWWWWWWWWWWWW',
     '..H....WW.h.WW....H.............',
     '..H.....W.H.W.....H.............',
-    '..H......CHC......H.....T.......',
+    '..H......WHW......H.....T.......',
     'HWWWH.....H......WHWWHWWW.......',
     'H...H................H..........',
     'H...H.....T..........H..........',
@@ -73,7 +73,7 @@ var level1 =[
     'H...HWWWWWWWWHWWWWWWWHWWWWWWWHWW',
     'H............H...............H..',
     'H......T.....H...------WWWWWWHWW',
-    'H......WWCCCCHWWWW...........H..',
+    'H......WWWWWWHWWWW...........H..',
     'H............................H..',
     'H...............P............H..',
     'WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW',
@@ -174,7 +174,7 @@ this.unbind('KeyDown', this.restart_game);
 
 Crafty.scene('Loading', function(){
 
-  Crafty.load(['assets/16x16_forest_1.gif', 'assets/stone.png', 'assets/ladder.png', 'assets/pole.png', 'assets/treasure.png', 'assets/concrete.png',], function(){
+  Crafty.load(['assets/Stein_oK_72ppi.png', 'assets/Ladder.png', 'assets/Schatz_24x19_72ppi.png', 'assets/Pole.png' ], function(){
 
     Crafty.sprite(16, 'assets/16x16_forest_1.gif', {  // kommt noch nicht zum einsatz
         spr_stone: [0, 0]

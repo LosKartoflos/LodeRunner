@@ -37,31 +37,27 @@ Crafty.c('Frame', {
 Crafty.c('Stone', {   //ohne spritemapping
     init: function() {
         this.requires('Actor, Solid, Image')                
-                .image("assets/stone.png");
+                .image('assets/Stein_oK_72ppi.png');
     },
 });
-//Crafty.c('Stone', { //für spritemapping
-//    init: function() {
-//        this.requires('Actor, Solid, spr_stone');                              
-//    },
-//});
-Crafty.c('Concrete', {   
+	/*Crafty.c('Concrete', {    not in use yet
     init: function() {
         this.requires('Actor, Solid, Image')                
-                .image("assets/concrete.png");
+                .image('assets/concrete.png');
     },
-});
+}); */
 Crafty.c('Ladder', {
     init: function() {
         this.requires('Actor, Image')                
-                .image("assets/ladder.png");
+               // .image('assets/Leiter_oK_24x24_72ppi.png');
+				.image('assets/Ladder.png');
                
     },
 });
 Crafty.c('Pole', {
     init: function() {
         this.requires('Actor, Image')
-                .image("assets/pole.png");
+                .image('assets/Pole.png');
     },
 });
  
@@ -233,7 +229,7 @@ function key_down(e)
 Crafty.c('Treasure', {
     init: function() {
         this.requires('Actor, Image')
-                .image("assets/treasure.png");
+                .image('assets/Schatz_24x19_72ppi.png');
     },
 	
 	collect: function() {
