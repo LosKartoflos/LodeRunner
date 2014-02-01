@@ -61,6 +61,57 @@ Crafty.c('Pole', {
     },
 });
  
+ //Gegner
+ Crafty.c('Enemy', {
+    init: function() {
+        this.requires('Actor, Color, Collision, Gravity')
+                .color('rgb(200, 120, 120)')
+                .stopOnSolids()
+                .onHit('Treasure', this.collectTreasure);
+    },
+    
+    //needs direction. 1 = Left, 2 = UP 3= Right, 4 = Down
+    //Var speed regulates the movement speed. Just for changing position. ai is for the Movingorders.
+    move: function(direction) {
+        var speed = 3;
+        
+        
+        
+    },
+    
+    ai: function() {
+        
+    },
+    
+    // Registers a stop-movement function to be called when
+	// this entity hits an entity with the "Solid" component
+    stopOnSolids: function() {
+        this.onHit('Solid', this.stopMovement);
+		
+        return this;		
+    },
+	stopMovement: function () {
+        if (this._movement) {
+            this.x -= this._movement.x;
+            if (this.hit('Solid') != false) {
+                this.x += this._movement.x;
+                this.y -= this._movement.y;
+                if (this.hit('Solid') != false) {
+                    this.x -= this._movement.x;
+                  //  this.y -= this._movement.y;
+                }
+            }
+        } else {
+            this._speed = 0;
+            }
+        },
+	 // Respond to this player collecting a Treasure
+	collectTreasure: function(data) {
+	treasure = data[0].obj;
+		treasure.collect();
+	}
+ });
+ 
 //The Deegre directionn vor Multiway
 var upDeg = -90;
 var downDeg = 90;
@@ -78,11 +129,12 @@ Crafty.c('PlayerCharacter', {
         this.requires('Actor, Multiway, Color, Collision, Gravity')// Multiway: Character goes in the direction of the degree number. Right Arrow = 0 (Clockwise). Number in the Beginnig is the speed.
                 //.multiway(4,{UP_ARROW: upDeg, DOWN_ARROW: downDeg, RIGHT_ARROW: rightDeg, LEFT_ARROW: leftDeg})
                 .multiway(4,{RIGHT_ARROW: rightDeg, LEFT_ARROW: leftDeg})
-		.gravity('Solid')
+		//.gravity('Solid')
                 .color('rgb(150, 150, 150)')
                 .stopOnSolids()
 		//.onHit('Ladder', this.antigravity)   // ist nur vorrübergehend, damit man das level beenden kann
 		.onHit('Treasure', this.collectTreasure);
+                
     },
 
         //Wird nicht benötigt ist sinnlos
@@ -156,27 +208,29 @@ Crafty.c('PlayerCharacter', {
             return(blockIs(mapCoordY, mapCoordX));
         },
         //Ables/disables climbing ability. Leads Player to the next leader, when the Ladder is within one Block
-        climbMaster: function ()
+        climbTester: function ()
         {
             //2 = is up
-            if(key_down() ==  2 && this.detectNextBlock_Up() == 'H' || this.detectNextBlock_LeftAndUp() == 'h'){
+            if(key_down() ==  2 && (this.detectNextBlock_Up() == 'H' || this.detectNextBlock_Up() == 'h')){
                 this.antigravity();
                 this.multiway(4,{UP_ARROW: upDeg, RIGHT_ARROW: rightDeg, LEFT_ARROW: leftDeg});
             }
-            else if(key_down() ==  2 && this.detectNextBlock_Up() != 'H' || this.detectNextBlock_LeftAndUp() != 'h'){
+            else if(key_down() ==  2 && (this.detectNextBlock_Up() != 'H' || this.detectNextBlock_Up() != 'h')){
                 this.gravity('Solid');
                 this.multiway(4,{RIGHT_ARROW: rightDeg, LEFT_ARROW: leftDeg});
             }
             
             //4 = is down
-            if(key_down() ==  2 && this.detectNextBlock_Up() == 'H' || this.detectNextBlock_LeftAndUp() == 'h'){
+            if(key_down() ==  2 && (this.detectNextBlock_Down() == 'H' || this.detectNextBlock_Down() == 'h')){
                 this.antigravity();
                 this.multiway(4,{DOWN_ARROW: downDeg, RIGHT_ARROW: rightDeg, LEFT_ARROW: leftDeg});
             }
-            else if(key_down() ==  2 && this.detectNextBlock_Up() != 'H' || this.detectNextBlock_LeftAndUp() != 'h'){
+            else if(key_down() ==  2 && (this.detectNextBlock_Down() != 'H' || this.detectNextBlock_Down() != 'h')){
                 this.gravity('Solid');
                 this.multiway(4,{RIGHT_ARROW: rightDeg, LEFT_ARROW: leftDeg});
             }
+            
+            
             
             setTimeout(climbMaster, 10);
         },
