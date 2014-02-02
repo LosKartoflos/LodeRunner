@@ -62,9 +62,15 @@ Crafty.c('Pole', {
 });
  
  
- 
- var deadEnd = 0; //Is for the ai. Checks if enemy is in an Deadend loop
  //Gegner
+ var deadEnd = 0; //Is for the ai. Checks if enemy is in an Deadend loop
+ var checkX = 0; //For checking if Enemy is running continousely against an block
+ var xTimeOut = 0;
+ var xTimtOutReset = 0;
+ var climbingDirection = 0; //2 is up 4 is down;
+ var lastDir = 0;
+ var walkingDirection = 0;//1 is left 3 is right;
+ 
  Crafty.c('Enemy', {
     init: function() {
         this.requires('Actor, Color, Collision, Gravity')
@@ -76,28 +82,33 @@ Crafty.c('Pole', {
     //needs direction.0 = Stop, 1 = Left, 2 = UP 3= Right, 4 = Down
     //Var speed regulates the movement speed. Just for changing position. ai is for the Movingorders.
     move: function(direction) {
-        var speed = 3;
+        var speed = 1;
         
         if (direction == 0)//stop
         {
             this.x += 0;
             this.y += 0;
+            this.gravity('Solid');
         }        
         else if (direction == 1)//left
         {
             this.x -= speed;
+            this.gravity('Solid');
         }
         else if (direction == 3)//up
         {
             this.x += speed;
+            this.antigravity();
         }
         else if (direction == 2)//right
         {
             this.y -= speed;
+            this.gravity('Solid');
         }
         else if (direction == 4)//down
         {
             this.y += speed;
+            this.antigravity();
         }
             
         
@@ -105,7 +116,12 @@ Crafty.c('Pole', {
     },
     
     
-    
+    // the ai looks where the player is and tries toget the same coordinate as the player.
+    // If the Enemy is in a DeadEnd at the border of the Field it walks a way in the other direction.
+    // If it stucks again it walks a little back.
+    // If the Enemy stucks somewhere in the middle (for 1 Second) and DeadAnd is not active, it walks until a ladder
+    // or the border comes (the Dead End is active again).
+    // When the enemy could take a ladder and the player is not the same height, it takes the ladder
     ai: function() {
         
         //checks if Enemy is in an deadEnd. DeadEnd = 0 means everything is okay,
@@ -124,45 +140,199 @@ Crafty.c('Pole', {
             deadEnd = 2;
         }
         
+        
+        //check if Enemy stucks somewhere in the middle
+        if (this.x = checkX)
+        {
+            timeOut =+ 1;
+        }
         //moves the Enemy
         if (deadEnd == 0)
         {
-            if (Crafty.c('Player Character').x <= this.x)// gegner ist weiter rechts als spieler --> links laufen
+            if (timout<= 1000)//stucks nowhere
             {
-                move(1);
+                walkingDirection = 0;//reset for the case a time out happens
+                // gegner ist weiter oben als spieler --> nach oben laufen
+                if (detectNextBlock_Up == 'H' (climbingDirection == 0 || climbingDirection == 2) && (Crafty.c('Player Character').y >= this.y) )
+                {
+                    move(2);
+                     if((detectNextBlock_Up == '.' || detectNextBlock_Up == 'W' ) && (detectNextBlock_Left == '.' || detectNextBlock_Right == 'W' ))
+                    {
+                        climbingDirection = 5;
+                    }
+                    else
+                    {
+                        climbingDirection = 2;
+                    }
+                }
+                // gegner ist weiter unten als spieler --> nach unten laufen
+                else if (dectextNextBlock_Down == 'H' (climbingDirection == 0 || climbingDirection == 4) && (Crafty.c('Player Character').y <= this.y))
+                {
+                    move(4);
+                    if(detectNextBlock_Down == 'W')
+                    {
+                        climbingDirection = 0;
+                    }
+                    else
+                    {
+                        climbingDirection = 4;
+                    }
+                }
+                // gegner ist weiter rechts als spieler --> links laufen
+                else if (detectNextBlock_Left() == '.' && (ClimbingDirection == 0 || ClimbingDirection == 5) && (Crafty.c('Player Character').x <= this.x))
+                {
+                    move(1);
+                    climbingDirection = 0;
+                    lastDir = 1;
+                }
+                // gegner ist weiter links als spieler --> rechts laufen
+                else if (detectNextBlock_Right() == '.' && (ClimbingDirection == 0 || ClimbingDirection == 5) && (Crafty.c('Player Character').x >= this.x))
+                {
+                    move(3);
+                    climbingDirection = 0;
+                    lastDir = 3;
+                }
+                else //Falls Spieler nicht auf gleichen Y aber auf gleichen x
+                {
+                    move(lastDir);
+                }
+                
+                
+                
+                
+                /*if (Crafty.c('Player Character').x <= this.x)// gegner ist weiter rechts als spieler --> links laufen
+                {
+                    move(1);
+                }
+                else if (Crafty.c('Player Character').x >= this.x)// gegner ist weiter links als spieler --> rechts laufen
+                {
+                    move(3);
+                }
+                else if (Crafty.c('Player Character').y >= this.y)// gegner ist weiter oben als spieler --> nach oben laufen
+                {
+                    move(2);
+                }
+                else if (Crafty.c('Player Character').y <= this.y)// gegner ist weiter unten als spieler --> nach unten laufen
+                {
+                    move(4);
+                }*/
             }
-            else if (Crafty.c('Player Character').x >= this.x)// gegner ist weiter links als spieler --> rechts laufen
+            else if (xTimOut >= 1000)
             {
-                move(3);
-            }
-            else if (Crafty.c('Player Character').y >= this.y)// gegner ist weiter oben als spieler --> nach oben laufen
-            {
-                move(2);
-            }
-            else if (Crafty.c('Player Character').y <= this.y)// gegner ist weiter unten als spieler --> nach unten laufen
-            {
-                move(4);
+                if (detectNextBlock_Up == 'H' (climbingDirection == 0 || climbingDirection == 2))
+                {
+                    move(2);
+                     if((detectNextBlock_Up == '.' || detectNextBlock_Up == 'W' ) && (detectNextBlock_Left == '.' || detectNextBlock_Right == 'W' ))
+                    {
+                        climbingDirection = 5;
+                    }
+                    else
+                    {
+                        climbingDirection = 2;
+                    }
+                }
+                else if (dectextNextBlock_Down == 'H' (climbingDirection == 0 || climbingDirection == 4))
+                {
+                    move(4);
+                    if(detectNextBlock_Down == 'W')
+                    {
+                        climbingDirection = 0;
+                    }
+                    else
+                    {
+                        climbingDirection = 4;
+                    }
+                }
+                else if (detectNextBlock_Left() == '.' && (ClimbingDirection == 0 || ClimbingDirection == 5) && (walkingDirection == 0 || walkingDirection == 1))
+                {
+                    move(1);
+                    walkingDirection = 1;
+                }
+                else if (detectNextBlock_Right() == '.' && (ClimbingDirection == 0 || ClimbingDirection == 5) (walkingDirection == 0 || walkingDirection == 3))
+                {
+                    move(3);
+                    walkingDirection = 3;
+                }
+                xTimeOutReset += 1; // beendet loop
+                if (xTimeOutReset >= 3000)
+                {
+                    xTimeOutReset = 0;
+                    xTimeOut = 0;
+                }
             }
         }
         else if (deadEnd == 1)
         {
             move(3);
             
-            if((this.x/4) >= 4)
+            if((this.x/4) >= 8)
             {
                 deadEnd = 0;
             }
+            else if (timeOut >= 100)
+            {
+                deadEnd = 2;
+                timeOut = 0;
+            }
         }
-        else if (deadEnd == 3)
+        else if (deadEnd == 2)
         {
             move(1);
-             if((this.x/4) <= 4)
+             if((this.x/4) <= 8)
             {
                 deadEnd = 0;
             }
+            else if (timeOut >= 100)
+            {
+                deadEnd = 1;
+                timeOut = 0;
+            }
         }
+        
+                
+                
     },
     
+    //Returns the Block ID (Stone, Ladder, etc.).
+    //Needs map coordinates not pixels
+    blockIs: function (mapCoordY, mapCoordX)
+    {          
+            return Game.map[mapCoordY].charAt(mapCoordX);
+    },
+
+    //Detects the upcoming block in -x direction 
+    detectNextBlock_Left: function ()
+    {
+        var mapCoordY = (this.y )/ this.h;
+        var mapCoordX = (this.x - 1) / this.w;
+
+        return(blockIs(mapCoordY, mapCoordX));
+    },
+    //Detects the upcoming block -y direction
+    detectNextBlock_Up: function ()
+    {
+        var mapCoordY = (this.y - 1)/ this.h;
+        var mapCoordX = (this.x ) / this.w;
+
+        return(blockIs(mapCoordY, mapCoordX));
+    },
+    //Detects the upcoming block +x direction
+    detectNextBlock_Right: function ()
+    {
+        var mapCoordY = (this.y)/ this.h;
+        var mapCoordX = (this.x + this.w) / this.w;
+
+        return(blockIs(mapCoordY, mapCoordX));
+    },
+    //Detects the upcoming block und +y direction
+    detectNextBlock_Down: function ()
+    {
+        var mapCoordY = (this.y + this.h)/ this.h;
+        var mapCoordX = (this.x) / this.w;
+
+        return(blockIs(mapCoordY, mapCoordX));
+    },
+
     // Registers a stop-movement function to be called when
 	// this entity hits an entity with the "Solid" component
     stopOnSolids: function() {
@@ -209,7 +379,7 @@ Crafty.c('PlayerCharacter', {
         this.requires('Actor, Multiway, Color, Collision, Gravity')// Multiway: Character goes in the direction of the degree number. Right Arrow = 0 (Clockwise). Number in the Beginnig is the speed.
                 //.multiway(4,{UP_ARROW: upDeg, DOWN_ARROW: downDeg, RIGHT_ARROW: rightDeg, LEFT_ARROW: leftDeg})
                 .multiway(4,{RIGHT_ARROW: rightDeg, LEFT_ARROW: leftDeg})
-		//.gravity('Solid')
+		.gravity('Solid')
                 .color('rgb(150, 150, 150)')
                 .stopOnSolids()
 		//.onHit('Ladder', this.antigravity)   // ist nur vorrübergehend, damit man das level beenden kann

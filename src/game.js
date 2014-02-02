@@ -41,13 +41,14 @@ function mouse(e)
 
 function loop()
 {
-    Crafty.c('PlayerCharacter').climbTester();
     
+    Crafty.c('PlayerCharacter').climbTester();
+    Crafty.c('Enemy').ai();
     /*if (is_playing = true)
     {
         setTimeout(climbMaster, 10);
     }*/
-    setTimeout(climbMaster, 10);
+    setTimeout(climbMaster, 1);
 }
 
 // start_loop wird in Game.start ausgeführt
