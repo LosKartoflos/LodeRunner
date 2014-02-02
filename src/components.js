@@ -73,11 +73,29 @@ Crafty.c('Pole', {
  
  Crafty.c('Enemy', {
     init: function() {
-        this.requires('Actor, Color, Collision, Gravity')
-                .color('rgb(200, 120, 120)')
+        this.requires('Actor, Collision, Gravity, spr_enemy, SpriteAnimation')
                 .stopOnSolids()
+				.animate("walk_left", 0, 0, 2)
+                .animate("walk_right", 3, 0, 5)
+                .animate("walk_up", 3, 0, 5)
+                .animate("walk_down", 0, 0, 2) 
                 .onHit('Treasure', this.collectTreasure);
     },
+	
+/*	var animation_speed = 8;
+	this.bind('NewDirection', function(data) {
+	if (data.x > 0) {
+		this.animate('walk_right', animation_speed, -1);
+	} else if (data.x < 0) {
+		this.animate('walk_left', animation_speed, -1);
+	} else if (data.y > 0) {
+		this.animate('walk_down', animation_speed, -1);
+	} else if (data.y < 0) {
+		this.animate('walk_up', animation_speed, -1);
+	} else {
+		this.stop();
+	}
+	}); */
     
     //needs direction.0 = Stop, 1 = Left, 2 = UP 3= Right, 4 = Down
     //Var speed regulates the movement speed. Just for changing position. ai is for the Movingorders.
@@ -376,14 +394,32 @@ Crafty.c('PlayerCharacter', {
    
     
     init: function() {
-        this.requires('Actor, Multiway, Color, Collision, Gravity')// Multiway: Character goes in the direction of the degree number. Right Arrow = 0 (Clockwise). Number in the Beginnig is the speed.
+        this.requires('Actor, Multiway, Collision, Gravity, spr_player, SpriteAnimation')// Multiway: Character goes in the direction of the degree number. Right Arrow = 0 (Clockwise). Number in the Beginnig is the speed.
                 //.multiway(4,{UP_ARROW: upDeg, DOWN_ARROW: downDeg, RIGHT_ARROW: rightDeg, LEFT_ARROW: leftDeg})
                 .multiway(4,{RIGHT_ARROW: rightDeg, LEFT_ARROW: leftDeg})
-		.gravity('Solid')
-                .color('rgb(150, 150, 150)')
+				.gravity('Solid')
                 .stopOnSolids()
-		//.onHit('Ladder', this.antigravity)   // ist nur vorrübergehend, damit man das level beenden kann
-		.onHit('Treasure', this.collectTreasure);
+				.animate("walk_left", 0, 0, 2)
+                .animate("walk_right", 3, 0, 5)
+                .animate("walk_up", 3, 0, 5)
+                .animate("walk_down", 0, 0, 2) 
+				//.onHit('Ladder', this.antigravity)   // ist nur vorrübergehend, damit man das level beenden kann
+				.onHit('Treasure', this.collectTreasure);
+				
+		var animation_speed = 8;
+        this.bind('NewDirection', function(data) {
+        if (data.x > 0) {
+			this.animate('walk_right', animation_speed, -1);
+        } else if (data.x < 0) {
+			this.animate('walk_left', animation_speed, -1);
+        } else if (data.y > 0) {
+			this.animate('walk_down', animation_speed, -1);
+        } else if (data.y < 0) {
+			this.animate('walk_up', animation_speed, -1);
+        } else {
+			this.stop();
+        }
+        }); 
                 
     },
 	//Returns the Block ID (Stone, Ladder, etc.).

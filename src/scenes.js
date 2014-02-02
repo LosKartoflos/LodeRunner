@@ -38,7 +38,7 @@ var level1 =[
     '.........H....WWH........H......',
     '.........H....WWH........H......',
     '.....P...H....WWH.......tH......',
-    'W.WWHWWWWW....WWWWWWHWWWWWWWWWWW',
+    'WWWWHWWWWW....WWWWWWHWWWWWWWWWWW',
     '....H...............H...........',
     '....H...............H...........',
     '....H........E......H...........',
@@ -177,11 +177,15 @@ this.unbind('KeyDown', this.restart_game);
 
 Crafty.scene('Loading', function(){
 
-  Crafty.load(['assets/Stein_oK_72ppi.png', 'assets/Ladder.png', 'assets/Schatz_24x19_72ppi.png', 'assets/Pole.png' ], function(){
+  Crafty.load(['assets/Stein_oK_72ppi.png', 'assets/Ladder.png', 'assets/Schatz_24x19_72ppi.png', 'assets/Pole.png', 'assets/playersprite.png', 'assets/enemysprite.png' ], function(){
 
-    Crafty.sprite(16, 'assets/16x16_forest_1.gif', {  // kommt noch nicht zum einsatz
-        spr_stone: [0, 0]
-    });
+	    Crafty.sprite(24, 'assets/playersprite.png', {
+        spr_player: [0, 0],
+        });
+		Crafty.sprite(24, 'assets/enemysprite.png', {
+        spr_enemy: [0, 0],
+        });
+
       Crafty.e('2D, DOM, Text')
     .text("Press Key for Starting!")
     .attr({ x: 0, y: Game.height()/2 - 24, w: Game.width() })
