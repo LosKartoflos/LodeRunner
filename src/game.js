@@ -26,7 +26,8 @@ Game = {
         Crafty.background('rgb(0, 0, 0)');
 		Crafty.scene('Loading');
         //Crafty.scene('Game');
-        //Crafty.scene('NextLevel');       
+        //Crafty.scene('NextLevel');  
+        //start_loop();// starts game loop (for player)
     } 
 }
 //shows x and y coordinate where the mouse is 
@@ -38,3 +39,20 @@ function mouse(e)
   document.getElementById('y').innerHTML = y;
 }
 
+function loop()
+{
+    Crafty.c('PlayerCharacter').climbTester();
+    
+    /*if (is_playing = true)
+    {
+        setTimeout(climbMaster, 10);
+    }*/
+    setTimeout(climbMaster, 10);
+}
+
+// start_loop wird in Game.start ausgeführt
+function start_loop()
+{
+  is_playing = true;
+  loop();
+}

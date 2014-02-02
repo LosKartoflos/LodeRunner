@@ -82,7 +82,7 @@ var level1 =[
     ];    
 	
 	var levelcounter = 0;
-	
+	      
 	
 Crafty.scene('Game', function() {
 
@@ -120,7 +120,7 @@ Crafty.scene('Game', function() {
                     Crafty.e('Treasure').at(x+1, y+1);				
                 }
                 if (map[y][x] == 'P'){
-                    Crafty.e('PlayerCharacter').at(x+1, y+1);  
+                   Crafty.e('PlayerCharacter').at(x+1, y+1);  
                 }				
                 if (map[y][x] == 'E'){
                     Crafty.e('Enemy').at(x+1, y+1);

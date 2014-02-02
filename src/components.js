@@ -61,6 +61,9 @@ Crafty.c('Pole', {
     },
 });
  
+ 
+ 
+ var deadEnd = 0; //Is for the ai. Checks if enemy is in an Deadend loop
  //Gegner
  Crafty.c('Enemy', {
     init: function() {
@@ -70,17 +73,94 @@ Crafty.c('Pole', {
                 .onHit('Treasure', this.collectTreasure);
     },
     
-    //needs direction. 1 = Left, 2 = UP 3= Right, 4 = Down
+    //needs direction.0 = Stop, 1 = Left, 2 = UP 3= Right, 4 = Down
     //Var speed regulates the movement speed. Just for changing position. ai is for the Movingorders.
     move: function(direction) {
         var speed = 3;
         
+        if (direction == 0)//stop
+        {
+            this.x += 0;
+            this.y += 0;
+        }        
+        else if (direction == 1)//left
+        {
+            this.x -= speed;
+        }
+        else if (direction == 3)//up
+        {
+            this.x += speed;
+        }
+        else if (direction == 2)//right
+        {
+            this.y -= speed;
+        }
+        else if (direction == 4)//down
+        {
+            this.y += speed;
+        }
+            
         
         
     },
     
+    
+    
     ai: function() {
         
+        //checks if Enemy is in an deadEnd. DeadEnd = 0 means everything is okay,
+        //DeadEnd = 1, is at the leftside of the screen --> needs to walk right
+        //DeadEnd = 2, is at the rightside of the screen --> needs to walk left
+        //DeadEnd = 3, is stopped somwhere by a block
+        
+        
+        if((this.x/4) == 0)
+        {
+            deadEnd = 1;
+        }
+        
+        if ((this.x/4) == 8)
+        {
+            deadEnd = 2;
+        }
+        
+        //moves the Enemy
+        if (deadEnd == 0)
+        {
+            if (Crafty.c('Player Character').x <= this.x)// gegner ist weiter rechts als spieler --> links laufen
+            {
+                move(1);
+            }
+            else if (Crafty.c('Player Character').x >= this.x)// gegner ist weiter links als spieler --> rechts laufen
+            {
+                move(3);
+            }
+            else if (Crafty.c('Player Character').y >= this.y)// gegner ist weiter oben als spieler --> nach oben laufen
+            {
+                move(2);
+            }
+            else if (Crafty.c('Player Character').y <= this.y)// gegner ist weiter unten als spieler --> nach unten laufen
+            {
+                move(4);
+            }
+        }
+        else if (deadEnd == 1)
+        {
+            move(3);
+            
+            if((this.x/4) >= 4)
+            {
+                deadEnd = 0;
+            }
+        }
+        else if (deadEnd == 3)
+        {
+            move(1);
+             if((this.x/4) <= 4)
+            {
+                deadEnd = 0;
+            }
+        }
     },
     
     // Registers a stop-movement function to be called when
@@ -136,44 +216,12 @@ Crafty.c('PlayerCharacter', {
 		.onHit('Treasure', this.collectTreasure);
                 
     },
-
-        //Wird nicht benötigt ist sinnlos
-	//"Reads" the map. Each Block around the player is saved in an array.
-	//Index 0 is the block in the upper left corner and then its clockwise around till 8. 
-	//It returns an array with the "code-letters" of the Block.
-	/*surroundingBlock: function () {
-		var block = [];
-                var x_pos = this.y;
-                var y_pos = this.x;
-		x_pos = Math.round(x_pos);
-		y_pos = Math.round(y_pos);
-                
-		block [0] = standingOn(x_pos -1, y_pos -1);
-		block [1] = standingOn(x_pos , y_pos -1);//ceeiling
-		block [2] = standingOn(x_pos +1 , y_pos -1);
-		block [3] = standingOn(x_pos +1, y_pos);//right
-		block [4] = standingOn(x_pos +1, y_pos +1);
-		block [5] = standingOn(x_pos , y_pos +1);//bottom
-		block [6] = standingOn(x_pos -1, y_pos +1);
-		block [7] = standingOn(x_pos -1, y_pos );//left
-		
-		return this.block;
-	},*/
 	//Returns the Block ID (Stone, Ladder, etc.).
         //Needs map coordinates not pixels
 	blockIs: function (mapCoordY, mapCoordX)
 	{          
                 return Game.map[mapCoordY].charAt(mapCoordX);
 	},
-        //says you, if there is a special type of Block, at specific position aroud the player.
-        //returns true and false
-        // blockType: Enter the letter of the Block (for exmaple 'H' for Ledder)
-        // postion: position 0 is the block in the upper left corner and then its clockwise around till 8. 
-        /*checkBlock : function (blockType, position)
-        {
-            var blockArray = Crafty.e('PlayerCharacter').surroundingBlock();
-            if(blockType == blockArray[position]);
-        },*/
     
         //Detects the upcoming block in -x direction 
         detectNextBlock_Left: function ()
@@ -229,10 +277,6 @@ Crafty.c('PlayerCharacter', {
                 this.gravity('Solid');
                 this.multiway(4,{RIGHT_ARROW: rightDeg, LEFT_ARROW: leftDeg});
             }
-            
-            
-            
-            setTimeout(climbMaster, 10);
         },
 	// Registers a stop-movement function to be called when
 	// this entity hits an entity with the "Solid" component
@@ -280,6 +324,7 @@ function key_down(e)
         return 3;
 }
 
+
 Crafty.c('Treasure', {
     init: function() {
         this.requires('Actor, Image')
@@ -291,3 +336,5 @@ Crafty.c('Treasure', {
 	Crafty.trigger('TreasureCollected', this);
 }
 });
+
+
