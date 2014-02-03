@@ -397,14 +397,16 @@ Crafty.c('PlayerCharacter', {
         this.requires('Actor, Multiway, Collision, Gravity, spr_player, SpriteAnimation')// Multiway: Character goes in the direction of the degree number. Right Arrow = 0 (Clockwise). Number in the Beginnig is the speed.
                 //.multiway(4,{UP_ARROW: upDeg, DOWN_ARROW: downDeg, RIGHT_ARROW: rightDeg, LEFT_ARROW: leftDeg})
                 .multiway(4,{RIGHT_ARROW: rightDeg, LEFT_ARROW: leftDeg})
-				.gravity('Solid')
+		//.gravity('Solid') //use gravityTester instead
                 .stopOnSolids()
-				.animate("walk_left", 0, 0, 2)
+                //.caseTester()
+                //.climbTester()
+		.animate("walk_left", 0, 0, 2)
                 .animate("walk_right", 3, 0, 5)
                 .animate("walk_up", 3, 0, 5)
                 .animate("walk_down", 0, 0, 2) 
-				//.onHit('Ladder', this.antigravity)   // ist nur vorrübergehend, damit man das level beenden kann
-				.onHit('Treasure', this.collectTreasure);
+                //.onHit('Ladder', this.antigravity)   // ist nur vorrübergehend, damit man das level beenden kann
+                .onHit('Treasure', this.collectTreasure);
 				
 		var animation_speed = 8;
         this.bind('NewDirection', function(data) {
@@ -466,22 +468,80 @@ Crafty.c('PlayerCharacter', {
         {
             //2 = is up
             if(key_down() ==  2 && (this.detectNextBlock_Up() == 'H' || this.detectNextBlock_Up() == 'h')){
-                this.antigravity();
+                //this.antigravity();
                 this.multiway(4,{UP_ARROW: upDeg, RIGHT_ARROW: rightDeg, LEFT_ARROW: leftDeg});
+                return 1;
             }
             else if(key_down() ==  2 && (this.detectNextBlock_Up() != 'H' || this.detectNextBlock_Up() != 'h')){
-                this.gravity('Solid');
+                //this.gravity('Solid');
                 this.multiway(4,{RIGHT_ARROW: rightDeg, LEFT_ARROW: leftDeg});
+                return 1;
             }
             
             //4 = is down
-            if(key_down() ==  2 && (this.detectNextBlock_Down() == 'H' || this.detectNextBlock_Down() == 'h')){
-                this.antigravity();
+            else if(key_down() ==  2 && (this.detectNextBlock_Down() == 'H' || this.detectNextBlock_Down() == 'h')){
+                //this.antigravity();
                 this.multiway(4,{DOWN_ARROW: downDeg, RIGHT_ARROW: rightDeg, LEFT_ARROW: leftDeg});
+                return 1;
             }
             else if(key_down() ==  2 && (this.detectNextBlock_Down() != 'H' || this.detectNextBlock_Down() != 'h')){
-                this.gravity('Solid');
+                //this.gravity('Solid');
                 this.multiway(4,{RIGHT_ARROW: rightDeg, LEFT_ARROW: leftDeg});
+                return 1;
+            }
+            else
+            {
+                return 0;
+            }
+            //setTimeout(climbMaster, 50);
+        },
+        //When there is nothing but air '.' the player falls
+        gravityTester: function()
+        {
+            if (detectNextBlock_Down() == '.')
+            {
+                this.y += 1;
+                this.multiway(4,{});
+                return 1;
+            }
+            else
+            {
+                return 0;
+            }
+        },
+        //Checks if there is a pole. Disables gravity
+        poleTester: function(){
+          if(key_down() == 1 && detectNextBlock_Left == 'W')//pole left right
+          {
+              this.multiway(4,{DOWN_ARROW: downDeg, RIGHT_ARROW: rightDeg, LEFT_ARROW: leftDeg});
+              return 1;
+          }
+          else if(key_down() == 1 && detectNextBlock_Left == 'W' && detectNextBlock_Up == 'W')// pole left right above
+          {
+              this.multiway(4,{DOWN_ARROW: downDeg, RIGHT_ARROW: rightDeg, LEFT_ARROW: leftDeg, UP_ARROW: upDeg, });
+              return 1;
+          }
+          else
+          {
+              return 0;
+          }
+        },
+        //Tests the different moving cases. All case deliever a 1 if they ar active and a 0 if not.
+        caseTester: function(){
+            var climbCheck = 0, poleCheck = 0, gravityCheck = 0;
+            poleCheck = poleTester();
+            
+            if(poleCheck == 0)
+            {
+                gravityCheck = gravityTester();
+            }
+            if (gravityCheck == 0)
+            {
+                climbCheck = climbTester();
+            }
+            if (climbCheck == 0)
+            {
+                this.multiway(4,{DOWN_ARROW: downDeg, RIGHT_ARROW: rightDeg, LEFT_ARROW: leftDeg, UP_ARROW: upDeg, });
             }
         },
 	// Registers a stop-movement function to be called when
