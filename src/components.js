@@ -84,7 +84,7 @@ Crafty.c('Pole', {
     },
 	movePlayer: function ()
         {
-            this.ai();
+            //this.ai();
         },
 /*	var animation_speed = 8;
 	this.bind('NewDirection', function(data) {
@@ -333,7 +333,7 @@ Crafty.c('Pole', {
         var mapCoordY = (this.y )/ this.h;
         var mapCoordX = (this.x - 1) / this.w;
 
-        return(blockIs(mapCoordY, mapCoordX));
+        return(this.blockIs(mapCoordY, mapCoordX));
     },
     //Detects the upcoming block -y direction
     detectNextBlock_Up: function ()
@@ -341,7 +341,7 @@ Crafty.c('Pole', {
         var mapCoordY = (this.y - 1)/ this.h;
         var mapCoordX = (this.x ) / this.w;
 
-        return(blockIs(mapCoordY, mapCoordX));
+        return(this.blockIs(mapCoordY, mapCoordX));
     },
     //Detects the upcoming block +x direction
     detectNextBlock_Right: function ()
@@ -349,7 +349,7 @@ Crafty.c('Pole', {
         var mapCoordY = (this.y)/ this.h;
         var mapCoordX = (this.x + this.w) / this.w;
 
-        return(blockIs(mapCoordY, mapCoordX));
+        return(this.blockIs(mapCoordY, mapCoordX));
     },
     //Detects the upcoming block und +y direction
     detectNextBlock_Down: function ()
@@ -357,7 +357,7 @@ Crafty.c('Pole', {
         var mapCoordY = (this.y + this.h)/ this.h;
         var mapCoordX = (this.x) / this.w;
 
-        return(blockIs(mapCoordY, mapCoordX));
+        return(this.blockIs(mapCoordY, mapCoordX));
     },
 
     // Registers a stop-movement function to be called when
@@ -449,7 +449,7 @@ Crafty.c('PlayerCharacter', {
             var mapCoordY = (this.y )/ this.h;
             var mapCoordX = (this.x - 1) / this.w;
             
-            return(blockIs(mapCoordY, mapCoordX));
+            return(this.blockIs(mapCoordY, mapCoordX));
         },
         //Detects the upcoming block -y direction
         detectNextBlock_Up: function ()
@@ -457,7 +457,7 @@ Crafty.c('PlayerCharacter', {
             var mapCoordY = (this.y - 1)/ this.h;
             var mapCoordX = (this.x ) / this.w;
             
-            return(blockIs(mapCoordY, mapCoordX));
+            return(this.blockIs(mapCoordY, mapCoordX));
         },
         //Detects the upcoming block +x direction
         detectNextBlock_Right: function ()
@@ -465,7 +465,7 @@ Crafty.c('PlayerCharacter', {
             var mapCoordY = (this.y)/ this.h;
             var mapCoordX = (this.x + this.w) / this.w;
             
-            return(blockIs(mapCoordY, mapCoordX));
+            return(this.blockIs(mapCoordY, mapCoordX));
         },
         //Detects the upcoming block und +y direction
         detectNextBlock_Down: function ()
@@ -473,16 +473,38 @@ Crafty.c('PlayerCharacter', {
             var mapCoordY = (this.y + this.h)/ this.h;
             var mapCoordX = (this.x) / this.w;
             
-            return(blockIs(mapCoordY, mapCoordX));
+            //console.log(this.blockIs(mapCoordY, mapCoordX));
+            //return(this.blockIs(mapCoordY, mapCoordX));
         },
+        //animationSpeed: 5,
         keyTester: function ()
         {
           this.moveDirection = 0;
-          console.log(this.isDown('LEFT_ARROW'))
+          //console.log(this.isDown('LEFT_ARROW'))
           if(this.isDown('LEFT_ARROW'))
           {
               this.moveDirection = 1;
-              this.animate('walk_left', 8, -1);
+              this.animate('walk_left', 10, -1);
+          }
+          else if(this.isDown('RIGHT_ARROW'))
+          {
+              this.moveDirection = 3;
+              this.animate('walk_right', 10, -1);
+          }
+           else if(this.isDown('UP_ARROW'))
+          {
+              this.moveDirection = 2;
+              this.animate('walk_up', 10, -1);
+          }
+           else if(this.isDown('DOWN_ARROW'))
+          {
+              this.moveDirection = 4;
+              this.animate('walk_down', 10, -1);
+          }
+          else if(this.isDown('M'))
+          {
+              this.moveDirection = 3;
+              this.animate('walk_left', 15, -1);
           }
           else
           {
@@ -491,12 +513,29 @@ Crafty.c('PlayerCharacter', {
           
         },
         moveDirection : 0,
-        playerSpeed : 4,
+        playerSpeed : 2,
         movePlayer: function ()
         {
-            
-            if(this.moveDirection == 1)
+            if (this.detectNextBlock_Down() == '.')
+            {
+                this.y += this.speed;
+            }
+            else if(this.moveDirection == 1)//left
+            {
                 this.x -= this.playerSpeed;
+            }
+            else if(this.moveDirection == 2)//up
+            {
+                this.y -= this.playerSpeed;
+            }
+             else if(this.moveDirection == 3)//right
+            {
+                this.x += this.playerSpeed;
+            }
+             else if(this.moveDirection == 4)//down
+            {
+                this.y += this.playerSpeed;
+            }
         },
         //Ables/disables climbing ability. Leads Player to the next leader, when the Ladder is within one Block
         climbTester: function ()
