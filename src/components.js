@@ -1,3 +1,29 @@
+var level1 =[                     	
+    '.........................T......',
+    '.........................h......',
+    'WWWWWWWWWHWWWWWWW........h......',
+    '.........H---------------h......',
+    '.........H....WWH........h......',
+    '.........H....WWH......T.h......',
+    '.........H....WWH....WWWWHWWWWWW',
+    '.........H....WWH........H......',
+    '.........H....WWH........H......',
+    '.........H....WWH.......tH......',
+    'WWWWHWWWWW....WWWWWWHWWWWWWWWWWW',
+    '....H...............H...........',
+    '....H...............H...........',
+    '....H........E......H...........',
+    'WWWWWWWWWWWWHWWWWWWWHWWWWWWWWWWW',
+    '............H.......H...........',
+    '............H.......H...........',		
+    '.........t..H-------H...t.......',
+    '......HWWWWWWW......WWWWWWWWWWWH',
+    '......H........................H',
+    '......H.........p..t...........H',
+    'WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW',
+    '',  // nicht entfernen!
+    ''   // nicht entfernen!   
+    ];
 
 // // The Grid component allows an element to be located
 // on a grid of tiles
@@ -324,7 +350,8 @@ Crafty.c('Pole', {
     //Needs map coordinates not pixels
     blockIs: function (mapCoordY, mapCoordX)
     {          
-            return Game.map[mapCoordY].charAt(mapCoordX);
+            //return Game.map[mapCoordY].charAt(mapCoordX);
+            
     },
 
     //Detects the upcoming block in -x direction 
@@ -440,7 +467,11 @@ Crafty.c('PlayerCharacter', {
         //Needs map coordinates not pixels
 	blockIs: function (mapCoordY, mapCoordX)
 	{          
-                return Game.map[mapCoordY].charAt(mapCoordX);
+                //var block = Game.map[mapCoordY][maprCoordX];
+                //return Game.map[mapCoordY][mapCoordX];
+                return level1[mapCoordY][mapCoordX];
+                //return block;
+                //console.log(Game.map[mapCoordY][mapCoordX]);
 	},
     
         //Detects the upcoming block in -x direction 
@@ -473,8 +504,24 @@ Crafty.c('PlayerCharacter', {
             var mapCoordY = (this.y + this.h)/ this.h;
             var mapCoordX = (this.x) / this.w;
             
+            mapCoordX = Math.floor(mapCoordX);
+            mapCoordY = Math.floor(mapCoordY);
+            
+            /*console.log('x und y');
+            console.log(mapCoordY);
+            console.log(mapCoordX);*/
+           
+            
             //console.log(this.blockIs(mapCoordY, mapCoordX));
-            //return(this.blockIs(mapCoordY, mapCoordX));
+           // console.log('this.blockIs()');
+           // console.log((this.blockIs(mapCoordY, mapCoordX)));
+            var blockReturn = this.blockIs(mapCoordY, mapCoordX);
+            
+            //return(this.blockIs(mapCoordY, mapCoordX))
+            //console.log('blockReturn');
+            //console.log(blockReturn);
+            return (this.blockReturn);
+            //console.log('==============================');
         },
         //animationSpeed: 5,
         keyTester: function ()
@@ -516,6 +563,8 @@ Crafty.c('PlayerCharacter', {
         playerSpeed : 2,
         movePlayer: function ()
         {
+            console.log('detectNextBlock_Down');
+            console.log(this.detectNextBlock_Down());
             if (this.detectNextBlock_Down() == '.')
             {
                 this.y += this.speed;
@@ -537,144 +586,7 @@ Crafty.c('PlayerCharacter', {
                 this.y += this.playerSpeed;
             }
         },
-        //Ables/disables climbing ability. Leads Player to the next leader, when the Ladder is within one Block
-        climbTester: function ()
-        {
-            //2 = is up
-            if(key_down() ==  2 && (this.detectNextBlock_Up() == 'H' || this.detectNextBlock_Up() == 'h')){
-                //this.antigravity();
-                this.multiway(4,{UP_ARROW: upDeg, RIGHT_ARROW: rightDeg, LEFT_ARROW: leftDeg});
-                return 1;
-            }
-            else if(key_down() ==  2 && (this.detectNextBlock_Up() != 'H' || this.detectNextBlock_Up() != 'h')){
-                //this.gravity('Solid');
-                this.multiway(4,{RIGHT_ARROW: rightDeg, LEFT_ARROW: leftDeg});
-                return 1;
-            }
-            
-            //4 = is down
-            else if(key_down() ==  2 && (this.detectNextBlock_Down() == 'H' || this.detectNextBlock_Down() == 'h')){
-                //this.antigravity();
-                this.multiway(4,{DOWN_ARROW: downDeg, RIGHT_ARROW: rightDeg, LEFT_ARROW: leftDeg});
-                return 1;
-            }
-            else if(key_down() ==  2 && (this.detectNextBlock_Down() != 'H' || this.detectNextBlock_Down() != 'h')){
-                //this.gravity('Solid');
-                this.multiway(4,{RIGHT_ARROW: rightDeg, LEFT_ARROW: leftDeg});
-                return 1;
-            }
-            else
-            {
-                return 0;
-            }
-            //setTimeout(climbMaster, 50);
-        },
-        //When there is nothing but air '.' the player falls
-        gravityTester: function()
-        {
-            if (detectNextBlock_Down() == '.')
-            {
-                this.y += 1;
-                this.multiway(4,{});
-                return 1;
-            }
-            else
-            {
-                return 0;
-            }
-        },
-        //Checks if there is a pole. Disables gravity
-        poleTester: function(){
-          if(key_down() == 1 && detectNextBlock_Left() == '-' && detectNextBlock_Down() == 'W')//pole left 
-          {
-              this.multiway(4,{ LEFT_ARROW: leftDeg});
-              return 1;
-          }
-          else if(key_down() == 1 && detectNextBlock_Left() == '-')//pole left 
-          {
-              this.multiway(4,{DOWN_ARROW: downDeg, LEFT_ARROW: leftDeg});
-              return 1;
-          }
-          /*else if(key_down() == 1 && detectNextBlock_Left == 'W' && detectNextBlock_Up == 'W')// pole left above
-          {
-              this.multiway(4,{DOWN_ARROW: downDeg, LEFT_ARROW: leftDeg, UP_ARROW: upDeg, });
-              return 1;
-          }*/
-          else if(key_down() == 3 && detectNextBlock_Left() == '-' && detectNextBlock_Down() == 'W')//pole right
-          {
-              this.multiway(4,{ RIGHT_ARROW: rightDeg});
-              return 1;
-          }
-           else if(key_down() == 3 && detectNextBlock_Left() == '-')//pole right
-          {
-              this.multiway(4,{DOWN_ARROW: downDeg, RIGHT_ARROW: rightDeg});
-              return 1;
-          }
-         /* else if(key_down() == 3 && detectNextBlock_Left == 'W' && detectNextBlock_Up == 'W')// pole right above
-          {
-              this.multiway(4,{DOWN_ARROW: downDeg, RIGHT_ARROW: rightDeg, LEFT_ARROW: leftDeg, UP_ARROW: upDeg, });
-              return 1;
-          }*/
-          else
-          {
-              return 0;
-          }
-        },
-        obstacleTester: function()
-        {
-            if (detectNextBlock_Left() == 'W' || this.x == 0)//left DeadEnd
-            {
-                this.multiway(4,{RIGHT_ARROW: rightDeg});
-            }
-            else if (detectNextBlock_Right() == 'W' || this.y == (24*32))//Right DeadEnd
-            {
-                this.multiway(4,{LEFT_ARROW: leftDeg});
-            }
-        },
-        //Tests the different moving cases. All case deliever a 1 if they ar active and a 0 if not.
-        caseTester: function(){
-            var climbCheck = 0, poleCheck = 0, gravityCheck = 0;
-            poleCheck = poleTester();
-            
-            if(poleCheck == 0)
-            {
-                gravityCheck = gravityTester();
-            }
-            if (gravityCheck == 0)
-            {
-                climbCheck = climbTester();
-            }
-            if (climbCheck == 0)
-            {
-                this.multiway(4,{DOWN_ARROW: downDeg, RIGHT_ARROW: rightDeg, LEFT_ARROW: leftDeg, UP_ARROW: upDeg, });
-            }
-            if (climbCheck == 0 && poleCheck == 0 && gravityCheck == 0)
-            {
-                obstacleTester();
-            }
-        },
-	// Registers a stop-movement function to be called when
-	// this entity hits an entity with the "Solid" component
-    /*stopOnSolids: function() {
-        this.onHit('Solid', this.stopMovement);
-		
-        return this;		
-    },
-	stopMovement: function () {
-        if (this._movement) {
-            this.x -= this._movement.x;
-            if (this.hit('Solid') != false) {
-                this.x += this._movement.x;
-                this.y -= this._movement.y;
-                if (this.hit('Solid') != false) {
-                    this.x -= this._movement.x;
-                  //  this.y -= this._movement.y;
-                }
-            }
-        } else {
-            this._speed = 0;
-            }
-        },*/
+        
 	 // Respond to this player collecting a Treasure
 	collectTreasure: function(data) {
 	treasure = data[0].obj;
