@@ -43,7 +43,8 @@ function loop()
 {
     
     //Crafty.c('PlayerCharacter').climbTester();
-    Crafty.c('Enemy').ai();
+    //Crafty.c('Enemy').ai();
+    //Game.player.caseTester();
     /*if (is_playing = true)
     {
         setTimeout(climbMaster, 10);

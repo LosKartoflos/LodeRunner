@@ -37,7 +37,7 @@ var level1 =[
     '.........H....WWH....WWWWHWWWWWW',
     '.........H....WWH........H......',
     '.........H....WWH........H......',
-    '.....P...H....WWH.......tH......',
+    '.....P..TH....WWH.......tH......',
     'WWWWHWWWWW....WWWWWWHWWWWWWWWWWW',
     '....H...............H...........',
     '....H...............H...........',
@@ -120,7 +120,7 @@ Crafty.scene('Game', function() {
                     Crafty.e('Treasure').at(x+1, y+1);				
                 }
                 if (map[y][x] == 'P'){
-                   Crafty.e('PlayerCharacter').at(x+1, y+1);  
+                thePlayer  =  Crafty.e('PlayerCharacter').at(x+1, y+1);  
                 }				
                 if (map[y][x] == 'E'){
                     Crafty.e('Enemy').at(x+1, y+1);
