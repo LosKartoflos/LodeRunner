@@ -106,12 +106,10 @@ Crafty.c('Pole', {
                 .animate("walk_right", 3, 0, 5)
                 .animate("walk_up", 3, 0, 5)
                 .animate("walk_down", 0, 0, 2) 
-                .onHit('Treasure', this.collectTreasure);
+                .onHit('PlayerCharacater', this.killPlayer);
+                //.onHit('Treasure', this.collectTreasure);
     },
-	movePlayer: function ()
-        {
-            //this.ai();
-        },
+
 /*	var animation_speed = 8;
 	this.bind('NewDirection', function(data) {
 	if (data.x > 0) {
@@ -127,41 +125,7 @@ Crafty.c('Pole', {
 	}
 	}); */
     
-    //needs direction.0 = Stop, 1 = Left, 2 = UP 3= Right, 4 = Down
-    //Var speed regulates the movement speed. Just for changing position. ai is for the Movingorders.
-    move: function(direction) {
-        var speed = 1;
-        
-        if (direction == 0)//stop
-        {
-            this.x += 0;
-            this.y += 0;
-            //this.gravity('Solid');
-        }        
-        else if (direction == 1)//left
-        {
-            this.x -= speed;
-            //this.gravity('Solid');
-        }
-        else if (direction == 3)//up
-        {
-            this.x += speed;
-            //this.antigravity();
-        }
-        else if (direction == 2)//right
-        {
-            this.y -= speed;
-            //this.gravity('Solid');
-        }
-        else if (direction == 4)//down
-        {
-            this.y += speed;
-            //this.antigravity();
-        }
-            
-        
-        
-    },
+
     
     
     // the ai looks where the player is and tries toget the same coordinate as the player.
@@ -170,7 +134,7 @@ Crafty.c('Pole', {
     // If the Enemy stucks somewhere in the middle (for 1 Second) and DeadAnd is not active, it walks until a ladder
     // or the border comes (the Dead End is active again).
     // When the enemy could take a ladder and the player is not the same height, it takes the ladder
-    ai: function() {
+    aiOld: function() {
         
         //checks if Enemy is in an deadEnd. DeadEnd = 0 means everything is okay,
         //DeadEnd = 1, is at the leftside of the screen --> needs to walk right
@@ -345,86 +309,348 @@ Crafty.c('Pole', {
                 
                 
     },
-    
-    //Returns the Block ID (Stone, Ladder, etc.).
-    //Needs map coordinates not pixels
-    blockIs: function (mapCoordY, mapCoordX)
-    {          
-            //return Game.map[mapCoordY].charAt(mapCoordX);
-            
-    },
-
     //Detects the upcoming block in -x direction 
-    detectNextBlock_Left: function ()
-    {
-        var mapCoordY = (this.y )/ this.h;
-        var mapCoordX = (this.x - 1) / this.w;
-
-        return(this.blockIs(mapCoordY, mapCoordX));
-    },
-    //Detects the upcoming block -y direction
-    detectNextBlock_Up: function ()
-    {
-        var mapCoordY = (this.y - 1)/ this.h;
-        var mapCoordX = (this.x ) / this.w;
-
-        return(this.blockIs(mapCoordY, mapCoordX));
-    },
-    //Detects the upcoming block +x direction
-    detectNextBlock_Right: function ()
-    {
-        var mapCoordY = (this.y)/ this.h;
-        var mapCoordX = (this.x + this.w) / this.w;
-
-        return(this.blockIs(mapCoordY, mapCoordX));
-    },
-    //Detects the upcoming block und +y direction
-    detectNextBlock_Down: function ()
-    {
-        var mapCoordY = (this.y + this.h)/ this.h;
-        var mapCoordX = (this.x) / this.w;
-
-        return(this.blockIs(mapCoordY, mapCoordX));
-    },
-
-    // Registers a stop-movement function to be called when
-	// this entity hits an entity with the "Solid" component
-    stopOnSolids: function() {
-        this.onHit('Solid', this.stopMovement);
-		
-        return this;		
-    },
-	stopMovement: function () {
-        if (this._movement) {
-            this.x -= this._movement.x;
-            if (this.hit('Solid') != false) {
-                this.x += this._movement.x;
-                this.y -= this._movement.y;
-                if (this.hit('Solid') != false) {
-                    this.x -= this._movement.x;
-                  //  this.y -= this._movement.y;
+        detectNextBlock_Left: function ()
+        {
+            var mapCoordY = (this.y )/ this.h;
+            var mapCoordX = (this.x - 1) / this.w;
+            
+            mapCoordX = Math.floor(mapCoordX);
+            mapCoordY = Math.floor(mapCoordY);
+            
+            return level1[mapCoordY-1][mapCoordX-1];
+        },
+          detectNextBlock_LeftDown: function ()
+        {
+            var mapCoordY = (this.y + this.h -1 )/ this.h;
+            var mapCoordX = (this.x - 1) / this.w;
+            
+            mapCoordX = Math.floor(mapCoordX);
+            mapCoordY = Math.floor(mapCoordY);
+            
+            return level1[mapCoordY-1][mapCoordX-1];
+        },
+        //Detects the upcoming block -y direction
+        detectNextBlock_UpLeft: function ()
+        {
+            var mapCoordY = (this.y - 1)/ this.h;
+            var mapCoordX = (this.x ) / this.w;
+            
+            mapCoordX = Math.floor(mapCoordX);
+            mapCoordY = Math.floor(mapCoordY);
+            
+            return level1[mapCoordY-1][mapCoordX-1];
+        },
+        detectNextBlock_UpRight: function ()
+        {
+            var mapCoordY = (this.y - 1)/ this.h;
+            var mapCoordX = (this.x + this.w -1) / this.w;
+            
+            mapCoordX = Math.floor(mapCoordX);
+            mapCoordY = Math.floor(mapCoordY);
+            
+            return level1[mapCoordY-1][mapCoordX-1];
+        },
+        //Detects the upcoming block +x direction
+        detectNextBlock_Right: function ()
+        {
+            var mapCoordY = (this.y)/ this.h;
+            var mapCoordX = (this.x + this.w) / this.w;
+            
+            mapCoordX = Math.floor(mapCoordX);
+            mapCoordY = Math.floor(mapCoordY);
+            
+            return level1[mapCoordY-1][mapCoordX-1];
+        },
+        detectNextBlock_RightDown: function ()
+        {
+            var mapCoordY = (this.y + this.h - 1)/ this.h;
+            var mapCoordX = (this.x + this.w) / this.w;
+            
+            mapCoordX = Math.floor(mapCoordX);
+            mapCoordY = Math.floor(mapCoordY);
+            
+            return level1[mapCoordY-1][mapCoordX-1];
+        },
+        //Detects the upcoming block und +y direction
+        detectNextBlock_DownLeft: function ()
+        {
+            var mapCoordY = (this.y + this.h)/ this.h;
+            var mapCoordX = (this.x) / this.w;
+            
+            mapCoordX = Math.floor(mapCoordX);
+            mapCoordY = Math.floor(mapCoordY);
+            
+             return level1[mapCoordY-1][mapCoordX-1];
+        },
+        detectNextBlock_CornerDownLeft: function ()
+        {
+            var mapCoordY = (this.y + this.h)/ this.h;
+            var mapCoordX = (this.x -1) / this.w;
+            
+            mapCoordX = Math.floor(mapCoordX);
+            mapCoordY = Math.floor(mapCoordY);
+            
+             return level1[mapCoordY-1][mapCoordX-1];
+        },
+        detectNextBlock_CornerDownRight: function ()
+        {
+            var mapCoordY = (this.y + this.h)/ this.h;
+            var mapCoordX = (this.x + this.w) / this.w;
+            
+            mapCoordX = Math.floor(mapCoordX);
+            mapCoordY = Math.floor(mapCoordY);
+            
+             return level1[mapCoordY-1][mapCoordX-1];
+        },
+        detectNextBlock_DownRight: function ()
+        {
+            var mapCoordY = (this.y + this.h)/ this.h;
+            var mapCoordX = (this.x + this.w -1) / this.w;
+            
+            mapCoordX = Math.floor(mapCoordX);
+            mapCoordY = Math.floor(mapCoordY);
+            
+            return level1[mapCoordY-1][mapCoordX-1];      
+        },
+        detectNextBlock_CurrentRightUp: function()
+        {
+            var mapCoordY = (this.y)/ this.h;
+            var mapCoordX = (this.x + this.w -1) / this.w;
+            
+            mapCoordX = Math.floor(mapCoordX);
+            mapCoordY = Math.floor(mapCoordY);
+            
+            return level1[mapCoordY-1][mapCoordX-1];  
+        },
+        detectNextBlock_CurrentLeftUp: function()
+        {
+            var mapCoordY = (this.y)/ this.h;
+            var mapCoordX = (this.x) / this.w;
+            
+            mapCoordX = Math.floor(mapCoordX);
+            mapCoordY = Math.floor(mapCoordY);
+            
+            return level1[mapCoordY-1][mapCoordX-1];  
+        },
+        detectNextBlock_CurrentRightDown: function()
+        {
+            var mapCoordY = (this.y + this.h -1)/ this.h;
+            var mapCoordX = (this.x + this.w -1) / this.w;
+            
+            mapCoordX = Math.floor(mapCoordX);
+            mapCoordY = Math.floor(mapCoordY);
+            
+            return level1[mapCoordY-1][mapCoordX-1];  
+        },
+        detectNextBlock_CurrentLeftDown: function()
+        {
+            var mapCoordY = (this.y + this.h -1)/ this.h;
+            var mapCoordX = (this.x) / this.w;
+            
+            mapCoordX = Math.floor(mapCoordX);
+            mapCoordY = Math.floor(mapCoordY);
+            
+            return level1[mapCoordY-1][mapCoordX-1];  
+        },
+        //animationSpeed: 5,
+        ki: function ()
+        {
+          if (this.moveDirection == 4 && 
+                (
+                    (this.detectNextBlock_CurrentLeftUp() == '-' || this.detectNextBlock_CurrentRightUp() == '-') || 
+                    (this.detectNextBlock_CurrentLeftUp() == 'H' || this.detectNextBlock_CurrentRightUp() == 'H')
+                ) &&
+                (
+                    (this.detectNextBlock_CurrentLeftDown() == '.' || this.detectNextBlock_CurrentRightDown() == '.') || 
+                    (this.detectNextBlock_CurrentLeftDown() == '-' || this.detectNextBlock_CurrentRightDown() == '-')
+                ) 
+             )
+          {
+              this.moveDirection = 4;
+          }
+          else if (this.moveDirection == 1 && 
+                (
+                    (
+                        //(this.detectNextBlock_CurrentLeftUp() == '.' && this.detectNextBlock_CurrentRightUp() == '-') || 
+                        (this.detectNextBlock_CurrentLeftUp() == '.' && this.detectNextBlock_CurrentRightUp() == 'H')
+                    ) &&
+                    (
+                        (this.detectNextBlock_DownLeft() == '.' || this.detectNextBlock_DownRight() == '.' )
+                        
+                    )
+                ) 
+             )
+          {
+              this.moveDirection = 1;
+          }
+           else if (this.moveDirection == 3 && 
+                (
+                    (
+                        //(this.detectNextBlock_CurrentLeftUp() == '-' && this.detectNextBlock_CurrentRightUp() == '.') || 
+                        (this.detectNextBlock_CurrentLeftUp() == 'H' && this.detectNextBlock_CurrentRightUp() == '.')
+                    ) &&
+                    (
+                        (this.detectNextBlock_DownLeft() == '.' || this.detectNextBlock_DownRight() == '.' )
+                        
+                    )
+                ) 
+             )
+          {
+              this.moveDirection = 3;
+          }
+          else//wirklicher Ki Teil
+          {
+              if (playerY < this.y && ((this.detectNextBlock_CurrentRightUp() == 'H' || this.detectNextBlock_CurrentLeftUp() == 'H') ||
+                      ((this.detectNextBlock_CurrentRightUp() != 'W' || this.detectNextBlock_CurrentLeftUp() != 'W') &&
+                      (this.detectNextBlock_CurrentRightDown() == 'H' || this.detectNextBlock_CurrentLeftDown() == 'H'))
+                      ))
+              {
+                  this.moveDirection = 2;
+              }
+              else if (playerY > this.y && ((this.detectNextBlock_DownRight() == 'H' || this.detectNextBlock_DownRight() == 'H') || 
+                                            ((this.detectNextBlock_CurrentRightUp() == '-' || this.detectNextBlock_CurrentLeftUp() == '-') &&
+                                            (this.detectNextBlock_DownRight() == '.' || this.detectNextBlock_DownRight() == '.') &&
+                                            //((this.x < (playerx+10)) && (this.x > (playerx-10)))
+                                            ((playerX-15) <= this.x && (playerX-15) >= this.x)
+                                            )
+                                           )
+                       )
+              {
+                  this.moveDirection = 4;
+              }
+              else if ((this.moveDirection == 1 || this.moveDirection == 3) && (playerY != this.y))
+              {
+                  //bleibt moveDirection die Gleich
+                  if(this.x == 24)
+                      this.moveDirection = 3;
+                  else if(this.x == 768)
+                      this.moveDirection = 1;
+              }
+              else if(playerX < this.x)//links
+              {
+                  if(this.detectNextBlock_CornerDownLeft() == '.' && (this.detectNextBlock_DownLeft() == 'H'))
+                    this.moveDirection = 3;
+                  /*else if(this.detectNextBlock_Left() == 'W' && this.detectNextBlock_CurrentLeftUp() == 'H' && (playerX%4) == 0)
+                    this.moveDirection = 2;*/
+                  else if(this.detectNextBlock_Left() == 'W')
+                    this.moveDirection = 3;
+                  else
+                    this.moveDirection = 1;
+              }
+              else if(playerX > this.x)// rechts
+              {
+                  if(this.detectNextBlock_CornerDownRight() == '.' && (this.detectNextBlock_DownRight() == 'H'))
+                    this.moveDirection = 1;
+                  /*else if(this.detectNextBlock_Right() == 'W' && this.detectNextBlock_CurrentLeftUp() == 'H' && (playerX%4) == 0)
+                    this.moveDirection = 2;*/
+                  else if(this.detectNextBlock_Right() == 'W')
+                    this.moveDirection = 1;
+                  else
+                    this.moveDirection = 3;
+              }
+          }
+        },
+        moveDirection : 0,
+        playerSpeed : 1.5,
+        movePlayer: function ()
+        { 
+            console.log(Crafty.e)
+            this.ki();
+            this.killPlayerWithCoord();
+            if (
+                (((this.detectNextBlock_DownLeft() == '.' && this.detectNextBlock_DownRight() == '.') || //when underneath is air
+                  (this.detectNextBlock_DownLeft() == '-' && this.detectNextBlock_DownRight() == '-') || //or a pole
+                  (this.detectNextBlock_DownLeft() == 'T' && this.detectNextBlock_DownRight() == 'T'))) &&// or a treasure
+                  (this.detectNextBlock_CurrentLeftUp() != '-' || this.detectNextBlock_CurrentRightUp() != '-')
+                 //((this.detectNextBlock_CurrentLeftDown() != '-' && this.detectNextBlock_CurrentRightDown() != '-') &&
+                  //(this.detectNextBlock_CurrentLeftUp) != '-' && this.detectNextBlock_CurrentRightUp() != '-')
+                /*  ||//hanging between
+                (((this.detectNextBlock_CurrentLeftUp() == '-' || this.detectNextBlock_CurrentRightUp() == '-') ||
+                  (this.detectNextBlock_CurrentLeftUp() == 'H' || this.detectNextBlock_CurrentRightUp() == 'H'))&&
+                 ((this.detectNextBlock_DownLeft() == '.' && this.detectNextBlock_DownRight() == '.') || //when underneath is air
+                  (this.detectNextBlock_DownLeft() == '-' && this.detectNextBlock_DownRight() == '-')))     */
+                ) 
+            {
+               this.y += this.playerSpeed;
+               this.moveDirection = 0;
+            }
+            else if(this.moveDirection == 1 && this.detectNextBlock_Left() != 'W' && this.x != 24 && this.detectNextBlock_LeftDown() != 'W')//left
+            {
+                this.x -= this.playerSpeed;
+            }
+            else if(this.moveDirection == 2 &&                                        
+                    ((this.detectNextBlock_UpLeft() == 'H' || this.detectNextBlock_UpRight() == 'H')//ladder above
+                    ||
+                    (this.detectNextBlock_CurrentRightDown() == 'H' || this.detectNextBlock_CurrentLeftDown() == 'H'))
+                   )//on ladder
+            {
+                //ladder on rightside
+                if (this.detectNextBlock_CurrentLeftUp() != 'H' && this.detectNextBlock_CurrentRightUp() == 'H')
+                {
+                    this.x += this.playerSpeed;
+                }
+                else if (this.detectNextBlock_CurrentLeftUp() == 'H' && this.detectNextBlock_CurrentRightUp() != 'H')
+                {
+                    this.x -= this.playerSpeed;
+                }
+                else
+                {
+                    this.y -= this.playerSpeed;
                 }
             }
-        } else {
-            this._speed = 0;
+             else if(this.moveDirection == 3 && this.detectNextBlock_Right() != 'W' && this.x != 768 && this.detectNextBlock_RightDown() != 'W')//right
+            {
+                this.x += this.playerSpeed;
+            }
+             else if(this.moveDirection == 4 &&
+                     (this.detectNextBlock_DownLeft() != 'W' || this.detectNextBlock_DownRight() != 'W')
+                    )//down
+            {
+                if (this.detectNextBlock_DownLeft() != 'W' && this.detectNextBlock_DownRight() == 'W')
+                {
+                    this.x -= this.playerSpeed;
+                }
+                else if (this.detectNextBlock_DownLeft() == 'W' && this.detectNextBlock_DownRight() != 'W')
+                {
+                    this.x += this.playerSpeed;
+                }
+                else
+                {
+                    this.y += this.playerSpeed;
+                }
             }
         },
-	 // Respond to this player collecting a Treasure
+	/* // Respond to this player collecting a Treasure
 	collectTreasure: function(data) {
 	treasure = data[0].obj;
 		treasure.collect();
-	}
+	},
+        */
+        killPlayer: function(data) {
+	playerCharacter = data[0].obj;
+		playerCharacter.collect();
+	},
+        killPlayerWithCoord: function ()
+        { 
+            if(playerX == this.x && playerY == this.y)
+            {
+                 Crafty.e('2D, DOM, Text')
+                    .text("Game Over")
+                    .attr({ x: 0, y: Game.height()/2 - 24, w: Game.width() })
+                    .css({ "text-align": "center"})
+                    .textFont({ size: '15px', weight: 'bold' })
+                    .textColor("#FFFFFF");  
+            }
+                       
+        }
  });
  
-//The Deegre directionn vor Multiway
-var upDeg = -90;
-var downDeg = 90;
-var rightDeg = 0;
-var leftDeg = 180;
 
-//setInterval(Crafty.e('PlayerCharacter').h += 10, 1000);
+var playerX = 0;
+var playerY = 0;
+
 // This is the player-controlled character
-
 Crafty.c('PlayerCharacter', {
     
    
@@ -745,13 +971,20 @@ Crafty.c('PlayerCharacter', {
                     this.y += this.playerSpeed;
                 }
             }
+            playerX = this.x;
+            playerY = this.y;
         },
         
 	 // Respond to this player collecting a Treasure
 	collectTreasure: function(data) {
 	treasure = data[0].obj;
 		treasure.collect();
-	}
+	},
+        
+	collect: function() {
+	this.destroy();
+	Crafty.trigger('PlayerKilled', this);
+    }
 	
         
 });
@@ -765,7 +998,7 @@ Crafty.c('Treasure', {
 	collect: function() {
 	this.destroy();
 	Crafty.trigger('TreasureCollected', this);
-}
+    }
 });
 
 

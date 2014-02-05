@@ -29,7 +29,7 @@ var level1 =[
 
 var level1 =[                     	
     '.........................T......',
-    '....T....................h......',
+    '.E..T....................h......',
     'WWWWWWWWWHWWWWWWW........h......',
     '.........H---------------h......',
     '.........H....WWH........h......',
@@ -41,14 +41,14 @@ var level1 =[
     'WWWWHWWWWW....WWWWWWHWWWWWWWWWWW',
     '....H...............H...........',
     '....H...............H...........',
-    '....H........E......H...........',
+    '....H...............H...........',
     'WWWWWWWWWWWWHWWWWWWWHWWWWWWWWWWW',
     '............H.......H...........',
     '............H.......H...........',		
     '.........t..H-------H...t.......',
     '......HWWWWWWW......WWWWWWWWWWWH',
     '......H........................H',
-    '......H.........p..t...........H',
+    '..E...H.........p..t...........H',
     'WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW',
     '',  // nicht entfernen!
     ''   // nicht entfernen!   
@@ -188,7 +188,7 @@ Crafty.scene('Loading', function(){
         });
 
       Crafty.e('2D, DOM, Text')
-    .text("Press Key for Starting!")
+    .text("Press Key To Start!")
     .attr({ x: 0, y: Game.height()/2 - 24, w: Game.width() })
     .css({ "text-align": "center"})
     .textFont({ size: '15px', weight: 'bold' })
