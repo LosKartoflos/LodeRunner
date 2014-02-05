@@ -153,8 +153,7 @@ this.end_postion = this.bind('TreasureCollected', function() {
 	   levelcounter++;
 	   Crafty.scene('NextLevel'); 
    }         
-});  
- 
+});
 }, function() {
   this.unbind('TreasureCollected', this.show_ladder); //ausm tut
 }, function(){
