@@ -8,7 +8,7 @@ var level1 =[
     '.........H....WWH....WWWWHWWWWWW',
     '.........H....WWH........H......',
     '.........H....WWH........H......',
-    '........TH....WWH.......tH......',
+    '........TH....WWH........H......',
     'WWWWHWWWWW....WWWWWWHWWWWWWWWWWW',
     '....H...............H...........',
     '....H...............H...........',
@@ -16,10 +16,10 @@ var level1 =[
     'WWWWWWWWWWWWHWWWWWWWHWWWWWWWWWWW',
     '............H.......H...........',
     '............H.......H...........',		
-    '.........t..H-------H...t.......',
+    '............H-------H...........',
     '......HWWWWWWW......WWWWWWWWWWWH',
     '......H........................H',
-    '......H.........p..t...........H',
+    '......H........................H',
     'WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW',
     '',  // nicht entfernen!
     ''   // nicht entfernen!   
@@ -485,6 +485,16 @@ Crafty.c('PlayerCharacter', {
             
             return level1[mapCoordY-1][mapCoordX-1];
         },
+          detectNextBlock_LeftDown: function ()
+        {
+            var mapCoordY = (this.y + this.h -1 )/ this.h;
+            var mapCoordX = (this.x - 1) / this.w;
+            
+            mapCoordX = Math.floor(mapCoordX);
+            mapCoordY = Math.floor(mapCoordY);
+            
+            return level1[mapCoordY-1][mapCoordX-1];
+        },
         //Detects the upcoming block -y direction
         detectNextBlock_UpLeft: function ()
         {
@@ -510,6 +520,16 @@ Crafty.c('PlayerCharacter', {
         detectNextBlock_Right: function ()
         {
             var mapCoordY = (this.y)/ this.h;
+            var mapCoordX = (this.x + this.w) / this.w;
+            
+            mapCoordX = Math.floor(mapCoordX);
+            mapCoordY = Math.floor(mapCoordY);
+            
+            return level1[mapCoordY-1][mapCoordX-1];
+        },
+        detectNextBlock_RightDown: function ()
+        {
+            var mapCoordY = (this.y + this.h - 1)/ this.h;
             var mapCoordX = (this.x + this.w) / this.w;
             
             mapCoordX = Math.floor(mapCoordX);
@@ -581,54 +601,95 @@ Crafty.c('PlayerCharacter', {
         //animationSpeed: 5,
         keyTester: function ()
         {
-          this.moveDirection = 0;
-          //console.log(this.isDown('LEFT_ARROW'))
-          if(this.isDown('LEFT_ARROW'))
-          {
-              this.moveDirection = 1;
-              this.animate('walk_left', 10, -1);
-          }
-          else if(this.isDown('RIGHT_ARROW'))
-          {
-              this.moveDirection = 3;
-              this.animate('walk_right', 10, -1);
-          }
-           else if(this.isDown('UP_ARROW'))
-          {
-              this.moveDirection = 2;
-              this.animate('walk_up', 10, -1);
-          }
-           else if(this.isDown('DOWN_ARROW'))
+          if (this.moveDirection == 4 && 
+                (
+                    (this.detectNextBlock_CurrentLeftUp() == '-' || this.detectNextBlock_CurrentRightUp() == '-') || 
+                    (this.detectNextBlock_CurrentLeftUp() == 'H' || this.detectNextBlock_CurrentRightUp() == 'H')
+                ) &&
+                (
+                    (this.detectNextBlock_CurrentLeftDown() == '.' || this.detectNextBlock_CurrentRightDown() == '.') || 
+                    (this.detectNextBlock_CurrentLeftDown() == '-' || this.detectNextBlock_CurrentRightDown() == '-')
+                ) 
+             )
           {
               this.moveDirection = 4;
-              this.animate('walk_down', 10, -1);
           }
-          else if(this.isDown('M'))
+          else if (this.moveDirection == 1 && 
+                (
+                    (
+                        //(this.detectNextBlock_CurrentLeftUp() == '.' && this.detectNextBlock_CurrentRightUp() == '-') || 
+                        (this.detectNextBlock_CurrentLeftUp() == '.' && this.detectNextBlock_CurrentRightUp() == 'H')
+                    ) &&
+                    (
+                        (this.detectNextBlock_DownLeft() == '.' || this.detectNextBlock_DownRight() == '.' )
+                        
+                    )
+                ) 
+             )
+          {
+              this.moveDirection = 1;
+          }
+           else if (this.moveDirection == 3 && 
+                (
+                    (
+                        //(this.detectNextBlock_CurrentLeftUp() == '-' && this.detectNextBlock_CurrentRightUp() == '.') || 
+                        (this.detectNextBlock_CurrentLeftUp() == 'H' && this.detectNextBlock_CurrentRightUp() == '.')
+                    ) &&
+                    (
+                        (this.detectNextBlock_DownLeft() == '.' || this.detectNextBlock_DownRight() == '.' )
+                        
+                    )
+                ) 
+             )
           {
               this.moveDirection = 3;
-              this.animate('walk_left', 15, -1);
           }
           else
           {
-              this.stop();
+            this.moveDirection = 0;
+            //console.log(this.isDown('LEFT_ARROW'))
+            if(this.isDown('LEFT_ARROW'))
+            {
+                this.moveDirection = 1;
+                this.animate('walk_left', 10, -1);
+            }
+            else if(this.isDown('RIGHT_ARROW'))
+            {
+                this.moveDirection = 3;
+                this.animate('walk_right', 10, -1);
+            }
+             else if(this.isDown('UP_ARROW'))
+            {
+                this.moveDirection = 2;
+                this.animate('walk_up', 10, -1);
+            }
+             else if(this.isDown('DOWN_ARROW'))
+            {
+                this.moveDirection = 4;
+                this.animate('walk_down', 10, -1);
+            }
+            else if(this.isDown('M'))
+            {
+                this.moveDirection = 3;
+                this.animate('walk_left', 15, -1);
+            }
+            else
+            {
+                this.stop();
+            }
           }
-          
         },
         moveDirection : 0,
         playerSpeed : 2,
-        downLeft : '.',
         movePlayer: function ()
-        {
-
-            downLeft = this.detectNextBlock_DownLeft();
-            /*console.log('detectNextBlockLeft');
-            console.log(this.detectNextBlock_Left());*/
- 
+        { 
             if (
                 (((this.detectNextBlock_DownLeft() == '.' && this.detectNextBlock_DownRight() == '.') || //when underneath is air
                   (this.detectNextBlock_DownLeft() == '-' && this.detectNextBlock_DownRight() == '-') || //or a pole
-                  (this.detectNextBlock_DownLeft() == 'T' && this.detectNextBlock_DownRight() == 'T')) &&// or a treasure
-                  (this.detectNextBlock_CurrentLeftUp) != '-' && this.detectNextBlock_CurrentRightUp() != '-')
+                  (this.detectNextBlock_DownLeft() == 'T' && this.detectNextBlock_DownRight() == 'T'))) &&// or a treasure
+                  (this.detectNextBlock_CurrentLeftUp() != '-' || this.detectNextBlock_CurrentRightUp() != '-')
+                 //((this.detectNextBlock_CurrentLeftDown() != '-' && this.detectNextBlock_CurrentRightDown() != '-') &&
+                  //(this.detectNextBlock_CurrentLeftUp) != '-' && this.detectNextBlock_CurrentRightUp() != '-')
                 /*  ||//hanging between
                 (((this.detectNextBlock_CurrentLeftUp() == '-' || this.detectNextBlock_CurrentRightUp() == '-') ||
                   (this.detectNextBlock_CurrentLeftUp() == 'H' || this.detectNextBlock_CurrentRightUp() == 'H'))&&
@@ -636,9 +697,10 @@ Crafty.c('PlayerCharacter', {
                   (this.detectNextBlock_DownLeft() == '-' && this.detectNextBlock_DownRight() == '-')))     */
                 ) 
             {
-               this.y += this.playerSpeed; 
+               this.y += this.playerSpeed;
+               this.moveDirection = 0;
             }
-            else if(this.moveDirection == 1 && this.detectNextBlock_Left() != 'W' && this.x != 24)//left
+            else if(this.moveDirection == 1 && this.detectNextBlock_Left() != 'W' && this.x != 24 && this.detectNextBlock_LeftDown() != 'W')//left
             {
                 this.x -= this.playerSpeed;
             }
@@ -662,7 +724,7 @@ Crafty.c('PlayerCharacter', {
                     this.y -= this.playerSpeed;
                 }
             }
-             else if(this.moveDirection == 3 && this.detectNextBlock_Right() != 'W' && this.x != 768)//right
+             else if(this.moveDirection == 3 && this.detectNextBlock_Right() != 'W' && this.x != 768 && this.detectNextBlock_RightDown() != 'W')//right
             {
                 this.x += this.playerSpeed;
             }
