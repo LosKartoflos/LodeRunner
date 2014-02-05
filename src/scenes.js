@@ -164,7 +164,21 @@ this.end_postion = this.bind('TreasureCollected', function() {
 Crafty.scene('NextLevel', function() {
     Crafty.e("2D, DOM, Text")
           .attr({ x: 0, y: Game.height()/2 - 24, w: Game.width() })
-          .text("You Won! Press Key for the next Level")
+          .text("You Won! Press key for the next level")
+          .css({ "text-align": "center"})
+          .textFont({ size: '15px', weight: 'bold' })
+          .textColor("#FFFFFF");
+ 
+this.restart_game = function() {Crafty.scene('Game');}; //verbessurung
+this.bind('KeyDown', this.restart_game);
+}, function() {
+this.unbind('KeyDown', this.restart_game);
+});
+
+Crafty.scene('NextLevel', function() {
+    Crafty.e("2D, DOM, Text")
+          .attr({ x: 0, y: Game.height()/2 - 24, w: Game.width() })
+          .text("Game Over! Press key to restart")
           .css({ "text-align": "center"})
           .textFont({ size: '15px', weight: 'bold' })
           .textColor("#FFFFFF");
