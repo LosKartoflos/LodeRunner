@@ -624,10 +624,17 @@ Crafty.c('PlayerCharacter', {
             /*console.log('detectNextBlockLeft');
             console.log(this.detectNextBlock_Left());*/
  
-            if ((this.detectNextBlock_DownLeft() == '.' && this.detectNextBlock_DownRight() == '.' || //when underneath is air
-                 this.detectNextBlock_DownLeft() == '-' && this.detectNextBlock_DownRight() == '-') && // or a pole
-                 (this.detectNextBlock_CurrentLeftUp() != '-' && this.detectNextBlock_CurrentRightUp() != '-' )      
-                 )
+            if (
+                (((this.detectNextBlock_DownLeft() == '.' && this.detectNextBlock_DownRight() == '.') || //when underneath is air
+                  (this.detectNextBlock_DownLeft() == '-' && this.detectNextBlock_DownRight() == '-') || //or a pole
+                  (this.detectNextBlock_DownLeft() == 'T' && this.detectNextBlock_DownRight() == 'T')) &&// or a treasure
+                  (this.detectNextBlock_CurrentLeftUp) != '-' && this.detectNextBlock_CurrentRightUp() != '-')
+                /*  ||//hanging between
+                (((this.detectNextBlock_CurrentLeftUp() == '-' || this.detectNextBlock_CurrentRightUp() == '-') ||
+                  (this.detectNextBlock_CurrentLeftUp() == 'H' || this.detectNextBlock_CurrentRightUp() == 'H'))&&
+                 ((this.detectNextBlock_DownLeft() == '.' && this.detectNextBlock_DownRight() == '.') || //when underneath is air
+                  (this.detectNextBlock_DownLeft() == '-' && this.detectNextBlock_DownRight() == '-')))     */
+                ) 
             {
                this.y += this.playerSpeed; 
             }
@@ -635,22 +642,46 @@ Crafty.c('PlayerCharacter', {
             {
                 this.x -= this.playerSpeed;
             }
-            else if(this.moveDirection == 2 && 
-                    (this.detectNextBlock_CurrentLeftDown() != '-' && this.detectNextBlock_CurrentRightDown() != '-'  &&
-                    this.detectNextBlock_CurrentLeftUp() != '-' && this.detectNextBlock_CurrentRightUp() != '-' ) ||
-                    (this.detectNextBlock_CurrentLeftDown() == '.' && this.detectNextBlock_CurrentRightDown() != '.'  &&
-                    this.detectNextBlock_CurrentLeftUp() == 'H' && this.detectNextBlock_CurrentRightUp() == 'H')||
-                    (this.detectNextBlock_UpLeft() == 'H' && this.detectNextBlock_UpRight() == 'H'))//up
+            else if(this.moveDirection == 2 &&                                        
+                    ((this.detectNextBlock_UpLeft() == 'H' || this.detectNextBlock_UpRight() == 'H')//ladder above
+                    ||
+                    (this.detectNextBlock_CurrentRightDown() == 'H' || this.detectNextBlock_CurrentLeftDown() == 'H'))
+                   )//on ladder
             {
-                this.y -= this.playerSpeed;
+                //ladder on rightside
+                if (this.detectNextBlock_CurrentLeftUp() != 'H' && this.detectNextBlock_CurrentRightUp() == 'H')
+                {
+                    this.x += this.playerSpeed;
+                }
+                else if (this.detectNextBlock_CurrentLeftUp() == 'H' && this.detectNextBlock_CurrentRightUp() != 'H')
+                {
+                    this.x -= this.playerSpeed;
+                }
+                else
+                {
+                    this.y -= this.playerSpeed;
+                }
             }
              else if(this.moveDirection == 3 && this.detectNextBlock_Right() != 'W' && this.x != 768)//right
             {
                 this.x += this.playerSpeed;
             }
-             else if(this.moveDirection == 4)//down
+             else if(this.moveDirection == 4 &&
+                     (this.detectNextBlock_DownLeft() != 'W' || this.detectNextBlock_DownRight() != 'W')
+                    )//down
             {
-                this.y += this.playerSpeed;
+                if (this.detectNextBlock_DownLeft() != 'W' && this.detectNextBlock_DownRight() == 'W')
+                {
+                    this.x -= this.playerSpeed;
+                }
+                else if (this.detectNextBlock_DownLeft() == 'W' && this.detectNextBlock_DownRight() != 'W')
+                {
+                    this.x += this.playerSpeed;
+                }
+                else
+                {
+                    this.y += this.playerSpeed;
+                }
             }
         },
         
