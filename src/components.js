@@ -440,10 +440,10 @@ Crafty.c('PlayerCharacter', {
                 //.stopOnSolids()
                 //.caseTester()
                 //.climbTester()
-		.animate("walk_left", 0, 0, 2)
+				.animate("walk_left", 0, 0, 2)
                 .animate("walk_right", 3, 0, 5)
-                .animate("walk_up", 3, 0, 5)
-                .animate("walk_down", 0, 0, 2) 
+                //.animate("walk_up", 3, 0, 5)
+                //.animate("walk_down", 0, 0, 2) 
                 //.onHit('Ladder', this.antigravity)   // ist nur vorrübergehend, damit man das level beenden kann
                 .onHit('Treasure', this.collectTreasure);
 				

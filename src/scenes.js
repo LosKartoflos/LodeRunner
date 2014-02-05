@@ -93,7 +93,7 @@ Crafty.scene('Game', function() {
     }
     console.log(levelcounter);
 	
-    if(levelcounter >= 4){
+    if(levelcounter == 1){
 		map = level2;
     }
     
@@ -142,17 +142,18 @@ Crafty.scene('Game', function() {
 //                    if (map[y][x] == 'P'){
 //                        Crafty.e('PlayerCharacter').at(x+1, y+1);   // player sollte gelöscht und erneut gezeichnet werden, damit er  nicht hinter der leiter verschwindet                             					
 //                    }
-                    this.end_postion = this.bind('TreasureCollected', function() { 
-                       if (!Crafty('Treasure').length){
-                           Crafty("2D").destroy();
-						   levelcounter++;
-                           Crafty.scene('NextLevel'); 
-                       }         
-                    }); 
+                    
                 } 
             }                  
         }             
-}); 
+});
+this.end_postion = this.bind('TreasureCollected', function() { 
+   if (!Crafty('Treasure').length){
+	   Crafty("2D").destroy();
+	   levelcounter++;
+	   Crafty.scene('NextLevel'); 
+   }         
+});  
  
 }, function() {
   this.unbind('TreasureCollected', this.show_ladder); //ausm tut
