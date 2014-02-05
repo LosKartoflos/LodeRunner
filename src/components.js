@@ -8,7 +8,7 @@ var level1 =[
     '.........H....WWH....WWWWHWWWWWW',
     '.........H....WWH........H......',
     '.........H....WWH........H......',
-    '.........H....WWH.......tH......',
+    '........TH....WWH.......tH......',
     'WWWWHWWWWW....WWWWWWHWWWWWWWWWWW',
     '....H...............H...........',
     '....H...............H...........',
@@ -467,9 +467,9 @@ Crafty.c('PlayerCharacter', {
         //Needs map coordinates not pixels
 	blockIs: function (mapCoordY, mapCoordX)
 	{          
-                //var block = Game.map[mapCoordY][maprCoordX];
+                //var block = Game.map[mapCoordY][mapCoordX];
                 //return Game.map[mapCoordY][mapCoordX];
-                return level1[mapCoordY][mapCoordX];
+                return level1[mapCoordY-1][mapCoordX-1];
                 //return block;
                 //console.log(Game.map[mapCoordY][mapCoordX]);
 	},
@@ -480,15 +480,31 @@ Crafty.c('PlayerCharacter', {
             var mapCoordY = (this.y )/ this.h;
             var mapCoordX = (this.x - 1) / this.w;
             
-            return(this.blockIs(mapCoordY, mapCoordX));
+            mapCoordX = Math.floor(mapCoordX);
+            mapCoordY = Math.floor(mapCoordY);
+            
+            return level1[mapCoordY-1][mapCoordX-1];
         },
         //Detects the upcoming block -y direction
-        detectNextBlock_Up: function ()
+        detectNextBlock_UpLeft: function ()
         {
             var mapCoordY = (this.y - 1)/ this.h;
             var mapCoordX = (this.x ) / this.w;
             
-            return(this.blockIs(mapCoordY, mapCoordX));
+            mapCoordX = Math.floor(mapCoordX);
+            mapCoordY = Math.floor(mapCoordY);
+            
+            return level1[mapCoordY-1][mapCoordX-1];
+        },
+        detectNextBlock_UpRight: function ()
+        {
+            var mapCoordY = (this.y - 1)/ this.h;
+            var mapCoordX = (this.x + this.w -1) / this.w;
+            
+            mapCoordX = Math.floor(mapCoordX);
+            mapCoordY = Math.floor(mapCoordY);
+            
+            return level1[mapCoordY-1][mapCoordX-1];
         },
         //Detects the upcoming block +x direction
         detectNextBlock_Right: function ()
@@ -496,10 +512,13 @@ Crafty.c('PlayerCharacter', {
             var mapCoordY = (this.y)/ this.h;
             var mapCoordX = (this.x + this.w) / this.w;
             
-            return(this.blockIs(mapCoordY, mapCoordX));
+            mapCoordX = Math.floor(mapCoordX);
+            mapCoordY = Math.floor(mapCoordY);
+            
+            return level1[mapCoordY-1][mapCoordX-1];
         },
         //Detects the upcoming block und +y direction
-        detectNextBlock_Down: function ()
+        detectNextBlock_DownLeft: function ()
         {
             var mapCoordY = (this.y + this.h)/ this.h;
             var mapCoordX = (this.x) / this.w;
@@ -507,21 +526,57 @@ Crafty.c('PlayerCharacter', {
             mapCoordX = Math.floor(mapCoordX);
             mapCoordY = Math.floor(mapCoordY);
             
-            /*console.log('x und y');
-            console.log(mapCoordY);
-            console.log(mapCoordX);*/
-           
+             return level1[mapCoordY-1][mapCoordX-1];
+        },
+        detectNextBlock_DownRight: function ()
+        {
+            var mapCoordY = (this.y + this.h)/ this.h;
+            var mapCoordX = (this.x + this.w -1) / this.w;
             
-            //console.log(this.blockIs(mapCoordY, mapCoordX));
-           // console.log('this.blockIs()');
-           // console.log((this.blockIs(mapCoordY, mapCoordX)));
-            var blockReturn = this.blockIs(mapCoordY, mapCoordX);
+            mapCoordX = Math.floor(mapCoordX);
+            mapCoordY = Math.floor(mapCoordY);
             
-            //return(this.blockIs(mapCoordY, mapCoordX))
-            //console.log('blockReturn');
-            //console.log(blockReturn);
-            return (this.blockReturn);
-            //console.log('==============================');
+            return level1[mapCoordY-1][mapCoordX-1];      
+        },
+        detectNextBlock_CurrentRightUp: function()
+        {
+            var mapCoordY = (this.y)/ this.h;
+            var mapCoordX = (this.x + this.w -1) / this.w;
+            
+            mapCoordX = Math.floor(mapCoordX);
+            mapCoordY = Math.floor(mapCoordY);
+            
+            return level1[mapCoordY-1][mapCoordX-1];  
+        },
+        detectNextBlock_CurrentLeftUp: function()
+        {
+            var mapCoordY = (this.y)/ this.h;
+            var mapCoordX = (this.x) / this.w;
+            
+            mapCoordX = Math.floor(mapCoordX);
+            mapCoordY = Math.floor(mapCoordY);
+            
+            return level1[mapCoordY-1][mapCoordX-1];  
+        },
+        detectNextBlock_CurrentRightDown: function()
+        {
+            var mapCoordY = (this.y + this.h -1)/ this.h;
+            var mapCoordX = (this.x + this.w -1) / this.w;
+            
+            mapCoordX = Math.floor(mapCoordX);
+            mapCoordY = Math.floor(mapCoordY);
+            
+            return level1[mapCoordY-1][mapCoordX-1];  
+        },
+        detectNextBlock_CurrentLeftDown: function()
+        {
+            var mapCoordY = (this.y + this.h -1)/ this.h;
+            var mapCoordX = (this.x) / this.w;
+            
+            mapCoordX = Math.floor(mapCoordX);
+            mapCoordY = Math.floor(mapCoordY);
+            
+            return level1[mapCoordY-1][mapCoordX-1];  
         },
         //animationSpeed: 5,
         keyTester: function ()
@@ -561,23 +616,35 @@ Crafty.c('PlayerCharacter', {
         },
         moveDirection : 0,
         playerSpeed : 2,
+        downLeft : '.',
         movePlayer: function ()
         {
-            console.log('detectNextBlock_Down');
-            console.log(this.detectNextBlock_Down());
-            if (this.detectNextBlock_Down() == '.')
+
+            downLeft = this.detectNextBlock_DownLeft();
+            /*console.log('detectNextBlockLeft');
+            console.log(this.detectNextBlock_Left());*/
+ 
+            if ((this.detectNextBlock_DownLeft() == '.' && this.detectNextBlock_DownRight() == '.' || //when underneath is air
+                 this.detectNextBlock_DownLeft() == '-' && this.detectNextBlock_DownRight() == '-') && // or a pole
+                 (this.detectNextBlock_CurrentLeftUp() != '-' && this.detectNextBlock_CurrentRightUp() != '-' )      
+                 )
             {
-                this.y += this.speed;
+               this.y += this.playerSpeed; 
             }
-            else if(this.moveDirection == 1)//left
+            else if(this.moveDirection == 1 && this.detectNextBlock_Left() != 'W' && this.x != 24)//left
             {
                 this.x -= this.playerSpeed;
             }
-            else if(this.moveDirection == 2)//up
+            else if(this.moveDirection == 2 && 
+                    (this.detectNextBlock_CurrentLeftDown() != '-' && this.detectNextBlock_CurrentRightDown() != '-'  &&
+                    this.detectNextBlock_CurrentLeftUp() != '-' && this.detectNextBlock_CurrentRightUp() != '-' ) ||
+                    (this.detectNextBlock_CurrentLeftDown() == '.' && this.detectNextBlock_CurrentRightDown() != '.'  &&
+                    this.detectNextBlock_CurrentLeftUp() == 'H' && this.detectNextBlock_CurrentRightUp() == 'H')||
+                    (this.detectNextBlock_UpLeft() == 'H' && this.detectNextBlock_UpRight() == 'H'))//up
             {
                 this.y -= this.playerSpeed;
             }
-             else if(this.moveDirection == 3)//right
+             else if(this.moveDirection == 3 && this.detectNextBlock_Right() != 'W' && this.x != 768)//right
             {
                 this.x += this.playerSpeed;
             }
@@ -595,22 +662,6 @@ Crafty.c('PlayerCharacter', {
 	
         
 });
-
-//returns number for arrow_keys
-function key_down(e)
-{
-    var key_id = e.keyCode || e.which;
-    
-    if (key_id == 40)//down key
-        return 0;
-    if (key_id == 37)//left key
-        return 1;
-    if (key_id == 38)//up key
-        return 2;
-    if (key_id == 39)//right key
-        return 3;
-}
-
 
 Crafty.c('Treasure', {
     init: function() {
