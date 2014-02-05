@@ -154,8 +154,16 @@ this.end_postion = this.bind('TreasureCollected', function() {
 	   Crafty.scene('NextLevel'); 
    }         
 });
+this.game_over = this.bind('EnemyCollison', function() { 
+   
+	   Crafty("2D").destroy();
+	   
+	   Crafty.scene('Gameover');          
+});
 }, function() {
   this.unbind('TreasureCollected', this.show_ladder); //ausm tut
+},function() {
+  this.unbind('EnemyCollison', this.game_over); //ausm tut
 }, function(){
    this.unbind('GameWon', this.end_postion);
 });
@@ -174,7 +182,8 @@ this.bind('KeyDown', this.restart_game);
 this.unbind('KeyDown', this.restart_game);
 });
 
-Crafty.scene('NextLevel', function() {
+Crafty.scene('Gameover', function() {
+	//console.log("hello");
     Crafty.e("2D, DOM, Text")
           .attr({ x: 0, y: Game.height()/2 - 24, w: Game.width() })
           .text("Game Over! Press key to restart")

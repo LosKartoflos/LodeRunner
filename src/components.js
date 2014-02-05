@@ -429,13 +429,14 @@ Crafty.c('Pole', {
         killPlayerWithCoord: function ()
         { 
             if(playerX == this.x && playerY == this.y)
-            {
-                 Crafty.e('2D, DOM, Text')
+            {	
+				Crafty.trigger('EnemyCollison', this);
+                 /*Crafty.e('2D, DOM, Text')
                     .text("Game Over")
                     .attr({ x: 0, y: Game.height()/2 - 24, w: Game.width() })
                     .css({ "text-align": "center"})
                     .textFont({ size: '15px', weight: 'bold' })
-                    .textColor("#FFFFFF");  
+                    .textColor("#FFFFFF");   */
             }
                        
         }
@@ -467,8 +468,8 @@ Crafty.c('PlayerCharacter', {
                 //.climbTester()
 				.animate("walk_left", 0, 0, 2)
                 .animate("walk_right", 3, 0, 5)
-                //.animate("walk_up", 3, 0, 5)
-                //.animate("walk_down", 0, 0, 2) 
+                .animate("walk_up", 3, 0, 5)
+                .animate("walk_down", 0, 0, 2) 
                 //.onHit('Ladder', this.antigravity)   // ist nur vorrübergehend, damit man das level beenden kann
                 .onHit('Treasure', this.collectTreasure);
 				
