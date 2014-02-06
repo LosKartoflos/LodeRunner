@@ -28,10 +28,10 @@ var level1 =[
     ];*/
 
 var level1 =[                     	
-    '.........................T......',
+    '.........................X......',
     '.E..T....................h......',
     'WWWWWWWWWHWWWWWWW........h......',
-    '.........H---------------h......',
+    '.........H-------------..h......',
     '.........H....WWH........h......',
     '.........H....WWH......T.h......',
     '.........H....WWH....WWWWHWWWWWW',
@@ -55,7 +55,7 @@ var level1 =[
     ];
 	
 	var level2 =[
-    '..........T.....................',
+    '..........X.....................',
     '..........h................E....',
     'WWWW......h.......WWWWHWWWWWWWWW',
     '..WWW.....h......WWW..H.........',
@@ -79,7 +79,34 @@ var level1 =[
     'WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW',
     '',
     ''
-    ];    
+    ];  
+    
+    var level3 =[
+    '...............................X',
+    '...............................h',
+    'E..T...........................h',
+    'HWWWWWH........................h',
+    'H.....H........................h',
+    'H.....H........................h',
+    'H.....H............T..E........h',
+    'H.....H.......HWWWWWWWWH.......H',
+    'H.....H.......H........H..T....H',
+    'HWWWWWH.......H........HWWWWWWWH',
+    'H.....H.......H........H.......H',
+    'H.....H-------H-----...H.......H',
+    'H.....H.......H....HWWWWWWWWWWWH',
+    'H.....H.......H.T..H...........H',
+    'H.....H.......HWWWWH...........H',
+    'WWWWWWWWWWWWWWH.........HWWWHWWW',
+    'WWWWW.........H.........H...H...',
+    'WWWWW.........H..-------H...H..T',
+    'WWWWWWWWWWHWWWWWWW......H...WWWW',
+    '..........H.............H.......',
+    '...P......HT............H::.....',
+    'WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW',
+    '',
+    ''
+    ];  
 	
 	var levelcounter = 0;
 	      
@@ -95,6 +122,10 @@ Crafty.scene('Game', function() {
 	
     if(levelcounter == 1){
 		map = level2;
+    }
+    
+    if(levelcounter == 3){
+		map = level3;
     }
     
     for (var y = 0; y < Game.map_grid.height; y++) {
@@ -130,7 +161,7 @@ Crafty.scene('Game', function() {
    
     
     this.show_ladder = this.bind('TreasureCollected', function() {   
-        if (Crafty('Treasure').length == 1){
+        if (!Crafty('Treasure').length){
             
             for (var y = 0; y < 10; y++) {
 		
@@ -139,20 +170,18 @@ Crafty.scene('Game', function() {
                     if (map[y][x] == 'h'){
                         Crafty.e('Ladder').at(x+1, y+1);
                     }
-//                    if (map[y][x] == 'P'){
-//                        Crafty.e('PlayerCharacter').at(x+1, y+1);   // player sollte gelöscht und erneut gezeichnet werden, damit er  nicht hinter der leiter verschwindet                             					
-//                    }
+                    if (map[y][x] == 'X'){
+                        Crafty.e('Exit').at(x+1, y+1);                           					
+                    }
                     
                 } 
             }                  
         }             
 });
-this.end_postion = this.bind('TreasureCollected', function() { 
-   if (!Crafty('Treasure').length){
+this.end_postion = this.bind('EndLevel', function() { 
 	   Crafty("2D").destroy();
-	   levelcounter++;
-	   Crafty.scene('NextLevel'); 
-   }         
+	console.log(levelcounter++);
+	   Crafty.scene('NextLevel');         
 });
 this.game_over = this.bind('EnemyCollison', function() { 
    

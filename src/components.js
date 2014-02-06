@@ -432,12 +432,7 @@ Crafty.c('Pole', {
             if(playerX >= this.x && playerY == this.y && playerX <= (this.x + this.w))
             {	
 				Crafty.trigger('EnemyCollison', this);
-                 /*Crafty.e('2D, DOM, Text')
-                    .text("Game Over")
-                    .attr({ x: 0, y: Game.height()/2 - 24, w: Game.width() })
-                    .css({ "text-align": "center"})
-                    .textFont({ size: '15px', weight: 'bold' })
-                    .textColor("#FFFFFF");   */
+          
             }
                        
         }
@@ -472,7 +467,8 @@ Crafty.c('PlayerCharacter', {
                 .animate("walk_up", 3, 0, 5)
                 .animate("walk_down", 0, 0, 2) 
                 //.onHit('Ladder', this.antigravity)   // ist nur vorrübergehend, damit man das level beenden kann
-                .onHit('Treasure', this.collectTreasure);
+                .onHit('Treasure', this.collectTreasure)
+                .onHit('Exit', this.hitExit);
 				
 		var animation_speed = 8;
         this.bind('NewDirection', function(data) {
@@ -710,8 +706,9 @@ Crafty.c('PlayerCharacter', {
         playerSpeed : 2,
         movePlayer: function ()
         { 
+            /*console.log(treasureCollected);
             console.log(this.detectNextBlock_UpLeft());
-            console.log(this.detectNextBlock_CurrentRightDown())
+            console.log(this.detectNextBlock_CurrentRightDown())*/
             if (
                 (((this.detectNextBlock_DownLeft() == '.' && this.detectNextBlock_DownRight() == '.') || //when underneath is air
                   (this.detectNextBlock_DownLeft() == '-' && this.detectNextBlock_DownRight() == '-') || //or a pole
@@ -759,7 +756,7 @@ Crafty.c('PlayerCharacter', {
                    this.y -= this.playerSpeed;
                 }
             }
-            else if(this.moveDirection == 2 &&  (treasureCollected == 3 || treasureCollected == 10) &&                                 
+            else if(this.moveDirection == 2 &&  (treasureCollected == 3 || treasureCollected == 9 || treasureCollected == 15) &&                                 
                     ((this.detectNextBlock_UpLeft() == 'h' || this.detectNextBlock_UpRight() == 'h')//ladder above
                     ||
                     (this.detectNextBlock_CurrentRightDown() == 'h' || this.detectNextBlock_CurrentLeftDown() == 'h'))
@@ -816,6 +813,12 @@ Crafty.c('PlayerCharacter', {
 		treasure.collect();
 	},
         
+         // Respond to this player hitting the exit
+	hitExit: function(data) {
+            exit = data[0].obj;
+		exit.collect();
+	},
+        
 	collect: function() {
 	this.destroy();
 	Crafty.trigger('PlayerKilled', this);
@@ -840,4 +843,14 @@ Crafty.c('Treasure', {
     }
 });
 
+Crafty.c('Exit', {
+    init: function() {
+        this.requires('Actor, Image')
+                .image('assets/Ladder.png');
+    },
+	
+    collect: function() {
+	Crafty.trigger('EndLevel', this);
+    }
+});
 
