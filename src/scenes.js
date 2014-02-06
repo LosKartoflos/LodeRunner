@@ -83,10 +83,10 @@ var level1 =[
 	
 	var levelcounter = 0;
 	      
-	
+var map;
 Crafty.scene('Game', function() {
 
-    var map;
+    //var map;
  
     if(levelcounter == 0){
 		map = level1;

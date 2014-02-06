@@ -62,6 +62,7 @@ Crafty.c('Pole', {
  
  
 
+
  
  Crafty.c('Enemy', {
     init: function() {
@@ -107,7 +108,7 @@ Crafty.c('Pole', {
             mapCoordX = Math.floor(mapCoordX);
             mapCoordY = Math.floor(mapCoordY);
             
-            return level1[mapCoordY-1][mapCoordX-1];
+            return map[mapCoordY-1][mapCoordX-1];
         },
           detectNextBlock_LeftDown: function ()
         {
@@ -117,7 +118,7 @@ Crafty.c('Pole', {
             mapCoordX = Math.floor(mapCoordX);
             mapCoordY = Math.floor(mapCoordY);
             
-            return level1[mapCoordY-1][mapCoordX-1];
+            return map[mapCoordY-1][mapCoordX-1];
         },
         //Detects the upcoming block -y direction
         detectNextBlock_UpLeft: function ()
@@ -128,7 +129,7 @@ Crafty.c('Pole', {
             mapCoordX = Math.floor(mapCoordX);
             mapCoordY = Math.floor(mapCoordY);
             
-            return level1[mapCoordY-1][mapCoordX-1];
+            return map[mapCoordY-1][mapCoordX-1];
            
         },
         detectNextBlock_UpRight: function ()
@@ -139,7 +140,7 @@ Crafty.c('Pole', {
             mapCoordX = Math.floor(mapCoordX);
             mapCoordY = Math.floor(mapCoordY);
             
-            return level1[mapCoordY-1][mapCoordX-1];
+            return map[mapCoordY-1][mapCoordX-1];
            
         },
         //Detects the upcoming block +x direction
@@ -151,7 +152,7 @@ Crafty.c('Pole', {
             mapCoordX = Math.floor(mapCoordX);
             mapCoordY = Math.floor(mapCoordY);
             
-            return level1[mapCoordY-1][mapCoordX-1];
+            return map[mapCoordY-1][mapCoordX-1];
         },
         detectNextBlock_RightDown: function ()
         {
@@ -161,7 +162,7 @@ Crafty.c('Pole', {
             mapCoordX = Math.floor(mapCoordX);
             mapCoordY = Math.floor(mapCoordY);
             
-            return level1[mapCoordY-1][mapCoordX-1];
+            return map[mapCoordY-1][mapCoordX-1];
         },
         //Detects the upcoming block und +y direction
         detectNextBlock_DownLeft: function ()
@@ -172,7 +173,7 @@ Crafty.c('Pole', {
             mapCoordX = Math.floor(mapCoordX);
             mapCoordY = Math.floor(mapCoordY);
             
-             return level1[mapCoordY-1][mapCoordX-1];
+             return map[mapCoordY-1][mapCoordX-1];
         },
         detectNextBlock_CornerDownLeft: function ()
         {
@@ -182,7 +183,7 @@ Crafty.c('Pole', {
             mapCoordX = Math.floor(mapCoordX);
             mapCoordY = Math.floor(mapCoordY);
             
-             return level1[mapCoordY-1][mapCoordX-1];
+             return map[mapCoordY-1][mapCoordX-1];
         },
         detectNextBlock_CornerDownRight: function ()
         {
@@ -202,7 +203,7 @@ Crafty.c('Pole', {
             mapCoordX = Math.floor(mapCoordX);
             mapCoordY = Math.floor(mapCoordY);
             
-            return level1[mapCoordY-1][mapCoordX-1];      
+            return map[mapCoordY-1][mapCoordX-1];      
         },
         detectNextBlock_CurrentRightUp: function()
         {
@@ -212,7 +213,7 @@ Crafty.c('Pole', {
             mapCoordX = Math.floor(mapCoordX);
             mapCoordY = Math.floor(mapCoordY);
             
-            return level1[mapCoordY-1][mapCoordX-1];  
+            return map[mapCoordY-1][mapCoordX-1];  
         },
         detectNextBlock_CurrentLeftUp: function()
         {
@@ -222,7 +223,7 @@ Crafty.c('Pole', {
             mapCoordX = Math.floor(mapCoordX);
             mapCoordY = Math.floor(mapCoordY);
             
-            return level1[mapCoordY-1][mapCoordX-1];  
+            return map[mapCoordY-1][mapCoordX-1];  
         },
         detectNextBlock_CurrentRightDown: function()
         {
@@ -232,7 +233,7 @@ Crafty.c('Pole', {
             mapCoordX = Math.floor(mapCoordX);
             mapCoordY = Math.floor(mapCoordY);
             
-            return level1[mapCoordY-1][mapCoordX-1];  
+            return map[mapCoordY-1][mapCoordX-1];  
         },
         detectNextBlock_CurrentLeftDown: function()
         {
@@ -242,7 +243,7 @@ Crafty.c('Pole', {
             mapCoordX = Math.floor(mapCoordX);
             mapCoordY = Math.floor(mapCoordY);
             
-            return level1[mapCoordY-1][mapCoordX-1];  
+            return map[mapCoordY-1][mapCoordX-1];  
         },
         //animationSpeed: 5,
         ki: function ()
@@ -509,7 +510,7 @@ Crafty.c('PlayerCharacter', {
             mapCoordX = Math.floor(mapCoordX);
             mapCoordY = Math.floor(mapCoordY);
             
-            return level1[mapCoordY-1][mapCoordX-1];
+            return map[mapCoordY-1][mapCoordX-1];
         },
           detectNextBlock_LeftDown: function ()
         {
@@ -519,7 +520,7 @@ Crafty.c('PlayerCharacter', {
             mapCoordX = Math.floor(mapCoordX);
             mapCoordY = Math.floor(mapCoordY);
             
-            return level1[mapCoordY-1][mapCoordX-1];
+            return map[mapCoordY-1][mapCoordX-1];
         },
         //Detects the upcoming block -y direction
         detectNextBlock_UpLeft: function ()
@@ -530,7 +531,7 @@ Crafty.c('PlayerCharacter', {
             mapCoordX = Math.floor(mapCoordX);
             mapCoordY = Math.floor(mapCoordY);
             
-            return level1[mapCoordY-1][mapCoordX-1];
+            return map[mapCoordY-1][mapCoordX-1];
         },
         detectNextBlock_UpRight: function ()
         {
@@ -540,7 +541,7 @@ Crafty.c('PlayerCharacter', {
             mapCoordX = Math.floor(mapCoordX);
             mapCoordY = Math.floor(mapCoordY);
             
-            return level1[mapCoordY-1][mapCoordX-1];
+            return map[mapCoordY-1][mapCoordX-1];
         },
         //Detects the upcoming block +x direction
         detectNextBlock_Right: function ()
@@ -551,7 +552,7 @@ Crafty.c('PlayerCharacter', {
             mapCoordX = Math.floor(mapCoordX);
             mapCoordY = Math.floor(mapCoordY);
             
-            return level1[mapCoordY-1][mapCoordX-1];
+            return map[mapCoordY-1][mapCoordX-1];
         },
         detectNextBlock_RightDown: function ()
         {
@@ -561,7 +562,7 @@ Crafty.c('PlayerCharacter', {
             mapCoordX = Math.floor(mapCoordX);
             mapCoordY = Math.floor(mapCoordY);
             
-            return level1[mapCoordY-1][mapCoordX-1];
+            return map[mapCoordY-1][mapCoordX-1];
         },
         //Detects the upcoming block und +y direction
         detectNextBlock_DownLeft: function ()
@@ -572,7 +573,7 @@ Crafty.c('PlayerCharacter', {
             mapCoordX = Math.floor(mapCoordX);
             mapCoordY = Math.floor(mapCoordY);
             
-             return level1[mapCoordY-1][mapCoordX-1];
+             return map[mapCoordY-1][mapCoordX-1];
         },
         detectNextBlock_DownRight: function ()
         {
@@ -582,7 +583,7 @@ Crafty.c('PlayerCharacter', {
             mapCoordX = Math.floor(mapCoordX);
             mapCoordY = Math.floor(mapCoordY);
             
-            return level1[mapCoordY-1][mapCoordX-1];      
+            return map[mapCoordY-1][mapCoordX-1];      
         },
         detectNextBlock_CurrentRightUp: function()
         {
@@ -592,7 +593,7 @@ Crafty.c('PlayerCharacter', {
             mapCoordX = Math.floor(mapCoordX);
             mapCoordY = Math.floor(mapCoordY);
             
-            return level1[mapCoordY-1][mapCoordX-1];  
+            return map[mapCoordY-1][mapCoordX-1];  
         },
         detectNextBlock_CurrentLeftUp: function()
         {
@@ -602,7 +603,7 @@ Crafty.c('PlayerCharacter', {
             mapCoordX = Math.floor(mapCoordX);
             mapCoordY = Math.floor(mapCoordY);
             
-            return level1[mapCoordY-1][mapCoordX-1];  
+            return map[mapCoordY-1][mapCoordX-1];  
         },
         detectNextBlock_CurrentRightDown: function()
         {
@@ -612,7 +613,7 @@ Crafty.c('PlayerCharacter', {
             mapCoordX = Math.floor(mapCoordX);
             mapCoordY = Math.floor(mapCoordY);
             
-            return level1[mapCoordY-1][mapCoordX-1];  
+            return map[mapCoordY-1][mapCoordX-1];  
         },
         detectNextBlock_CurrentLeftDown: function()
         {
@@ -622,7 +623,7 @@ Crafty.c('PlayerCharacter', {
             mapCoordX = Math.floor(mapCoordX);
             mapCoordY = Math.floor(mapCoordY);
             
-            return level1[mapCoordY-1][mapCoordX-1];  
+            return map[mapCoordY-1][mapCoordX-1];  
         },
         //animationSpeed: 5,
         keyTester: function ()
