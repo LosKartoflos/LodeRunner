@@ -429,7 +429,7 @@ Crafty.c('Pole', {
 	},
         killPlayerWithCoord: function ()
         { 
-            if(playerX == this.x && playerY == this.y)
+            if(playerX >= this.x && playerY == this.y && playerX <= (this.x + this.w))
             {	
 				Crafty.trigger('EnemyCollison', this);
                  /*Crafty.e('2D, DOM, Text')
