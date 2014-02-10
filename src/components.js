@@ -854,3 +854,55 @@ Crafty.c('Exit', {
     }
 });
 
+//treasure container class. Saves number of treasures as the size of the array and the state of them as data in it.
+Crafty.c('TreasureContainer', {
+
+    init: function() {
+		this._treasures  = new Array();
+	},
+		
+	initialize: function() {
+		this._treasures = [];
+	},
+	
+	reset: function() {
+		for(var i = 0; i < this._treasures.length; i++) {
+			if( this._treasures[i] == "Collected") {
+				this._treasures[i] = "Uncollected";
+			}		
+		}
+	},
+	
+    add: function() {
+		this._treasures.push("Uncollected");
+    },
+       
+	getLength: function() {
+		return this._treasures.length;
+	},
+
+	// a function to check if all treasures have been collected;
+	//returns true if they are, otherwise returns false
+	checkTreasures: function() {
+	
+		var result = true;
+	
+		for(var i = 0; i < this._treasures.length; i++) {
+			if( this._treasures[i] != "Collected") {
+				result = false;
+			}
+		}
+		return result;
+	},
+	
+	//a function to safe that a treasure has been collected by the player
+	collectTreasure: function() {
+		for(var i = 0; i < this._treasures.length; i++) {
+			if( this._treasures[i] == "Uncollected") {
+				this._treasures[i] = "Collected";
+				break;
+			}		
+		}
+	},
+});
+

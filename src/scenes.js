@@ -114,6 +114,8 @@ var map;
 Crafty.scene('Game', function() {
 
     //var map;
+	
+	container = Crafty.e('TreasureContainer');
  
     if(levelcounter == 0){
 		map = level1;
@@ -128,6 +130,8 @@ Crafty.scene('Game', function() {
 		map = level3;
     }
     
+	container.initialize();
+	
     for (var y = 0; y < Game.map_grid.height; y++) {
 
         for (var x = 0; x < Game.map_grid.width; x++) {    
@@ -148,7 +152,8 @@ Crafty.scene('Game', function() {
                     Crafty.e('Pole').at(x+1, y+1);
                 }                                 		                
                 if (map[y][x] == 'T'){
-                    Crafty.e('Treasure').at(x+1, y+1);				
+                    Crafty.e('Treasure').at(x+1, y+1);
+					container.add();					
                 }
                 if (map[y][x] == 'P'){
                 thePlayer  =  Crafty.e('PlayerCharacter').at(x+1, y+1);  
@@ -161,7 +166,8 @@ Crafty.scene('Game', function() {
    
     
     this.show_ladder = this.bind('TreasureCollected', function() {   
-        if (!Crafty('Treasure').length){
+        container.collectTreasure();
+        if(container.checkTreasures() == true){
             
             for (var y = 0; y < 10; y++) {
 		
@@ -204,7 +210,8 @@ Crafty.scene('NextLevel', function() {
           .css({ "text-align": "center"})
           .textFont({ size: '15px', weight: 'bold' })
           .textColor("#FFFFFF");
- 
+
+container.initialize();		  
 this.restart_game = function() {Crafty.scene('Game');}; //verbessurung
 this.bind('KeyDown', this.restart_game);
 }, function() {
@@ -220,6 +227,7 @@ Crafty.scene('Gameover', function() {
           .textFont({ size: '15px', weight: 'bold' })
           .textColor("#FFFFFF");
  
+container.reset();
 this.restart_game = function() {Crafty.scene('Game');}; //verbessurung
 this.bind('KeyDown', this.restart_game);
 }, function() {
