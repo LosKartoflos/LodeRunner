@@ -904,5 +904,25 @@ Crafty.c('TreasureContainer', {
 			}		
 		}
 	},
+	
+	//a function to safe an enemy collecting a treasure
+	stealTreasure: function() {
+		for(var i = 0; i < this._treasures.length; i++) {
+			if( this._treasures[i] == "Uncollected") {
+				this._treasures[i] = "Stolen";
+				break;
+			}		
+		}
+	},
+	
+	//a function to safe an enemy dropping a treasure
+	dropTreasure: function() {
+		for(var i = 0; i < this._treasures.length; i++) {
+			if( this._treasures[i] == "Stolen") {
+				this._treasures[i] = "Uncollected";
+				break;
+			}		
+		}
+	}
 });
 
