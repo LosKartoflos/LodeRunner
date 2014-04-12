@@ -68,7 +68,7 @@ Crafty.c('Pole', {
     init: function() {
         this.requires('Actor, Collision, Gravity, spr_enemy, SpriteAnimation')
                 //.stopOnSolids()
-                .bind('EnterFrame', this.movePlayer)
+                .bind('EnterFrame', this.toDoList())
                 .animate("walk_left", 0, 0, 2)
                 .animate("walk_right", 3, 0, 5)
                 .animate("walk_up", 3, 0, 5)
@@ -100,7 +100,7 @@ Crafty.c('Pole', {
                 
     
     //Detects the upcoming block in -x direction 
-        detectNextBlock_Left: function ()
+        /*detectNextBlock_Left: function ()
         {
             var mapCoordY = (this.y )/ this.h;
             var mapCoordX = (this.x - 1) / this.w;
@@ -244,9 +244,9 @@ Crafty.c('Pole', {
             mapCoordY = Math.floor(mapCoordY);
             
             return map[mapCoordY-1][mapCoordX-1];  
-        },
+        },*/
         //animationSpeed: 5,
-        ki: function ()
+        /*ki: function ()
         {
           if (this.moveDirection == 4 && 
                 (
@@ -323,8 +323,7 @@ Crafty.c('Pole', {
               {
                   if(this.detectNextBlock_CornerDownLeft() == '.' && (this.detectNextBlock_DownLeft() == 'H'))
                     this.moveDirection = 3;
-                  /*else if(this.detectNextBlock_Left() == 'W' && this.detectNextBlock_CurrentLeftUp() == 'H' && (playerX%4) == 0)
-                    this.moveDirection = 2;*/
+                
                   else if(this.detectNextBlock_Left() == 'W')
                     this.moveDirection = 3;
                   else
@@ -334,88 +333,24 @@ Crafty.c('Pole', {
               {
                   if(this.detectNextBlock_CornerDownRight() == '.' && (this.detectNextBlock_DownRight() == 'H'))
                     this.moveDirection = 1;
-                  /*else if(this.detectNextBlock_Right() == 'W' && this.detectNextBlock_CurrentLeftUp() == 'H' && (playerX%4) == 0)
-                    this.moveDirection = 2;*/
+                 
                   else if(this.detectNextBlock_Right() == 'W')
                     this.moveDirection = 1;
                   else
                     this.moveDirection = 3;
               }
           }
-        },
+        },*/
+    
+    
         moveDirection : 0,
         playerSpeed : 1.5,
-        movePlayer: function ()
-        { 
-            //console.log(Crafty.e)
-            this.ki();
-            this.killPlayerWithCoord();
-            if (
-                (((this.detectNextBlock_DownLeft() == '.' && this.detectNextBlock_DownRight() == '.') || //when underneath is air
-                  (this.detectNextBlock_DownLeft() == '-' && this.detectNextBlock_DownRight() == '-') || //or a pole
-                  (this.detectNextBlock_DownLeft() == 'T' && this.detectNextBlock_DownRight() == 'T'))) &&// or a treasure
-                  (this.detectNextBlock_CurrentLeftUp() != '-' || this.detectNextBlock_CurrentRightUp() != '-')
-                 //((this.detectNextBlock_CurrentLeftDown() != '-' && this.detectNextBlock_CurrentRightDown() != '-') &&
-                  //(this.detectNextBlock_CurrentLeftUp) != '-' && this.detectNextBlock_CurrentRightUp() != '-')
-                /*  ||//hanging between
-                (((this.detectNextBlock_CurrentLeftUp() == '-' || this.detectNextBlock_CurrentRightUp() == '-') ||
-                  (this.detectNextBlock_CurrentLeftUp() == 'H' || this.detectNextBlock_CurrentRightUp() == 'H'))&&
-                 ((this.detectNextBlock_DownLeft() == '.' && this.detectNextBlock_DownRight() == '.') || //when underneath is air
-                  (this.detectNextBlock_DownLeft() == '-' && this.detectNextBlock_DownRight() == '-')))     */
-                ) 
-            {
-               this.y += this.playerSpeed;
-               this.moveDirection = 0;
-            }
-            else if(this.moveDirection == 1 && this.detectNextBlock_Left() != 'W' && this.x != 24 && this.detectNextBlock_LeftDown() != 'W')//left
-            {
-                this.x -= this.playerSpeed;
-            }
-            else if(this.moveDirection == 2 &&                                        
-                    (((this.detectNextBlock_UpLeft() == 'H' || this.detectNextBlock_UpRight() == 'H')//ladder above
-                    ||
-                    (this.detectNextBlock_CurrentRightDown() == 'H' || this.detectNextBlock_CurrentLeftDown() == 'H'))
-                    ||
-                    ((this.detectNextBlock_UpLeft() == 'h' || this.detectNextBlock_UpRight() == 'h')
-                    && (this.detectNextBlock_CurrentRightDown() == 'H' || this.detectNextBlock_CurrentLeftDown() == 'H')))
-               
-                   )//on ladder
-            {
-                //ladder on rightside
-                if (this.detectNextBlock_CurrentLeftUp() != 'H' && this.detectNextBlock_CurrentRightUp() == 'H')
-                {
-                    this.x += this.playerSpeed;
-                }
-                else if (this.detectNextBlock_CurrentLeftUp() == 'H' && this.detectNextBlock_CurrentRightUp() != 'H')
-                {
-                    this.x -= this.playerSpeed;
-                }
-                else
-                {
-                    this.y -= this.playerSpeed;
-                }
-            }
-             else if(this.moveDirection == 3 && this.detectNextBlock_Right() != 'W' && this.x != 768 && this.detectNextBlock_RightDown() != 'W')//right
-            {
-                this.x += this.playerSpeed;
-            }
-             else if(this.moveDirection == 4 &&
-                     (this.detectNextBlock_DownLeft() != 'W' || this.detectNextBlock_DownRight() != 'W')
-                    )//down
-            {
-                if (this.detectNextBlock_DownLeft() != 'W' && this.detectNextBlock_DownRight() == 'W')
-                {
-                    this.x -= this.playerSpeed;
-                }
-                else if (this.detectNextBlock_DownLeft() == 'W' && this.detectNextBlock_DownRight() != 'W')
-                {
-                    this.x += this.playerSpeed;
-                }
-                else
-                {
-                    this.y += this.playerSpeed;
-                }
-            }
+        toDoList: function(){
+            //this.x += 10;
+          this.moveDirection = ki(this.moveDirection, this.x, this.y, this.h, this.w, playerX, playerY);
+          this.killPlayerWithCoord();
+          this.applyXandY();
+          console.log("In to doList");
         },
 	/* // Respond to this player collecting a Treasure
 	collectTreasure: function(data) {
@@ -423,6 +358,12 @@ Crafty.c('Pole', {
 		treasure.collect();
 	},
         */
+        applyXandY: function(){
+            var xAndY = movePlayer(this.x, this.y, this.h, this.w, this.moveDirection, this.playerSpeed);
+            this.x = xAndY[0];
+            this.y = xAndY[1];
+        },
+       
         killPlayer: function(data) {
 	playerCharacter = data[0].obj;
 		playerCharacter.collect();
