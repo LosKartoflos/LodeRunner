@@ -37,7 +37,7 @@
           {
               moveDirection = 1;
           }
-           else if (moveDirection == 3 && 
+          else if (moveDirection == 3 && 
                 (
                     (
                         //( detectNextBlock_CurrentLeftUp() == '-' &&  detectNextBlock_CurrentRightUp() == '.') || 
@@ -52,7 +52,8 @@
           {
               moveDirection = 3;
           }
-          else//wirklicher Ki Teil
+          
+          else //wirklicher Ki Teil
           {
               console.log("In else")
               if (plY < y && ((detectNextBlock_CurrentRightUp(x,y,h,w) == 'H' || detectNextBlock_CurrentLeftUp(x,y,h,w) == 'H') ||
@@ -66,14 +67,14 @@
                                             ((detectNextBlock_CurrentRightUp(x,y,h,w) == '-' || detectNextBlock_CurrentLeftUp(x,y,h,w) == '-') &&
                                             (detectNextBlock_DownRight(x,y,h,w) == '.' || detectNextBlock_DownRight(x,y,h,w) == '.') &&
                                             //(( x < (playerx+10)) && ( x > (playerx-10)))
-                                            ((playerX-15) <=  x && (playerX-15) >=  x)
+                                            ((plX-15) <=  x && (plX-15) >=  x)
                                             )
                                            )
                        )
               {
                   moveDirection = 4;
               }
-              else if ((moveDirection == 1 || moveDirection == 3) && (playerY !=  y))
+              else if ((moveDirection == 1 || moveDirection == 3) && (plY !=  y))
               {
                   //bleibt moveDirection die Gleich
                   if( x == 24)
@@ -178,6 +179,9 @@
                      y +=  playerSpeed;
                 }
             }
+            var xAndY = new Array();
             
-            return(y,x);
+            xAndY[0] = x;
+            xAndY[1] = y;
+            return(xAndY);
         }

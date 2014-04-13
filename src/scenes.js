@@ -120,7 +120,7 @@ Crafty.scene('Game', function() {
     if(levelcounter == 0){
 		map = level1;
     }
-    console.log(levelcounter);
+    //console.log(levelcounter);
 	
     if(levelcounter == 1){
 		map = level2;
