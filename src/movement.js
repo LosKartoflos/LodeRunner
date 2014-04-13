@@ -185,3 +185,85 @@
             xAndY[1] = y;
             return(xAndY);
         }
+        
+        /*function keyTester(x,y,h,w, moveDirection)
+        {
+          if (this.moveDirection == 4 && 
+                (
+                    (detectNextBlock_CurrentLeftUp(x,  y,  h,  w) == '-' || detectNextBlock_CurrentRightUp( x,  y,  h,  w) == '-') || 
+                    (detectNextBlock_CurrentLeftUp(x,  y,  h,  w) == 'H' || detectNextBlock_CurrentRightUp( x,  y,  h,  w) == 'H')
+                ) &&
+                (
+                    (detectNextBlock_CurrentLeftDown( x,  y,  h,  w) == '.' || detectNextBlock_CurrentRightDown( x,  y,  h,  w) == '.') || 
+                    (detectNextBlock_CurrentLeftDown( x,  y,  h,  w) == '-' || detectNextBlock_CurrentRightDown( x,  y,  h,  w) == '-')
+                ) 
+             )
+          {
+               moveDirection = 4;
+          }
+          else if ( moveDirection == 1 && 
+                (
+                    (
+                        //( detectNextBlock_CurrentLeftUp() == '.' &&  detectNextBlock_CurrentRightUp() == '-') || 
+                        (detectNextBlock_CurrentLeftUp( x,  y,  h,  w) == '.' && detectNextBlock_CurrentRightUp( x,  y,  h,  w) == 'H')
+                    ) &&
+                    (
+                        (detectNextBlock_DownLeft( x,  y,  h,  w) == '.' || detectNextBlock_DownRight( x,  y,  h,  w) == '.' )
+                        
+                    )
+                ) 
+             )
+          {
+               moveDirection = 1;
+          }
+           else if ( moveDirection == 3 && 
+                (
+                    (
+                        //( detectNextBlock_CurrentLeftUp() == '-' &&  detectNextBlock_CurrentRightUp() == '.') || 
+                        (detectNextBlock_CurrentLeftUp( x,  y,  h,  w) == 'H' && detectNextBlock_CurrentRightUp( x,  y,  h,  w) == '.')
+                    ) &&
+                    (
+                        (detectNextBlock_DownLeft( x,  y,  h,  w) == '.' || detectNextBlock_DownRight( x,  y,  h,  w) == '.' )
+                        
+                    )
+                ) 
+             )
+          {
+               moveDirection = 3;
+          }
+          else
+          {
+             moveDirection = 0;
+            //console.log( isDown('LEFT_ARROW'))
+            if( isDown('LEFT_ARROW'))
+            {
+                 moveDirection = 1;
+                 animate('walk_left', 10, -1);
+            }
+            else if( isDown('RIGHT_ARROW'))
+            {
+                 moveDirection = 3;
+                 animate('walk_right', 10, -1);
+            }
+             else if( isDown('UP_ARROW'))
+            {
+                 moveDirection = 2;
+                 animate('walk_up', 10, -1);
+            }
+             else if( isDown('DOWN_ARROW'))
+            {
+                 moveDirection = 4;
+                 animate('walk_down', 10, -1);
+            }
+            else if( isDown('M'))
+            {
+                 moveDirection = 3;
+                 animate('walk_left', 15, -1);
+            }
+            else
+            {
+                 stop();
+            }
+          }
+          return(moveDirection);
+        }*/
