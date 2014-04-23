@@ -74,7 +74,10 @@
             
             mapCoordX = Math.floor(mapCoordX);
             mapCoordY = Math.floor(mapCoordY);
-            
+           
+            //Frage
+            //var stoneBool =  (Crafty.e('Stone') == map_comp[mapCoordY-1][mapCoordX-1]);
+            //console.log("Is Stone: " + stoneBool);
              return map[mapCoordY-1][mapCoordX-1];
         }
         function detectNextBlock_CornerDownLeft (x,y,h,w)
@@ -91,6 +94,8 @@
         {
             var mapCoordY = (y + h)/ h;
             var mapCoordX = (x + w) / w;
+            
+            
             
             mapCoordX = Math.floor(mapCoordX);
             mapCoordY = Math.floor(mapCoordY);

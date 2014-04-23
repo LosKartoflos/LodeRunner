@@ -110,7 +110,7 @@
         
          function movePlayer(x,y,h,w, moveDirection, playerSpeed)
         { 
-           console.log("in Move. Direction: " + moveDirection);
+           //console.log("in Move. Direction: " + moveDirection);
             
             if (
                 (((detectNextBlock_DownLeft(x, y, h, w) == '.' && detectNextBlock_DownRight(x,y,h,w) == '.') || //when underneath is air

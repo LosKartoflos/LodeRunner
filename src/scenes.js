@@ -111,6 +111,7 @@ var level1 =[
 	var levelcounter = 0;
 	      
 var map;
+var map_comp = new Array(); //Frage: warum geht das auf einmal nur so
 Crafty.scene('Game', function() {
 
     //var map;
@@ -133,26 +134,27 @@ Crafty.scene('Game', function() {
 	container.initialize();
 	
     for (var y = 0; y < Game.map_grid.height; y++) {
-
+        map_comp[y] = new Array();
         for (var x = 0; x < Game.map_grid.width; x++) {    
 
                 if (x == 0 || x == Game.map_grid.width - 1 || y == 0 || y == Game.map_grid.height - 1) {																					
-                    Crafty.e('Frame').at(x, y);										
+                    map_comp[y][x] = Crafty.e('Frame').at(x, y);										
                 }			
                 if (map[y][x] == 'W'){
-                    Crafty.e('Stone').at(x+1, y+1);					
+                    map_comp[y][x] = Crafty.e('Stone').at(x+1, y+1);
+                    console.log("Entity: " + map_comp[y][x].toString());
                 }
                 if (map[y][x] == 'C'){
-                    Crafty.e('Concrete').at(x+1, y+1);					
+                    map_comp[y][x] = Crafty.e('Concrete').at(x+1, y+1);					
                 }				
                 if (map[y][x] == 'H'){
-                    Crafty.e('Ladder').at(x+1, y+1);
+                    map_comp[y][x] = Crafty.e('Ladder').at(x+1, y+1);
                 }
                 if (map[y][x] == '-'){
-                    Crafty.e('Pole').at(x+1, y+1);
+                    map_comp[y][x] = Crafty.e('Pole').at(x+1, y+1);
                 }                                 		                
                 if (map[y][x] == 'T'){
-                    Crafty.e('Treasure').at(x+1, y+1);
+                    map_comp[y][x] = Crafty.e('Treasure').at(x+1, y+1);
 					container.add();					
                 }
                 if (map[y][x] == 'P'){
@@ -244,6 +246,10 @@ Crafty.scene('Loading', function(){
         });
 		Crafty.sprite(24, 'assets/enemysprite.png', {
         spr_enemy: [0, 0],
+        });
+        //Frage:
+            Crafty.sprite(24, 'assets/assets-yellow.png', {
+        spr_treasure: [0, 0], spr_stone:[1,0], spr_ladder:[0,1], spr_pole:[1,1]
         });
 
       Crafty.e('2D, DOM, Text')
