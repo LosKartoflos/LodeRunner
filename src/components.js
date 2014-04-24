@@ -69,7 +69,7 @@ var playerY = 0;
     init: function() {
         this.requires('Actor, Collision, Gravity, spr_enemy, SpriteAnimation')
                 //.stopOnSolids()
-                .bind('EnterFrame', this.toDoList())
+                .bind('EnterFrame', this.toDoList)
                 .animate("walk_left", 0, 0, 2)
                 .animate("walk_right", 3, 0, 5)
                 .animate("walk_up", 3, 0, 5)
@@ -250,7 +250,7 @@ Crafty.c('PlayerCharacter', {
         
         toDoList: function(){
           //this.moveDirection = keyTester(this.x, this.y, this.w ,this.h, this.moveDirection);
-          movePlayer(this.x, this.y, this.w, this.h, this.moveDirection, this.playerSpeed); 
+          //movePlayer(this.x, this.y, this.w, this.h, this.moveDirection, this.playerSpeed); 
           this.applyXandY();
         },
         
