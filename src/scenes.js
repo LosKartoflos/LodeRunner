@@ -111,7 +111,7 @@ var level1 =[
 	var levelcounter = 0;
 	      
 var map;
-var map_comp = new Array(); //Frage: warum geht das auf einmal nur so
+var map_comp = new Array();
 Crafty.scene('Game', function() {
 
     //var map;
@@ -142,7 +142,7 @@ Crafty.scene('Game', function() {
                 }			
                 if (map[y][x] == 'W'){
                     map_comp[y][x] = Crafty.e('Stone').at(x+1, y+1);
-                    console.log("Entity: " + map_comp[y][x].toString());
+                    //console.log("Entity: " + map_comp[y][x].toString());
                 }
                 if (map[y][x] == 'C'){
                     map_comp[y][x] = Crafty.e('Concrete').at(x+1, y+1);					
@@ -239,7 +239,7 @@ this.unbind('KeyDown', this.restart_game);
 
 Crafty.scene('Loading', function(){
 
-  Crafty.load(['assets/Stein_oK_72ppi.png', 'assets/Ladder.png', 'assets/Schatz_24x19_72ppi.png', 'assets/Pole.png', 'assets/playersprite.png', 'assets/enemysprite.png' ], function(){
+  Crafty.load(['assets/Stein_oK_72ppi.png', 'assets/Ladder.png', 'assets/Schatz_24x19_72ppi.png', 'assets/Pole.png', 'assets/playersprite.png', 'assets/enemysprite.png', 'assets/background3.png' ], function(){
 
 	    Crafty.sprite(24, 'assets/playersprite.png', {
         spr_player: [0, 0],
@@ -247,10 +247,15 @@ Crafty.scene('Loading', function(){
 		Crafty.sprite(24, 'assets/enemysprite.png', {
         spr_enemy: [0, 0],
         });
-        //Frage:
             Crafty.sprite(24, 'assets/assets-yellow.png', {
         spr_treasure: [0, 0], spr_stone:[1,0], spr_ladder:[0,1], spr_pole:[1,1]
         });
+        
+        
+            
+        var bg = Crafty.e("2D, DOM, Image")
+                    .attr({w: Crafty.viewport.width, h: Crafty.viewport.height})
+                    .image("assets/background3.png", no-repeat);
 
       Crafty.e('2D, DOM, Text')
     .text("Press Key To Start!")

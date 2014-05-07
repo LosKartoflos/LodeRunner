@@ -1,4 +1,10 @@
-//Detects the upcoming block in -x direction 
+//x marks the point where something is detectet. '.' is for the space outside of the player and 'p' for the player. all p's are one full block.
+
+        //.....
+        //xppp.
+        //.ppp.
+        //.ppp.
+        //.....
         function detectNextBlock_Left(x,y,h,w)
         {
             var mapCoordY = (y)/ h;
@@ -6,9 +12,17 @@
             
             mapCoordX = Math.floor(mapCoordX);
             mapCoordY = Math.floor(mapCoordY);
-            
+             //console.log("Entitity: " + map_comp[mapCoordY-1][mapCoordX-1].toString());
+             //console.log("Entitity: " + map_comp[mapCoordY-1][mapCoordX-1].getOwnPropertyNames());
             return map[mapCoordY-1][mapCoordX-1];
+           
+        
         }
+        //.....
+        //.ppp.
+        //.ppp.
+        //xppp.
+        //.....
         function   detectNextBlock_LeftDown (x,y,h,w)
         {
             var mapCoordY = (y + h -1 )/ h;
@@ -19,7 +33,11 @@
             
             return map[mapCoordY-1][mapCoordX-1];
         }
-        //Detects the upcoming block -y direction
+        //.x...
+        //.ppp.
+        //.ppp.
+        //.ppp.
+        //.....
         function detectNextBlock_UpLeft (x,y,h,w)
         {
             var mapCoordY = (y - 1)/ h;
@@ -31,8 +49,11 @@
             return map[mapCoordY-1][mapCoordX-1];
            
         }
-        
-        //Detects the upcoming block +x direction
+        //.....
+        //.pppx
+        //.ppp.
+        //.ppp.
+        //.....
         function detectNextBlock_Right (x,y,h,w)
         {
             var mapCoordY = (y)/ h;
@@ -43,7 +64,11 @@
             
             return map[mapCoordY-1][mapCoordX-1];
         }
-        
+        //...x.
+        //.ppp.
+        //.ppp.
+        //.ppp.
+        //.....
         function detectNextBlock_UpRight (x,y,h,w)
         {
             var mapCoordY = (y - 1)/ h;
@@ -55,7 +80,11 @@
             return map[mapCoordY-1][mapCoordX-1];
            
         }
-        
+        //.....
+        //.ppp.
+        //.ppp.
+        //.pppx
+        //.....
         function detectNextBlock_RightDown (x,y,h,w)
         {
             var mapCoordY = (y + h - 1)/ h;
@@ -66,7 +95,11 @@
             
             return map[mapCoordY-1][mapCoordX-1];
         }
-        //Detects the upcoming block und +y direction
+        //.....
+        //.ppp.
+        //.ppp.
+        //.ppp.
+        //.x...
         function detectNextBlock_DownLeft (x,y,h,w)
         {
             var mapCoordY = (y + h)/ h;
@@ -80,6 +113,11 @@
             //console.log("Is Stone: " + stoneBool);
              return map[mapCoordY-1][mapCoordX-1];
         }
+        //.....
+        //.ppp.
+        //.ppp.
+        //.ppp.
+        //x....
         function detectNextBlock_CornerDownLeft (x,y,h,w)
         {
             var mapCoordY = (y + h)/ h;
@@ -90,6 +128,11 @@
             
              return map[mapCoordY-1][mapCoordX-1];
         }
+        //.....
+        //.ppp.
+        //.ppp.
+        //.ppp.
+        //....x
         function detectNextBlock_CornerDownRight (x,y,h,w)
         {
             var mapCoordY = (y + h)/ h;
@@ -102,6 +145,11 @@
             
              return level1[mapCoordY-1][mapCoordX-1];
         }
+        //.....
+        //.ppp.
+        //.ppp.
+        //.ppp.
+        //...x.
         function detectNextBlock_DownRight (x,y,h,w)
         {
             var mapCoordY = (y + h)/ h;
@@ -112,6 +160,11 @@
             
             return map[mapCoordY-1][mapCoordX-1];      
         }
+        //.....
+        //.ppx.
+        //.ppp.
+        //.ppp.
+        //.....
         function detectNextBlock_CurrentRightUp(x,y,h,w)
         {
             var mapCoordY = (y)/ h;
@@ -122,6 +175,11 @@
             
             return map[mapCoordY-1][mapCoordX-1];  
         }
+        //.....
+        //.xpp.
+        //.ppp.
+        //.ppp.
+        //.....
         function detectNextBlock_CurrentLeftUp(x,y,h,w)
         {
             var mapCoordY = (y)/ h;
@@ -132,6 +190,11 @@
             
             return map[mapCoordY-1][mapCoordX-1];  
         }
+        //.....
+        //.ppp.
+        //.ppp.
+        //.ppx.
+        //.....
         function detectNextBlock_CurrentRightDown(x,y,h,w)
         {
             var mapCoordY = (y + h -1)/ h;
@@ -142,6 +205,11 @@
             
             return map[mapCoordY-1][mapCoordX-1];  
         }
+        //.....
+        //.ppp.
+        //.ppp.
+        //.xpp.
+        //.....
         function detectNextBlock_CurrentLeftDown(x,y,h,w)
         {
             var mapCoordY = (y + h -1)/ h;

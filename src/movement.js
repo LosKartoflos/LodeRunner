@@ -7,7 +7,6 @@
 
  function ki(moveDirection, x, y, h, w, plX, plY)
         {
-            console.log("Movement: " + moveDirection);
           if (moveDirection == 4 && 
                 (
                     (detectNextBlock_CurrentLeftUp(x,y,h,w) == '-' || detectNextBlock_CurrentRightUp(x,y,h,w) == '-') || 
@@ -55,7 +54,6 @@
           
           else //wirklicher Ki Teil
           {
-              console.log("In else")
               if (plY < y && ((detectNextBlock_CurrentRightUp(x,y,h,w) == 'H' || detectNextBlock_CurrentLeftUp(x,y,h,w) == 'H') ||
                       ((detectNextBlock_CurrentRightUp(x,y,h,w) != 'W' || detectNextBlock_CurrentLeftUp(x,y,h,w) != 'W') &&
                       (detectNextBlock_CurrentRightDown(x,y,h,w) == 'H' || detectNextBlock_CurrentLeftDown(x,y,h,w) == 'H'))
@@ -110,22 +108,38 @@
         
          function movePlayer(x,y,h,w, moveDirection, playerSpeed)
         { 
-           //console.log("in Move. Direction: " + moveDirection);
-            
+           
+            //fall
             if (
                 (((detectNextBlock_DownLeft(x, y, h, w) == '.' && detectNextBlock_DownRight(x,y,h,w) == '.') || //when underneath is air
                   (detectNextBlock_DownLeft(x,y,h,w) == '-' && detectNextBlock_DownRight(x,y,h,w) == '-') || //or a pole
                   (detectNextBlock_DownLeft(x,y,h,w) == 'T' && detectNextBlock_DownRight(x,y,h,w) == 'T'))) &&// or a treasure
-                  (detectNextBlock_CurrentLeftUp(x, y, h, w) != '-' || detectNextBlock_CurrentRightUp(x,y,h,w) != '-')
+                  (detectNextBlock_CurrentLeftDown(x, y, h, w) != '-' || detectNextBlock_CurrentRightDown(x,y,h,w) != '-')//
                 ) 
             {
                y += playerSpeed;
                moveDirection = 0;
             }
+            //left
             else if(moveDirection == 1 && detectNextBlock_Left(x,y,h,w) != 'W' && x != 24 && detectNextBlock_LeftDown(x,y,h,w) != 'W')//left
             {
-                x -= playerSpeed;
+                //Pole little bit above
+                if(detectNextBlock_Left(x,y, h, w) == '-' && detectNextBlock_LeftDown(x,y, h, w) != '-')
+                {
+                    y -=playerSpeed;
+                }
+                //Pole little bit underneath
+                else if(detectNextBlock_Left(x,y, h, w) != '-' && detectNextBlock_LeftDown(x,y, h, w) == '-')
+                {
+                    //console.log("In Exeption");
+                    y +=playerSpeed;
+                }
+                else
+                {
+                    x -= playerSpeed;
+                }
             }
+            //up
             else if(moveDirection == 2 &&                                        
                     (((detectNextBlock_UpLeft(x,y, h, w) == 'H' || detectNextBlock_UpRight(x, y, h, w) == 'H')//ladder above
                     ||
@@ -150,19 +164,43 @@
                     y -= playerSpeed;
                 }
             }
+            //right
              else if(moveDirection == 3 && detectNextBlock_Right( x, y, h, w) != 'W' &&  x != 768 && detectNextBlock_RightDown( x, y, h, w) != 'W')//right
-            {
-                 x +=  playerSpeed;
+            {   
+                //Frage
+                //Pole little bit above
+                if(detectNextBlock_Right(x,y, h, w) == '-' && detectNextBlock_RightDown(x,y, h, w) != '-')
+                {             
+                    y -= playerSpeed;
+                }
+                //Pole Little bit underneath
+                else if(detectNextBlock_Right(x,y, h, w) != '-' && detectNextBlock_RightDown(x,y, h, w) == '-')
+                {
+                    //console.log("In Exeption");
+                    y += playerSpeed;
+                }
+                //Nearly at top of ladder
+                else if(detectNextBlock_Right(x,y, h, w) == '.' && detectNextBlock_CurrentRightDown(x,y,h,w) == 'H' && detectNextBlock_UpRight(x,y,h,w) != 'H')
+                {
+                    y -= playerSpeed;
+                }
+                else
+                {
+                    x +=  playerSpeed;
+                }
             }
+            //down
              else if( moveDirection == 4 &&
                      (detectNextBlock_DownLeft( x,  y,  h,  w) != 'W' || detectNextBlock_DownRight( x,  y,  h,  w) != 'W')
                     )//down
             {
-                if (detectNextBlock_DownLeft( x,  y,  h,  w) != 'W' && detectNextBlock_DownRight( x,  y,  h,  w) == 'W')
+                if ((detectNextBlock_DownLeft( x,  y,  h,  w) != 'W' && detectNextBlock_DownRight( x,  y,  h,  w) == 'W')||
+                    (detectNextBlock_UpRight( x,  y,  h,  w)  == '-' && (detectNextBlock_CornerDownLeft(x,  y,  h,  w) == 'H' || detectNextBlock_Left(x,  y,  h,  w) == 'H')))
                 {
                      x -=  playerSpeed;
                 }
-                else if (detectNextBlock_DownLeft( x,  y,  h,  w) == 'W' && detectNextBlock_DownRight( x,  y,  h,  w) != 'W')
+                else if ((detectNextBlock_DownLeft( x,  y,  h,  w) == 'W' && detectNextBlock_DownRight( x,  y,  h,  w) != 'W' )||
+                         (detectNextBlock_UpLeft( x,  y,  h,  w)  == '-' && (detectNextBlock_CornerDownRight(x,  y,  h,  w) == 'H' || detectNextBlock_Right(x,  y,  h,  w) == 'H')))
                 {
                      x +=  playerSpeed;
                 }

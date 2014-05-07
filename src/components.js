@@ -36,8 +36,56 @@ Crafty.c('Frame', {
 Crafty.c('Stone', {   //ohne spritemapping
     init: function() {
         this.requires('Actor, Solid, spr_stone')                
-                .sprite(1,0)
+                .bind('EnterFrame', this.checkDigging)
+                .sprite(1,0);
+        
     },
+                
+       /* digged[]: {0, 0},
+        
+        checkDigging: function(){
+            if (this.digged[0] == 1 && this.digged [1] >= 50)
+            {
+                this.sprite,(0,0);
+                this.digged[1] -= 1;
+            }
+            else if (this.digged[0] == 1 && this.digged [1] >= 1 )
+            {
+                this.sprite,(0,1);
+                this.digged[1] -= 1;
+            }
+            else(this.digged[0]  == 1)
+            {
+                digged[0] = 0;
+            }
+        }
+        */
+       
+       digged0: 0,
+               
+       digged1: 0,        
+       
+       /*checkDigging: function(){
+            if (this.digged0 == 1 && this.digged1 >= 50)
+            {
+                this.sprite,(0,0);
+                this.digged1 -= 1;
+            }
+            else if (this.digged[0] == 1 && this.digged1 >= 1 )
+            {
+                this.sprite,(0,1);
+                this.digged1 -= 1;
+            }
+            else(this.digged0 == 1)
+            {
+                this.digged0 = 0;
+            }
+        },
+        
+        dig: function (){
+            this.digged0 = 1;
+            this.digged1 = 100;
+        },*/
 });
 	/*Crafty.c('Concrete', {    not in use yet
     init: function() {
@@ -70,34 +118,62 @@ var playerY = 0;
         this.requires('Actor, Collision, Gravity, spr_enemy, SpriteAnimation')
                 //.stopOnSolids()
                 .bind('EnterFrame', this.toDoList)
-                .animate("walk_left", 0, 0, 2)
-                .animate("walk_right", 3, 0, 5)
-                .animate("walk_up", 3, 0, 5)
-                .animate("walk_down", 0, 0, 2) 
+                .animate("walk_right", 5, 0, 9)
+                .animate("walk_up", 0, 1, 2)
+                .animate("walk_down", 2, 1, 0)
+                .animate("climb_right", 0, 2, 3) 
+                .animate("climb_left", 4, 2, 7) 
                 .onHit('PlayerCharacater', this.killPlayer);
                 //.onHit('Treasure', this.collectTreasure);
     },
 
 
     
-        //Frage: kann irgendwie playerX und Y nicht lesen (sind aber global und beim spieler funktionierts(siehe console)
-        //Wenn man eine move Direction vorher festlegt hängt er sich bei detect Block auf!
+
         moveDirection : 0,
         playerSpeed : 1.5,
         toDoList: function(){
             //this.x += 10;
-          this.moveDirection = ki(this.moveDirection, this.x, this.y, this.h, this.w, playerX, playerY);
-          console.log("x und Y " + playerX + "/" +playerY);
+          this.moveDirection = ki(this.moveDirection, this.x, this.y, this.h, this.w, playerX, playerY);        
           this.killPlayerWithCoord();
           this.applyXandY();
-          console.log("In toDoList");
         },
 
         applyXandY: function(){
             var xAndY = movePlayer(this.x, this.y, this.h, this.w, this.moveDirection, this.playerSpeed);
-            console.log("XandY, x: " + xAndY[0] + " y: " + xAndY[1] + " pl Speed " + this.playerSpeed);
             this.x = xAndY[0];
             this.y = xAndY[1];
+            
+           /* if(this.moveDirection == 1)
+            {
+                if(detectNextBlock_CurrentLeftUp(this.x, this.y, this.h, this.w) == '-' || detectNextBlock_CurrentRightUp(this.x, this.y, this.h, this.w) == '-')
+                    this.animate('climb_left', 17, -1);
+                else
+                    this.animate('walk_left', 25, -1);
+            }
+            else if(this.moveDirection == 3)
+            {
+                if(detectNextBlock_CurrentLeftUp(this.x, this.y, this.h, this.w) == '-' || detectNextBlock_CurrentRightUp(this.x, this.y, this.h, this.w) == '-')
+                    this.animate('climb_right', 17, -1);
+                else
+                    this.animate('walk_right', 25, -1);
+            }
+             else if(this.moveDirection == 2)
+            {
+                this.animate('walk_up', 20, -1);
+            }
+             else if(this.moveDirection == 4)
+            {
+                this.animate('walk_down', 20, -1);
+            }
+            else if(this.isDown('M'))
+            {
+                this.animate('walk_left', 15, -1);
+            }
+            else
+            {
+                this.stop();
+            }*/
         },
        
         killPlayer: function(data) {
@@ -206,7 +282,6 @@ Crafty.c('PlayerCharacter', {
           else
           {
             this.moveDirection = 0;
-            //console.log(this.isDown('LEFT_ARROW'))
             if(this.isDown('LEFT_ARROW'))
             {
                 this.moveDirection = 1;
@@ -259,9 +334,7 @@ Crafty.c('PlayerCharacter', {
             this.x = xAndY[0];
             this.y = xAndY[1];
             playerX = this.x;
-            playerY = this.y;
-           // console.log("Im Spieler x und Y " + playerX + "/" +playerY);
-            
+            playerY = this.y;        
         },
         
 	 // Respond to this player collecting a Treasure
