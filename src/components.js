@@ -40,7 +40,7 @@ Crafty.c('Stone', {   //ohne spritemapping
                 .sprite(1,0);
         
     },
-                
+       //Frage         
        /* digged[]: {0, 0},
         
         checkDigging: function(){
@@ -65,15 +65,15 @@ Crafty.c('Stone', {   //ohne spritemapping
                
        digged1: 0,        
        
-       /*checkDigging: function(){
+       checkDigging: function(){
             if (this.digged0 == 1 && this.digged1 >= 50)
             {
-                this.sprite,(0,0);
+                this.sprite(0,0);
                 this.digged1 -= 1;
             }
-            else if (this.digged[0] == 1 && this.digged1 >= 1 )
+            else if (this.digged0 == 1 && this.digged1 >= 1 )
             {
-                this.sprite,(0,1);
+                this.sprite(0,1);
                 this.digged1 -= 1;
             }
             else(this.digged0 == 1)
@@ -85,7 +85,7 @@ Crafty.c('Stone', {   //ohne spritemapping
         dig: function (){
             this.digged0 = 1;
             this.digged1 = 100;
-        },*/
+        },
 });
 	/*Crafty.c('Concrete', {    not in use yet
     init: function() {
@@ -111,6 +111,8 @@ Crafty.c('Pole', {
  
 var playerX = 0;
 var playerY = 0;
+var playerW = 0;
+var playerH = 0;
 
  
  Crafty.c('Enemy', {
@@ -144,6 +146,7 @@ var playerY = 0;
             this.x = xAndY[0];
             this.y = xAndY[1];
             
+            //Frage
            /* if(this.moveDirection == 1)
             {
                 if(detectNextBlock_CurrentLeftUp(this.x, this.y, this.h, this.w) == '-' || detectNextBlock_CurrentRightUp(this.x, this.y, this.h, this.w) == '-')
@@ -208,7 +211,7 @@ Crafty.c('PlayerCharacter', {
                 .bind('KeyDown', this.keyTester)
                 .bind('KeyUp', this.keyTester)
                 .bind('EnterFrame', this.toDoList)
-				.animate("walk_left", 0, 0, 4)
+                .animate("walk_left", 0, 0, 4)
                 .animate("walk_right", 5, 0, 9)
                 .animate("walk_up", 0, 1, 2)
                 .animate("walk_down", 2, 1, 0)
@@ -282,7 +285,7 @@ Crafty.c('PlayerCharacter', {
           else
           {
             this.moveDirection = 0;
-            if(this.isDown('LEFT_ARROW'))
+            if(this.isDown('LEFT_ARROW') || this.isDown('A'))
             {
                 this.moveDirection = 1;
                 if(detectNextBlock_CurrentLeftUp(this.x, this.y, this.h, this.w) == '-' || detectNextBlock_CurrentRightUp(this.x, this.y, this.h, this.w) == '-')
@@ -290,7 +293,7 @@ Crafty.c('PlayerCharacter', {
                 else
                     this.animate('walk_left', 25, -1);
             }
-            else if(this.isDown('RIGHT_ARROW'))
+            else if(this.isDown('RIGHT_ARROW')  || this.isDown('D'))
             {
                 this.moveDirection = 3;
                 if(detectNextBlock_CurrentLeftUp(this.x, this.y, this.h, this.w) == '-' || detectNextBlock_CurrentRightUp(this.x, this.y, this.h, this.w) == '-')
@@ -298,12 +301,12 @@ Crafty.c('PlayerCharacter', {
                 else
                     this.animate('walk_right', 25, -1);
             }
-             else if(this.isDown('UP_ARROW'))
+             else if(this.isDown('UP_ARROW')  || this.isDown('W'))
             {
                 this.moveDirection = 2;
                 this.animate('walk_up', 20, -1);
             }
-             else if(this.isDown('DOWN_ARROW'))
+             else if(this.isDown('DOWN_ARROW')  || this.isDown('S'))
             {
                 this.moveDirection = 4;
                 this.animate('walk_down', 20, -1);
@@ -312,6 +315,33 @@ Crafty.c('PlayerCharacter', {
             {
                 this.moveDirection = 3;
                 this.animate('walk_left', 15, -1);
+            }
+            //Buddeln
+             else if(this.isDown('Q'))
+            {
+                
+                
+                    var coord = coord_DownLeft (playerX,playerY,playerH,playerW);
+                    console.log(coord[0] +","+coord[1]);
+                    if(coord_DownRight (playerX,playerY,playerH,playerW) == coord_DownLeft (playerX,playerY,playerH,playerW) && detectNextBlock_CornerDownLeft() == 'S')
+                    {
+                        coord[0] -= 1;
+                        //Frage
+                        var diggedStone = map_comp[coord[0]][coord[1]];
+                        diggedStone.digged0 = 1;
+                    }
+                    else //if(detectNextBlock_DownLeft(playerX,playerY,playerH,playerW) == 'S')
+                    {
+                        var diggedStone = map_comp[coord[0]][coord[1]];
+                        
+                        diggedStone.dig();
+                    }
+                    //console.log(diggedStone.digged0);
+                
+            }
+             else if(this.isDown('E'))
+            {
+                
             }
             else
             {
@@ -334,7 +364,9 @@ Crafty.c('PlayerCharacter', {
             this.x = xAndY[0];
             this.y = xAndY[1];
             playerX = this.x;
-            playerY = this.y;        
+            playerY = this.y; 
+            playerW = this.w;
+            playerH = this.h;
         },
         
 	 // Respond to this player collecting a Treasure
