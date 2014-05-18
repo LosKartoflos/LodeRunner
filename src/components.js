@@ -347,14 +347,15 @@ Crafty.c('PlayerCharacter', {
                     if(coord_DownRight (playerX,playerY,playerH,playerW) == coord_DownLeft (playerX,playerY,playerH,playerW) && detectNextBlock_CornerDownLeft() == 'W')
                     {
                         console.log("genau   || Coord X: " + coord[0] + "   Y: " + coord[1] + "     ||    DetetectNextBlock: " + detectNextBlock_CornerDownLeft(playerX,playerY,playerH,playerW)); 
-                        var diggedStone = map_comp[coord[0]][coord[1]];
+                        var diggedStone = map_comp[coord[1]][coord[0]];
                     }
                     else if(detectNextBlock_DownLeft(playerX,playerY,playerH,playerW) == 'W')
                     {
                         console.log("ungenau || Coord X: " + coord[0] + "   Y: " + coord[1] + "     ||    DetetectNextBlock: " + detectNextBlock_CornerDownLeft(playerX,playerY,playerH,playerW));
-                        var diggedStone = map_comp[coord[0]][coord[1]];
-                        console.log(map_comp[coord[0]][coord[1]]);
+                        var diggedStone = map_comp[coord[1]][coord[0]];
+                        diggedStone.dig();
                         console.log(diggedStone);
+                        console.log(diggedStone.digged);
                     }
                     
             }

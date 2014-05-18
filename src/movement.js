@@ -108,13 +108,21 @@
         
          function movePlayer(x,y,h,w, moveDirection, playerSpeed)
         { 
-           
+            var coordLeft = coord_DownLeft(x,y,h,w); 
+            var coordRight = coord_DownRight(x,y,h,w);
+            var block_left, block_right;
+            //console.log("coordLeft: " + coordLeft[0] + ", " + coordLeft[1]);
+            block_left = map_comp[coordLeft[0]][coordLeft[1]];
+            block_right = map_comp[coordRight[0]][coordRight[1]];
+            
+            
             //fall
             if (
                 (((detectNextBlock_DownLeft(x, y, h, w) == '.' && detectNextBlock_DownRight(x,y,h,w) == '.') || //when underneath is air
                   (detectNextBlock_DownLeft(x,y,h,w) == '-' && detectNextBlock_DownRight(x,y,h,w) == '-') || //or a pole
                   (detectNextBlock_DownLeft(x,y,h,w) == 'T' && detectNextBlock_DownRight(x,y,h,w) == 'T'))) &&// or a treasure
                   (detectNextBlock_CurrentLeftDown(x, y, h, w) != '-' || detectNextBlock_CurrentRightDown(x,y,h,w) != '-')//
+                  //|| (block_left.digged == 1 && block_left.digged == 1)
                 ) 
             {
                y += playerSpeed;
