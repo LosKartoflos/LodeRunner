@@ -197,10 +197,9 @@ Crafty.scene('Game', function() {
                 if (map[y][x] == 'E'){
                     Crafty.e('Enemy').at(x+1, y+1);
                 }
-                /*
                 if (map_bg[y][x] == 'N'){
                     Crafty.e('Nothing_BG')
-                }*/
+                }
         } 
     }        
    
@@ -295,7 +294,7 @@ Crafty.scene('Loading', function(){
         });
         
             Crafty.sprite(24, 'assets/bg.png', {
-        spr_eye: [6,0], spr_clear: [7,0], spr_hoe: [8,0], spr_bowl:[9,0]
+        spr_eye: [6,0], spr_nothing: [7,0], spr_hoe: [8,0], spr_bowl:[9,0]
         });
 
       Crafty.e('2D, DOM, Text')

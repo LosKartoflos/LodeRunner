@@ -92,6 +92,14 @@ Crafty.c('Pole', {
                 .sprite(1,1);
     },
 });
+
+Crafty.c('Nothing_BG', {
+    init: function() {
+        this.requires('Actor, spr_nothing')
+                .sprite(7,0);
+    },
+});
+
 /* 
  Crafty.c('Eye_BG', {
     init: function() {
@@ -100,12 +108,7 @@ Crafty.c('Pole', {
     },
 });
 
-Crafty.c('Nothing_BG', {
-    init: function() {
-        this.requires('Actor, spr_nothing')
-                .sprite(7,0);
-    },
-});
+
 
 Crafty.c('Hoe_BG', {
     init: function() {
