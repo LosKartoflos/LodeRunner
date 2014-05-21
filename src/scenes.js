@@ -53,6 +53,36 @@ var level1 =[
     '',  // nicht entfernen!
     ''   // nicht entfernen!   
     ];
+    
+    
+    var level1_bg =[                     	
+    'NNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN',
+    'NNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN',
+    'NNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN',
+    'NNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN',
+    'NNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN',
+    'NNNHHHNNNNNNNNNNNNNNNNNNNNNNNNNN',
+    'NNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN',
+    'NNNBBBNNNNNNNNNNNNNNNNNNNNNNNNNN',
+    'NNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN',
+    'NNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN',
+    'NNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN',
+    'NNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN',
+    'NNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN',
+    'NNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN',
+    'NNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN',
+    'NNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN',
+    'NNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN',
+    'NNNEEENNNNNNNNNNNNNNNNNNNNNNNNNN',
+    'NNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN',
+    'NNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN',
+    'NNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN',
+    'NNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN',
+    '',  // nicht entfernen!
+    ''   // nicht entfernen!   
+    ];
+    
+    
 	
 	var level2 =[
     '..........X.....................',
@@ -111,6 +141,7 @@ var level1 =[
 	var levelcounter = 0;
 	      
 var map;
+var map_bg;
 var map_comp = new Array();
 Crafty.scene('Game', function() {
 
@@ -120,15 +151,18 @@ Crafty.scene('Game', function() {
  
     if(levelcounter == 0){
 		map = level1;
+                map_bg = level1_bg;
     }
     //console.log(levelcounter);
 	
     if(levelcounter == 1){
 		map = level2;
+                //map_bg = level1_bg;
     }
     
     if(levelcounter == 3){
 		map = level3;
+                //map_bg = level1_bg;
     }
     
 	container.initialize();
@@ -163,6 +197,10 @@ Crafty.scene('Game', function() {
                 if (map[y][x] == 'E'){
                     Crafty.e('Enemy').at(x+1, y+1);
                 }
+                /*
+                if (map_bg[y][x] == 'N'){
+                    Crafty.e('Nothing_BG')
+                }*/
         } 
     }        
    
@@ -239,7 +277,8 @@ this.unbind('KeyDown', this.restart_game);
 
 Crafty.scene('Loading', function(){
 
-  Crafty.load(['assets/Stein_oK_72ppi.png', 'assets/Ladder.png', 'assets/Schatz_24x19_72ppi.png', 'assets/Pole.png', 'assets/playersprite.png', 'assets/enemysprite.png', 'assets/background3.png' ], function(){
+  Crafty.load(['assets/Stein_oK_72ppi.png', 'assets/Ladder.png', 'assets/Schatz_24x19_72ppi.png', 'assets/Pole.png', 'assets/playersprite.png', 
+      'assets/enemysprite.png',  'assets/bg.png', 'assets/steine.png' ], function(){
 
 	    Crafty.sprite(24, 'assets/playersprite.png', {
         spr_player: [0, 0],
@@ -251,11 +290,13 @@ Crafty.scene('Loading', function(){
         spr_treasure: [0, 0], spr_stone:[1,0], spr_ladder:[0,1], spr_pole:[1,1]
         });
         
+            Crafty.sprite (24, 'assets/steine.png', {
+        spr_stone_normal:[0,0]
+        });
         
-            
-        var bg = Crafty.e("2D, DOM, Image")
-                    .attr({w: Crafty.viewport.width, h: Crafty.viewport.height})
-                    .image("assets/background3.png", no-repeat);
+            Crafty.sprite(24, 'assets/bg.png', {
+        spr_eye: [6,0], spr_clear: [7,0], spr_hoe: [8,0], spr_bowl:[9,0]
+        });
 
       Crafty.e('2D, DOM, Text')
     .text("Press Key To Start!")

@@ -35,41 +35,19 @@ Crafty.c('Frame', {
  
 Crafty.c('Stone', {   //ohne spritemapping
     init: function() {
-        this.requires('Actor, Solid, spr_stone')                
-                //.bind('EnterFrame', this.checkDigging)
-                .sprite(1,0);
+        this.requires('Actor, Solid, spr_stone_normal')                
+                .sprite(0,0);
         
-    },
-       //Frage         
-       /* digged[]: {0, 0},
-        
-        checkDigging: function(){
-            if (this.digged[0] == 1 && this.digged [1] >= 50)
-            {
-                this.sprite,(0,0);
-                this.digged[1] -= 1;
-            }
-            else if (this.digged[0] == 1 && this.digged [1] >= 1 )
-            {
-                this.sprite,(0,1);
-                this.digged[1] -= 1;
-            }
-            else(this.digged[0]  == 1)
-            {
-                digged[0] = 0;
-            }
-        }
-        */
-       
+    }, 
        digged: 0,
                
        diggedTimer: 0,        
        
        checkDigging: function(){
            
-            if (this.digged == 1 && this.diggedTimer >= 50)
+            if (this.digged == 1 && this.diggedTimer >= 500)
             {
-                this.sprite(0,0);
+                this.sprite(0,2);
                 this.diggedTimer -= 1;
             }
             else if (this.digged == 1 && this.diggedTimer >= 1 )
@@ -77,17 +55,20 @@ Crafty.c('Stone', {   //ohne spritemapping
                 this.sprite(0,1);
                 this.diggedTimer -= 1;
             }
-            else(this.digged == 1)
+            else if(this.digged == 1 && this.diggedTimer == 1)
             {
-                this.sprite(1,0);
+                this.sprite(0,0);
                 this.digged = 0;
                 this.unbind('EnterFrame', this.checkDigging);
+                console.log("Else/Check Digging: " + this.digged);
             }
+            console.log("Check Digging: " + this.digged);
+            console.log("DiggedTimer: " + this.digged);
         },
         
         dig: function (){
             this.digged = 1;
-            this.diggedTimer = 100;
+            this.diggedTimer = 1000;
             this.bind('EnterFrame', this.checkDigging);
         },
 });
@@ -111,7 +92,35 @@ Crafty.c('Pole', {
                 .sprite(1,1);
     },
 });
- 
+/* 
+ Crafty.c('Eye_BG', {
+    init: function() {
+        this.requires('Actor, spr_eye')
+                .sprite(6,0);
+    },
+});
+
+Crafty.c('Nothing_BG', {
+    init: function() {
+        this.requires('Actor, spr_nothing')
+                .sprite(7,0);
+    },
+});
+
+Crafty.c('Hoe_BG', {
+    init: function() {
+        this.requires('Actor, spr_hoe')
+                .sprite(8,0);
+    },
+});
+
+Crafty.c('Bowl_BG', {
+    init: function() {
+        this.requires('Actor, spr_bowl')
+                .sprite(9,0);
+    },
+});
+*/
  
 var playerX = 0;
 var playerY = 0;
@@ -322,26 +331,7 @@ Crafty.c('PlayerCharacter', {
             }
             //Buddeln
              else if(this.isDown('Q'))
-            {
-                
-                
-                    /*var coord = coord_DownLeft (playerX,playerY,playerH,playerW);
-                    console.log(coord[0] +","+coord[1]);
-                    
-                        coord[0] -= 1;
-                        //Frage
-                        var diggedStone = map_comp[coord[0]][coord[1]];
-                        diggedStone.digged = 1;
-                    }
-                    else //if(detectNextBlock_DownLeft(playerX,playerY,playerH,playerW) == 'S')
-                    {
-                        var diggedStone = map_comp[coord[0]][coord[1]];
-                        
-                        diggedStone.bind('EnterFrame', this.checkDigging);
-                        console.log(diggedStone.digged);
-                    }
-                    //console.log(diggedStone.digged);*/
-                    
+            {       
                     var coord = coord_DownLeft (playerX, playerY, playerH, playerW);
 
                     if(coord_DownRight (playerX,playerY,playerH,playerW) == coord_DownLeft (playerX,playerY,playerH,playerW) && detectNextBlock_CornerDownLeft() == 'W')
@@ -354,14 +344,27 @@ Crafty.c('PlayerCharacter', {
                         console.log("ungenau || Coord X: " + coord[0] + "   Y: " + coord[1] + "     ||    DetetectNextBlock: " + detectNextBlock_CornerDownLeft(playerX,playerY,playerH,playerW));
                         var diggedStone = map_comp[coord[1]][coord[0]];
                         diggedStone.dig();
-                        console.log(diggedStone);
+                        console.log(diggedStone.diggedTimer);
                         console.log(diggedStone.digged);
                     }
                     
             }
+            
              else if(this.isDown('E'))
             {
-                
+                var coord = coord_DownRight (playerX, playerY, playerH, playerW);
+
+                    if(coord_DownRight (playerX,playerY,playerH,playerW) == coord_DownLeft (playerX,playerY,playerH,playerW) && detectNextBlock_CornerDownRight() == 'W')
+                    { 
+                        var diggedStone = map_comp[coord[1]][coord[0]];
+                    }
+                    else if(detectNextBlock_DownRight(playerX,playerY,playerH,playerW) == 'W')
+                    {
+                       
+                        var diggedStone = map_comp[coord[1]][coord[0]];
+                        diggedStone.dig();
+
+                    }
             }
             else
             {
