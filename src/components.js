@@ -23,12 +23,14 @@ Crafty.c('Grid', {
 Crafty.c('Actor', {
     init: function() {
         this.requires('2D, Canvas, Grid');
+        this.z=2;
     },
 });
 Crafty.c('Frame', {
     init: function() {
         this.requires('Actor, Color, Solid')
                 .color('rgb(254, 254, 254)');
+        this.z=1;
     },
 });
 
@@ -37,6 +39,7 @@ Crafty.c('Stone', {   //ohne spritemapping
     init: function() {
         this.requires('Actor, Solid, spr_stone_normal')                
                 .sprite(0,0);
+        this.z=1;
         
     }, 
        digged: 0,
@@ -83,13 +86,14 @@ Crafty.c('Ladder', {
         this.requires('Actor, spr_ladder')                
                // .image('assets/Leiter_oK_24x24_72ppi.png');
 				.sprite(0,1);
-               
+        this.z=1;      
     },
 });
 Crafty.c('Pole', {
     init: function() {
         this.requires('Actor, spr_pole')
                 .sprite(1,1);
+        this.z=1;
     },
 });
 
@@ -97,10 +101,11 @@ Crafty.c('Nothing_BG', {
     init: function() {
         this.requires('Actor, spr_nothing')
                 .sprite(7,0);
+        
+        this.z=0;
     },
 });
 
-/* 
  Crafty.c('Eye_BG', {
     init: function() {
         this.requires('Actor, spr_eye')
@@ -114,6 +119,7 @@ Crafty.c('Hoe_BG', {
     init: function() {
         this.requires('Actor, spr_hoe')
                 .sprite(8,0);
+        this.z=0;
     },
 });
 
@@ -121,9 +127,19 @@ Crafty.c('Bowl_BG', {
     init: function() {
         this.requires('Actor, spr_bowl')
                 .sprite(9,0);
+        this.z=0;
     },
 });
-*/
+//Frage
+Crafty.c('Torch_BG',{
+    init: function(){
+        this.requires('Actor, spr_torch1, SpriteAnimation');
+        //.reel('torchBurning', 1000, 0, 6, 4)
+        //.animate('torchBurning', -1);
+        
+        this.z=0;
+    }
+});
  
 var playerX = 0;
 var playerY = 0;
@@ -162,7 +178,7 @@ var playerH = 0;
             this.x = xAndY[0];
             this.y = xAndY[1];
             
-            //Frage
+            
            /* if(this.moveDirection == 1)
             {
                 if(detectNextBlock_CurrentLeftUp(this.x, this.y, this.h, this.w) == '-' || detectNextBlock_CurrentRightUp(this.x, this.y, this.h, this.w) == '-')
@@ -301,7 +317,29 @@ Crafty.c('PlayerCharacter', {
           else
           {
             this.moveDirection = 0;
-            if(this.isDown('LEFT_ARROW') || this.isDown('A'))
+            if((this.isDown('UP_ARROW')  || this.isDown('W')) &&
+                    (((detectNextBlock_UpLeft(this.x,this.y, this.h, this.w) == 'H' || detectNextBlock_UpRight(this.x, this.y, this.h, this.w) == 'H')//ladder above
+                    ||
+                    (detectNextBlock_CurrentRightDown(this.x, this.y, this.h, this.w) == 'H' || detectNextBlock_CurrentLeftDown(this.x, this.y, this.h, this.w) == 'H'))
+                    ||
+                    ((detectNextBlock_UpLeft(this.x, this.y, this.h, this.w) == 'h' || detectNextBlock_UpRight(this.x, this.y, this.h, this.w) == 'h')
+                    && (detectNextBlock_CurrentRightDown(this.x, this.y, this.h, this.w) == 'H' || detectNextBlock_CurrentLeftDown(this.x, this.y, this.h, this.w) == 'H'))) )
+            {
+                this.moveDirection = 2;
+                this.animate('walk_up', 20, -1);
+            }
+             else if((this.isDown('DOWN_ARROW')  || this.isDown('S')) &&      
+                        (detectNextBlock_DownLeft( this.x,  this.y,  this.h,  this.w) != 'W' || detectNextBlock_DownRight( this.x,  this.y,  this.h,  this.w) != 'W'))
+            {
+                this.moveDirection = 4;
+                this.animate('walk_down', 20, -1);
+            }
+            else if(this.isDown('M'))
+            {
+                this.moveDirection = 3;
+                this.animate('walk_left', 15, -1);
+            }
+            else if(this.isDown('LEFT_ARROW') || this.isDown('A') )
             {
                 this.moveDirection = 1;
                 if(detectNextBlock_CurrentLeftUp(this.x, this.y, this.h, this.w) == '-' || detectNextBlock_CurrentRightUp(this.x, this.y, this.h, this.w) == '-')
@@ -317,23 +355,13 @@ Crafty.c('PlayerCharacter', {
                 else
                     this.animate('walk_right', 25, -1);
             }
-             else if(this.isDown('UP_ARROW')  || this.isDown('W'))
+            else
             {
-                this.moveDirection = 2;
-                this.animate('walk_up', 20, -1);
+                this.stop();
             }
-             else if(this.isDown('DOWN_ARROW')  || this.isDown('S'))
-            {
-                this.moveDirection = 4;
-                this.animate('walk_down', 20, -1);
-            }
-            else if(this.isDown('M'))
-            {
-                this.moveDirection = 3;
-                this.animate('walk_left', 15, -1);
-            }
+            
             //Buddeln
-             else if(this.isDown('Q'))
+            if(this.isDown('Q'))
             {       
                     var coord = coord_DownLeft (playerX, playerY, playerH, playerW);
 
@@ -353,7 +381,7 @@ Crafty.c('PlayerCharacter', {
                     
             }
             
-             else if(this.isDown('E'))
+            if(this.isDown('E'))
             {
                 var coord = coord_DownRight (playerX, playerY, playerH, playerW);
 
@@ -368,12 +396,8 @@ Crafty.c('PlayerCharacter', {
                         diggedStone.dig();
 
                     }
-            }
-            else
-            {
-                this.stop();
-            }
           }
+      }
         },
         moveDirection : 0,
         playerSpeed : 2,

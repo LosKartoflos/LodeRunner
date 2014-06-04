@@ -37,7 +37,7 @@ var level1 =[
     '.........H....WWH....WWWWHWWWWWW',
     '.........H....WWH........H......',
     '.........H....WWH........H......',
-    '.....P..TH....WWH.......tH......',
+    '.....P..TH....WWH........H......',
     'WWWWHWWWWW....WWWWWWHWWWWWWWWWWW',
     '....H...............H...........',
     '....H...............H...........',
@@ -45,10 +45,10 @@ var level1 =[
     'WWWWWWWWWWWWHWWWWWWWHWWWWWWWWWWW',
     '............H.......H...........',
     '............H.......H...........',		
-    '.........t..H-------H...t.......',
+    '.........T..H-------H...........',
     '......HWWWWWWW......WWWWWWWWWWWH',
     '......H........................H',
-    '..E...H.........p..t...........H',
+    '..E...H........................H',
     'WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW',
     '',  // nicht entfernen!
     ''   // nicht entfernen!   
@@ -68,9 +68,9 @@ var level1 =[
     'NNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN',
     'NNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN',
     'NNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN',
+    'NNNTNNTNNTNNNNNNNNNNNNNNNNNNNNNN',
     'NNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN',
-    'NNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN',
-    'NNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN',
+    'NNNNNNNNTNTNNNNNNNNNNNNNNNNNNNNN',
     'NNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN',
     'NNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN',
     'NNNEEENNNNNNNNNNNNNNNNNNNNNNNNNN',
@@ -170,7 +170,12 @@ Crafty.scene('Game', function() {
     for (var y = 0; y < Game.map_grid.height; y++) {
         map_comp[y] = new Array();
         for (var x = 0; x < Game.map_grid.width; x++) {    
-
+                
+                /*if (map_bg[y][x] == 'N' && map[y][x] == '.'){
+                    Crafty.e('Nothing_BG').at(x+1, y+1);
+                    console.log("Nothing BG");
+                }*/
+                
                 if (x == 0 || x == Game.map_grid.width - 1 || y == 0 || y == Game.map_grid.height - 1) {																					
                     map_comp[y][x] = Crafty.e('Frame').at(x, y);										
                 }			
@@ -195,11 +200,25 @@ Crafty.scene('Game', function() {
                 thePlayer  =  Crafty.e('PlayerCharacter').at(x+1, y+1);  
                 }				
                 if (map[y][x] == 'E'){
-                    Crafty.e('Enemy').at(x+1, y+1);
+                    Crafty.e('Enemy').at(x+1, y+1);   
                 }
+                
                 if (map_bg[y][x] == 'N'){
-                    Crafty.e('Nothing_BG')
+                    Crafty.e('Nothing_BG').at(x+1, y+1);
                 }
+                if (map_bg[y][x] == 'H'){
+                    Crafty.e('Hoe_BG').at(x+1, y+1);
+                }
+                if (map_bg[y][x] == 'E'){
+                    Crafty.e('Eye_BG').at(x+1, y+1);
+                }
+                if (map_bg[y][x] == 'B'){
+                    Crafty.e('Bowl_BG').at(x+1, y+1);
+                }
+                if (map_bg[y][x] == 'T'){
+                    Crafty.e('Torch_BG').at(x+1, y+1);
+                }
+               
         } 
     }        
    
@@ -294,8 +313,10 @@ Crafty.scene('Loading', function(){
         });
         
             Crafty.sprite(24, 'assets/bg.png', {
-        spr_eye: [6,0], spr_nothing: [7,0], spr_hoe: [8,0], spr_bowl:[9,0]
-        });
+        spr_eye: [6,0], spr_nothing: [7,0], spr_hoe: [8,0], spr_bowl:[9,0],
+        //spr_torch1: [0,6], spr_torch2: [1,6], spr_torch3: [2,6], spr_torch4: [3,6]
+        spr_torch1: [0,0]
+      });
 
       Crafty.e('2D, DOM, Text')
     .text("Press Key To Start!")

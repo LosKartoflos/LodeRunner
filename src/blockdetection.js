@@ -234,6 +234,19 @@
             return mapCoord;
         }
         
+        function coord_DownRight (x,y,h,w)
+        {
+            var mapCoord = {};
+            
+            mapCoord[0] = (x + w) / w;
+            mapCoord[1] = (y + h)/ h;
+            
+            mapCoord[0] = Math.floor(mapCoord[0]-1);
+            mapCoord[1] = Math.floor(mapCoord[1]-1);
+            
+            return mapCoord;
+        }
+        
          function coord_CurrentDownRight (x,y,h,w)
         {
             var mapCoord = {};

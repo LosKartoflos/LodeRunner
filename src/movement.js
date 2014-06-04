@@ -115,19 +115,26 @@
             block_left = map_comp[coordLeft[1]][coordLeft[0]];
             block_right = map_comp[coordRight[1]][coordRight[0]];
             
-            
+            //console.log("Left digged: " + block_left.digged + ", Right digged: " + block_right.digged);
             //fall
             if (
                 (((detectNextBlock_DownLeft(x, y, h, w) == '.' && detectNextBlock_DownRight(x,y,h,w) == '.') || //when underneath is air
                   (detectNextBlock_DownLeft(x,y,h,w) == '-' && detectNextBlock_DownRight(x,y,h,w) == '-') || //or a pole
                   (detectNextBlock_DownLeft(x,y,h,w) == 'T' && detectNextBlock_DownRight(x,y,h,w) == 'T'))) &&// or a treasure
                   (detectNextBlock_CurrentLeftDown(x, y, h, w) != '-' || detectNextBlock_CurrentRightDown(x,y,h,w) != '-')//
-                  || (block_left.digged == 1 && block_right.digged == 1)
                 ) 
             {
                y += playerSpeed;
                moveDirection = 0;
             }
+            /*else if((detectNextBlock_DownLeft(x,y,h,w) == 'W' || detectNextBlock_DownRight(x,y,h,w) == 'W'))
+            {
+                if((block_left.digged == 1 && block_right.digged == 1))
+                {
+                    y += playerSpeed;
+                    moveDirection = 0; 
+                }
+            }*/
             //left
             else if(moveDirection == 1 && detectNextBlock_Left(x,y,h,w) != 'W' && x != 24 && detectNextBlock_LeftDown(x,y,h,w) != 'W')//left
             {
@@ -142,9 +149,26 @@
                     //console.log("In Exeption");
                     y +=playerSpeed;
                 }
+                //Frage
+                //ladder at top
+                else if (detectNextBlock_Left(x,y,h,w) == '.' &&
+                        detectNextBlock_LeftDown(x,y,h,w) == 'W' &&
+                        detectNextBlock_CurrentLeftDown(x,y,h,w) == 'H')
+                {
+                    y -= playerSpeed;
+                    console.log("in ladder Top");
+                }
+                //ladder at bottom
+                else if (detectNextBlock_Left(x,y,h,w) == 'W' &&
+                        detectNextBlock_LeftDown(x,y,h,w) == '.' &&
+                        detectNextBlock_CurrentLeftUp()(x,y,h,w) == 'H')
+                {
+                    y += playerSpeed;
+                }
                 else
                 {
                     x -= playerSpeed;
+                    console.log("Normal x-");
                 }
             }
             //up
