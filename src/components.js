@@ -133,14 +133,96 @@ Crafty.c('Bowl_BG', {
 //Frage
 Crafty.c('Torch_BG',{
     init: function(){
-        this.requires('Actor, spr_torch1, SpriteAnimation');
+        this.requires('Actor, spr_torch1, SpriteAnimation')
         //.reel('torchBurning', 1000, 0, 6, 4)
         //.animate('torchBurning', -1);
-        
+        .animate('burn', 0, 6, 3); 
         this.z=0;
+        this.animate('burn', 20, -1);
     }
 });
+
+/*
+Crafty.c('_BG', {
+    init: function() {
+        this.requires('Actor, spr_bg')
+                .sprite(,);
+        this.z=0;
+    },
+});
+*/ 
+  /*  Crafty.c('7_BG', {
+    init: function() {
+        this.requires('Actor, spr_bg')
+                .sprite(0,0);
+        this.z=0;
+    },
+});
+    
+Crafty.c('8_BG', {
+    init: function() {
+        this.requires('Actor, spr_bg')
+                .sprite(0,1);
+        this.z=0;
+    },
+});    
+   
+Crafty.c('9_BG', {
+    init: function() {
+        this.requires('Actor, spr_bg')
+                .sprite(0,2);
+        this.z=0;
+    },
+});   
+    
+Crafty.c('4_BG', {
+    init: function() {
+        this.requires('Actor, spr_bg')
+                .sprite(1,0);
+        this.z=0;
+    },
+});
+
+Crafty.c('5_BG', {
+    init: function() {
+        this.requires('Actor, spr_bg')
+                .sprite(1,1);
+        this.z=0;
+    },
+});
+
+Crafty.c('6_BG', {
+    init: function() {
+        this.requires('Actor, spr_bg')
+                .sprite(1,2);
+        this.z=0;
+    },
+});
  
+ Crafty.c('1_BG', {
+    init: function() {
+        this.requires('Actor, spr_bg')
+                .sprite(2,0);
+        this.z=0;
+    },
+});
+
+Crafty.c('2_BG', {
+    init: function() {
+        this.requires('Actor, spr_bg')
+                .sprite(2,1);
+        this.z=0;
+    },
+});
+
+Crafty.c('3_BG', {
+    init: function() {
+        this.requires('Actor, spr_bg')
+                .sprite(2,2);
+        this.z=0;
+    },
+});
+ */
 var playerX = 0;
 var playerY = 0;
 var playerW = 0;
@@ -153,6 +235,7 @@ var playerH = 0;
                 //.stopOnSolids()
                 .bind('EnterFrame', this.toDoList)
                 .animate("walk_right", 5, 0, 9)
+                .animate("walk_left", 0, 0, 4)
                 .animate("walk_up", 0, 1, 2)
                 .animate("walk_down", 2, 1, 0)
                 .animate("climb_right", 0, 2, 3) 
@@ -171,6 +254,48 @@ var playerH = 0;
           this.moveDirection = ki(this.moveDirection, this.x, this.y, this.h, this.w, playerX, playerY);        
           this.killPlayerWithCoord();
           this.applyXandY();
+          
+          if(this.moveDirection == 1)
+          {
+                if(
+                    (detectNextBlock_UpLeft(this.x, this.y, this.h, this.w) == '-' && detectNextBlock_UpRight(this.x, this.y, this.h, this.w) == '-') ||
+                    (detectNextBlock_UpLeft(this.x, this.y, this.h, this.w) == '-' && detectNextBlock_UpRight(this.x, this.y, this.h, this.w) == '.') ||
+                    (detectNextBlock_UpLeft(this.x, this.y, this.h, this.w) == '.' && detectNextBlock_UpRight(this.x, this.y, this.h, this.w) == '-')
+                )
+                {
+                    this.animate('climb_left', 20, -1);
+                }
+                else
+                {
+                    this.animate('walk_left', 20, -1);
+                }
+          }
+          else if(this.moveDirection == 3)
+          {
+                if(
+                    (detectNextBlock_UpLeft(this.x, this.y, this.h, this.w) == '-' && detectNextBlock_UpRight(this.x, this.y, this.h, this.w) == '-') ||
+                    (detectNextBlock_UpLeft(this.x, this.y, this.h, this.w) == '-' && detectNextBlock_UpRight(this.x, this.y, this.h, this.w) == '.') ||
+                    (detectNextBlock_UpLeft(this.x, this.y, this.h, this.w) == '.' && detectNextBlock_UpRight(this.x, this.y, this.h, this.w) == '-')
+                )
+                {
+                    this.animate('climb_right', 20, -1);
+                }
+                else
+                {
+                    this.animate('walk_right', 20, -1);
+                }
+          }
+          else if(this.moveDirection == 2)
+          {
+              this.animate('walk_up', 20, -1);
+          }
+          else if(this.moveDirection == 4)
+          {
+              this.animate('walk_down', 20, -1);
+          }
+
+          
+              
         },
 
         applyXandY: function(){
@@ -209,6 +334,8 @@ var playerH = 0;
             {
                 this.stop();
             }*/
+            
+            
         },
        
         killPlayer: function(data) {
@@ -232,7 +359,7 @@ var levelReady = 0;
 //var level = Scene.level1;
 
 
-
+var animation_speed = 5;
 // This is the player-controlled character
 Crafty.c('PlayerCharacter', {
     
@@ -252,7 +379,7 @@ Crafty.c('PlayerCharacter', {
                 .onHit('Treasure', this.collectTreasure)
                 .onHit('Exit', this.hitExit);
 				
-		var animation_speed = 5;
+		
         this.bind('NewDirection', function(data) {
         if (data.x > 0) {
 			this.animate('walk_right', animation_speed, -1);

@@ -68,13 +68,13 @@ var level1 =[
     'NNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN',
     'NNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN',
     'NNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN',
-    'NNNTNNTNNTNNNNNNNNNNNNNNNNNNNNNN',
-    'NNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN',
-    'NNNNNNNNTNTNNNNNNNNNNNNNNNNNNNNN',
-    'NNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN',
-    'NNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN',
-    'NNNEEENNNNNNNNNNNNNNNNNNNNNNNNNN',
-    'NNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN',
+    'NNNNNNNNNNNNTNNNNNNNNNNNNNNNNNNN',
+    'NNNNNNNNNNNNTNNNNNNNNNNNNNNNNNNN',
+    'NNNNNNnNNNNNNNNNNNNNNNNNNNNNNNNN',
+    'NNNNNNuNNNNNNNNNNNNNNNNNNNNNNNNN',
+    'NNNNN789NNNNNNNNNNNNNNNNNNNNNNNN',
+    'NNNNN456NNNNNNNNNNNNNNNNNNNNNNNN',
+    'NNNNN123TNNNNNNNNNNNNNNNNNNNNNNN',
     'NNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN',
     'NNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN',
     'NNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN',
@@ -218,7 +218,42 @@ Crafty.scene('Game', function() {
                 if (map_bg[y][x] == 'T'){
                     Crafty.e('Torch_BG').at(x+1, y+1);
                 }
+                if (map_bg[y][x] == '7'){
+                    var tmp_bg = Crafty.e('Bowl_BG').at(x+1, y+1);
+                    tmp_bg.sprite(0,0);
+                }
+                /*
+                if (map_bg[y][x] == ''){
+                    Crafty.e('_BG').at(x+1, y+1);
+                }
+                */
                
+               
+                /*if (map_bg[y][x] == '2'){
+                    Crafty.e('2_BG').at(x+1, y+1);
+                }
+                if (map_bg[y][x] == '3'){
+                    Crafty.e('3_BG').at(x+1, y+1);
+                }
+                if (map_bg[y][x] == '4'){
+                    Crafty.e('4_BG').at(x+1, y+1);
+                }
+                if (map_bg[y][x] == '5'){
+                    Crafty.e('5_BG').at(x+1, y+1);
+                }
+                if (map_bg[y][x] == '6'){
+                    Crafty.e('6_BG').at(x+1, y+1);
+                }
+                if (map_bg[y][x] == '7'){
+                    Crafty.e('7_BG').at(x+1, y+1);
+                }
+                if (map_bg[y][x] == '8'){
+                    Crafty.e('8_BG').at(x+1, y+1);
+                }
+                if (map_bg[y][x] == '9'){
+                    Crafty.e('9_BG').at(x+1, y+1);
+                }*/
+                
         } 
     }        
    
@@ -313,9 +348,9 @@ Crafty.scene('Loading', function(){
         });
         
             Crafty.sprite(24, 'assets/bg.png', {
+        spr_bg: [0,0],
         spr_eye: [6,0], spr_nothing: [7,0], spr_hoe: [8,0], spr_bowl:[9,0],
-        //spr_torch1: [0,6], spr_torch2: [1,6], spr_torch3: [2,6], spr_torch4: [3,6]
-        spr_torch1: [0,0]
+        spr_torch1: [0,6], spr_torch2: [1,6], spr_torch3: [2,6], spr_torch4: [3,6]
       });
 
       Crafty.e('2D, DOM, Text')

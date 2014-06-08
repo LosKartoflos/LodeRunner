@@ -168,7 +168,6 @@
                 else
                 {
                     x -= playerSpeed;
-                    console.log("Normal x-");
                 }
             }
             //up
