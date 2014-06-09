@@ -142,15 +142,26 @@ Crafty.c('Torch_BG',{
     }
 });
 
-/*
-Crafty.c('_BG', {
+Crafty.c('Torch2_BG',{
+    init: function(){
+        this.requires('Actor, spr_torch1, SpriteAnimation')
+        //.reel('torchBurning', 1000, 0, 6, 4)
+        //.animate('torchBurning', -1);
+        .animate('burn', 0, 8, 3); 
+        this.z=0;
+        this.animate('burn', 20, -1);
+    }
+});
+
+
+Crafty.c('BG', {
     init: function() {
         this.requires('Actor, spr_bg')
-                .sprite(,);
+                .sprite(0,0);
         this.z=0;
     },
 });
-*/ 
+
   /*  Crafty.c('7_BG', {
     init: function() {
         this.requires('Actor, spr_bg')
@@ -258,9 +269,9 @@ var playerH = 0;
           if(this.moveDirection == 1)
           {
                 if(
-                    (detectNextBlock_UpLeft(this.x, this.y, this.h, this.w) == '-' && detectNextBlock_UpRight(this.x, this.y, this.h, this.w) == '-') ||
-                    (detectNextBlock_UpLeft(this.x, this.y, this.h, this.w) == '-' && detectNextBlock_UpRight(this.x, this.y, this.h, this.w) == '.') ||
-                    (detectNextBlock_UpLeft(this.x, this.y, this.h, this.w) == '.' && detectNextBlock_UpRight(this.x, this.y, this.h, this.w) == '-')
+                    (detectNextBlock_CurrentLeftUp(this.x, this.y, this.h, this.w) == '-' && detectNextBlock_CurrentRightUp(this.x, this.y, this.h, this.w) == '-') ||
+                    (detectNextBlock_CurrentLeftUp(this.x, this.y, this.h, this.w) == '.' && detectNextBlock_CurrentRightUp(this.x, this.y, this.h, this.w) == '-') ||
+                    (detectNextBlock_CurrentLeftUp(this.x, this.y, this.h, this.w) == '-' && detectNextBlock_CurrentRightUp(this.x, this.y, this.h, this.w) == '.')
                 )
                 {
                     this.animate('climb_left', 20, -1);
@@ -273,9 +284,9 @@ var playerH = 0;
           else if(this.moveDirection == 3)
           {
                 if(
-                    (detectNextBlock_UpLeft(this.x, this.y, this.h, this.w) == '-' && detectNextBlock_UpRight(this.x, this.y, this.h, this.w) == '-') ||
-                    (detectNextBlock_UpLeft(this.x, this.y, this.h, this.w) == '-' && detectNextBlock_UpRight(this.x, this.y, this.h, this.w) == '.') ||
-                    (detectNextBlock_UpLeft(this.x, this.y, this.h, this.w) == '.' && detectNextBlock_UpRight(this.x, this.y, this.h, this.w) == '-')
+                    (detectNextBlock_CurrentLeftUp(this.x, this.y, this.h, this.w) == '-' && detectNextBlock_CurrentRightUp(this.x, this.y, this.h, this.w) == '-') ||
+                    (detectNextBlock_CurrentLeftUp(this.x, this.y, this.h, this.w) == '.' && detectNextBlock_CurrentRightUp(this.x, this.y, this.h, this.w) == '-') ||
+                    (detectNextBlock_CurrentLeftUp(this.x, this.y, this.h, this.w) == '-' && detectNextBlock_CurrentRightUp(this.x, this.y, this.h, this.w) == '.')
                 )
                 {
                     this.animate('climb_right', 20, -1);
@@ -359,7 +370,7 @@ var levelReady = 0;
 //var level = Scene.level1;
 
 
-var animation_speed = 5;
+var animation_speed = 15;
 // This is the player-controlled character
 Crafty.c('PlayerCharacter', {
     
