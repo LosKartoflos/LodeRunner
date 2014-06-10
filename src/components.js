@@ -23,14 +23,14 @@ Crafty.c('Grid', {
 Crafty.c('Actor', {
     init: function() {
         this.requires('2D, Canvas, Grid');
-        this.z=2;
+        this.z=3;
     },
 });
 Crafty.c('Frame', {
     init: function() {
         this.requires('Actor, Color, Solid')
                 .color('rgb(254, 254, 254)');
-        this.z=1;
+        this.z=2;
     },
 });
 
@@ -39,7 +39,7 @@ Crafty.c('Stone', {   //ohne spritemapping
     init: function() {
         this.requires('Actor, Solid, spr_stone_normal')                
                 .sprite(0,0);
-        this.z=1;
+        this.z=2;
         
     }, 
        digged: 0,
@@ -86,27 +86,20 @@ Crafty.c('Ladder', {
         this.requires('Actor, spr_ladder')                
                // .image('assets/Leiter_oK_24x24_72ppi.png');
 				.sprite(0,1);
-        this.z=1;      
+        this.z=2;      
     },
 });
 Crafty.c('Pole', {
     init: function() {
         this.requires('Actor, spr_pole')
                 .sprite(1,1);
-        this.z=1;
+        this.z=2;
     },
 });
 
-Crafty.c('Nothing_BG', {
-    init: function() {
-        this.requires('Actor, spr_nothing')
-                .sprite(7,0);
-        
-        this.z=0;
-    },
-});
 
- Crafty.c('Eye_BG', {
+
+ /*Crafty.c('Eye_BG', {
     init: function() {
         this.requires('Actor, spr_eye')
                 .sprite(6,0);
@@ -129,30 +122,60 @@ Crafty.c('Bowl_BG', {
                 .sprite(9,0);
         this.z=0;
     },
-});
-//Frage
+});*/
+
 Crafty.c('Torch_BG',{
     init: function(){
         this.requires('Actor, spr_torch1, SpriteAnimation')
         //.reel('torchBurning', 1000, 0, 6, 4)
         //.animate('torchBurning', -1);
         .animate('burn', 0, 6, 3); 
-        this.z=0;
+        this.z=1;
         this.animate('burn', 20, -1);
     }
 });
 
-Crafty.c('Torch2_BG',{
+Crafty.c('Waterfall1_BG',{
     init: function(){
         this.requires('Actor, spr_torch1, SpriteAnimation')
         //.reel('torchBurning', 1000, 0, 6, 4)
         //.animate('torchBurning', -1);
-        .animate('burn', 0, 8, 3); 
-        this.z=0;
-        this.animate('burn', 20, -1);
+        .animate('burn', 0, 3, 3); 
+        this.z=1;
+        this.animate('burn', 30, -1);
     }
 });
 
+Crafty.c('Waterfall2_BG',{
+    init: function(){
+        this.requires('Actor, spr_torch1, SpriteAnimation')
+        //.reel('torchBurning', 1000, 0, 6, 4)
+        //.animate('torchBurning', -1);
+        .animate('burn', 0, 4, 3); 
+        this.z=1;
+        this.animate('burn', 30, -1);
+    }
+});
+
+Crafty.c('Waterfall3_BG',{
+    init: function(){
+        this.requires('Actor, spr_torch1, SpriteAnimation')
+        //.reel('torchBurning', 1000, 0, 6, 4)
+        //.animate('torchBurning', -1);
+        .animate('burn', 0, 5, 3); 
+        this.z=1;
+        this.animate('burn', 30, -1);
+    }
+});
+
+
+Crafty.c('BG_Front', {
+    init: function() {
+        this.requires('Actor, spr_bg')
+                .sprite(0,0);
+        this.z=1;
+    },
+});
 
 Crafty.c('BG', {
     init: function() {

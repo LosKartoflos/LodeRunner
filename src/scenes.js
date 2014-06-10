@@ -1,4 +1,4 @@
-var level12 =[                     	
+var level1 =[                     	
     '.........................X......',
     '.E..T....................h......',
     'WWWWWWWWWHWWWWWWW........h......',
@@ -21,61 +21,63 @@ var level12 =[
     '......H........................H',
     '..E...H........................H',
     'WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW',
-    '',  // nicht entfernen!
+    '4',  // nicht entfernen!
     ''   // nicht entfernen!   
     ];
     
-    var level1 =[                     	
-    '.........................X......',
-    '....T....................h......',
-    'WWWWWWWWWHWWWWWWW........h......',
-    '.........H-------------..h......',
-    '.........H....WWH........h......',
-    '.........H....WWH......T.h......',
-    '.........H....WWH....WWWWHWWWWWW',
-    '.........H....WWH........H......',
-    '.........H....WWH........H......',
-    '.....P..TH....WWH........H......',
-    'WWWWHWWWWW....WWWWWWHWWWWWWWWWWW',
-    '....H...............H...........',
-    '....H...............H...........',
-    '....H...............H...........',
-    'WWWWWWWWWWWWHWWWWWWWHWWWWWWWWWWW',
-    '............H.......H...........',
-    '............H.......H...........',		
-    '.........T..H-------H...........',
-    '......HWWWWWWW......WWWWWWWWWWWH',
-    '......H........................H',
-    '......H........................H',
-    'WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW',
-    '',  // nicht entfernen!
-    ''   // nicht entfernen!   
-    ];
+    
     
     
     var level1_bg =[                     	
     'iiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii',
     'iiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii',
-    'iiiiiiiiiiiiiiiiiiiiiiiiiiiiUiii',
     'iiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii',
-    'iUiiiiUiiiiZRiiiiiiiiiiiiiUiiiUi',
-    'iiiiiiiiiiiQuiiiiiUiiiiiiiiiiiii',
-    'iiiiiiiiiiipEiiiiiiiiiiiiiiiiiii',
-    'iiUiiiiUiiiWRiiiiiiiiiiiiirweqte',
-    'iiiiiiiiiiiQTiiiiiJiUiAGiiasdfsd',
-    'iiiiiiiiiiiiiiiiiiMiiiiiiiyvcyxc',
     'iiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii',
-    'iiiiiiiiiiiiiiiiDipiiiiiiiiiiiii',
-    'iiiiiiuioipiiiiZiliiiiiUiiUiiUii',
-    'iiiiiiiiiiiiiiiiRioiiiiiiiiiiiii',
-    'IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII',
-    'IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII',
-    'IIIIOIIIOIIIIIIIIIIIIIIILOPOLIII',
-    'IIIIIIIIIIIIIIIIIIIIIIII:I:I:III',
-    'IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII',
-    'IIOIIIIIIIOIIIIIOIIIerweqreqwzqw',
-    'IIIIIIIIIIIIIIIIIIIIeagdafdagdas',
-    'IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII',
+    'iiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii',
+    'iiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii',
+    'iiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii',
+    'iiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii',
+    'iiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii',
+    'iiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii',
+    'iiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii',
+    'iiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii',
+    'iiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii',
+    'iiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii',
+    'iiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii',
+    '................................',
+    '................................',
+    '................................',
+    '................................',
+    '....................qweqweqweqwe',
+    '....................asdasdasdasd',
+    'iiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii',
+    '',  // nicht entfernen!
+    ''   // nicht entfernen!   
+    ];
+    
+    var level1_transparent_bg =[                     	
+    'iiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii',
+    'iiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii',
+    'iiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii',
+    'iiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii',
+    'iiiiQiiiiiiiiiiiiiiiiiiiiiiiiiii',
+    'iiiiAiiiiiiiiiiiiiiiiiiiiiiiiiii',
+    'iiiiAirEWiiiiiiiiiiiiiiiiiiiiiii',
+    'iiiiAifrSiiiiiiiiiiiiiiiiiiiiiii',
+    'iiiiYigDXiiiiiiiiiiiiiiiiiiiiiii',
+    'iiiiiiiCiiiiiiiiiiiiiiiiiiiiiiii',
+    'iiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii',
+    'iiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii',
+    'iiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii',
+    'iiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii',
+    'iiii-iiiiiiiiiiiiiii-iiiiiiiiiii',
+    'iiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii',
+    'iiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii',
+    'iiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii',
+    'iiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii',
+    'iiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii',
+    'iiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii',
+    'iiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii',
     '',  // nicht entfernen!
     ''   // nicht entfernen!   
     ];
@@ -140,6 +142,7 @@ var level12 =[
 	      
 var map;
 var map_bg;
+var map_transparent_bg;
 var map_comp = new Array();
 Crafty.scene('Game', function() {
 
@@ -150,6 +153,7 @@ Crafty.scene('Game', function() {
     if(levelcounter == 0){
 		map = level1;
                 map_bg = level1_bg;
+                map_transparent_bg = level1_transparent_bg;
     }
     //console.log(levelcounter);
 	
@@ -234,18 +238,21 @@ Crafty.scene('Game', function() {
                     tmp_bg.sprite(2,0);
                 }
                 
-                if (map_bg[y][x] == 'r'){
+                if (map_transparent_bg[y][x] == 'r'){
                     var tmp_bg = Crafty.e('BG').at(x+1, y+1);
+                    Crafty.e('Torch_BG').at(x+1, y+1);
                     tmp_bg.sprite(3,0);
                 }
                 
-                if (map_bg[y][x] == 't'){
+                if (map_transparent_bg[y][x] == 't'){
                     var tmp_bg = Crafty.e('BG').at(x+1, y+1);
+                    tmp_bg.z = 1;
                     tmp_bg.sprite(4,0);
                 }
                 
-                if (map_bg[y][x] == 'z'){
+                if (map_transparent_bg[y][x] == 'z'){
                     var tmp_bg = Crafty.e('BG').at(x+1, y+1);
+                    tmp_bg.z = 1;
                     tmp_bg.sprite(5,0);
                 }
                 
@@ -284,18 +291,21 @@ Crafty.scene('Game', function() {
                     tmp_bg.sprite(2,1);
                 }
                 
-                if (map_bg[y][x] == 'f'){
+                if (map_transparent_bg[y][x] == 'f'){
                     var tmp_bg = Crafty.e('BG').at(x+1, y+1);
+                    tmp_bg.z = 1;
                     tmp_bg.sprite(3,1);
                 }
                 
-                if (map_bg[y][x] == 'g'){
+                if (map_transparent_bg[y][x] == 'g'){
                     var tmp_bg = Crafty.e('BG').at(x+1, y+1);
+                    tmp_bg.z = 1;
                     tmp_bg.sprite(4,1);
                 }
                 
-                if (map_bg[y][x] == 'h'){
+                if (map_transparent_bg[y][x] == 'h'){
                     var tmp_bg = Crafty.e('BG').at(x+1, y+1);
+                    tmp_bg.z = 1;
                     tmp_bg.sprite(5,1);
                 }
                 
@@ -334,17 +344,20 @@ Crafty.scene('Game', function() {
                     tmp_bg.sprite(2,2);
                 }
                 
-                if (map_bg[y][x] == 'v'){
+                if (map_transparent_bg[y][x] == 'v'){
                     var tmp_bg = Crafty.e('BG').at(x+1, y+1);
+                    tmp_bg.z = 1;
                     tmp_bg.sprite(3,2);
                 }
-                if (map_bg[y][x] == 'b'){
+                if (map_transparent_bg[y][x] == 'b'){
                     var tmp_bg = Crafty.e('BG').at(x+1, y+1);
+                    tmp_bg.z = 1;
                     tmp_bg.sprite(4,2);
                 }
                 
-                if (map_bg[y][x] == 'n'){
+                if (map_transparent_bg[y][x] == 'n'){
                     var tmp_bg = Crafty.e('BG').at(x+1, y+1);
+                    tmp_bg.z = 1;
                     tmp_bg.sprite(5,2);
                 }
                 
@@ -364,169 +377,69 @@ Crafty.scene('Game', function() {
                     tmp_bg.sprite(8,2);
                 }
                 
-                if (map_bg[y][x] == '-'){
+                if (map_transparent_bg[y][x] == '-'){
                     var tmp_bg = Crafty.e('BG').at(x+1, y+1);
+                    tmp_bg.z = 1;
                     tmp_bg.sprite(9,2);
                 }
-                if (map_bg[y][x] == 'Q'){
-                    var tmp_bg = Crafty.e('BG').at(x+1, y+1);
-                    tmp_bg.sprite(0,3);
+                if (map_transparent_bg[y][x] == 'Q'){
+                    Crafty.e('Waterfall1_BG').at(x+1, y+1);
                 }
                 
                 if (map_bg[y][x] == 'W'){
                     var tmp_bg = Crafty.e('BG').at(x+1, y+1);
-                    tmp_bg.sprite(1,3);
-                }
-                
-                if (map_bg[y][x] == 'E'){
-                    var tmp_bg = Crafty.e('BG').at(x+1, y+1);
-                    tmp_bg.sprite(2,3);
-                }
-                if (map_bg[y][x] == 'R'){
-                    var tmp_bg = Crafty.e('BG').at(x+1, y+1);
-                    tmp_bg.sprite(3,3);
-                }
-                
-                if (map_bg[y][x] == 'T'){
-                    var tmp_bg = Crafty.e('BG').at(x+1, y+1);
+                    tmp_bg.z = 1;
                     tmp_bg.sprite(4,3);
                 }
                 
-                if (map_bg[y][x] == 'Z'){
-                    var tmp_bg = Crafty.e('BG').at(x+1, y+1);
-                    tmp_bg.sprite(5,3);
-                }
-                if (map_bg[y][x] == 'A'){
-                    var tmp_bg = Crafty.e('BG').at(x+1, y+1);
-                    tmp_bg.sprite(0,4);
+                if (map_transparent_bg[y][x] == 'E'){
+                    
+                    Crafty.e('Torch_BG').at(x+1, y+1);
                 }
                 
-                if (map_bg[y][x] == 'S'){
-                    var tmp_bg = Crafty.e('BG').at(x+1, y+1);
-                    tmp_bg.sprite(1,4);
+                if (map_transparent_bg[y][x] == 'A'){
+                    Crafty.e('Waterfall2_BG').at(x+1, y+1);
                 }
                 
-                if (map_bg[y][x] == 'D'){
+                if (map_transparent_bg[y][x] == 'S'){
                     var tmp_bg = Crafty.e('BG').at(x+1, y+1);
-                    tmp_bg.sprite(2,4);
-                }
-                
-                if (map_bg[y][x] == 'F'){
-                   var tmp_bg = Crafty.e('BG').at(x+1, y+1);
-                    tmp_bg.sprite(3,4);
-                }
-                
-                if (map_bg[y][x] == 'G'){
-                    var tmp_bg = Crafty.e('BG').at(x+1, y+1);
+                    tmp_bg.z = 1;
                     tmp_bg.sprite(4,4);
                 }
                 
-                if (map_bg[y][x] == 'H'){
+                if (map_transparent_bg[y][x] == 'D'){
                     var tmp_bg = Crafty.e('BG').at(x+1, y+1);
-                    tmp_bg.sprite(5,4);
-                }
-                if (map_bg[y][x] == 'J'){
-                    var tmp_bg = Crafty.e('BG').at(x+1, y+1);
+                    tmp_bg.z = 1;
                     tmp_bg.sprite(6,4);
                 }
                 
-                if (map_bg[y][x] == 'K'){
-                    var tmp_bg = Crafty.e('BG').at(x+1, y+1);
+                if (map_transparent_bg[y][x] == 'F'){
+                   var tmp_bg = Crafty.e('BG').at(x+1, y+1);
+                   tmp_bg.z = 1;
                     tmp_bg.sprite(7,4);
                 }
                 
-                if (map_bg[y][x] == 'Y'){
+                if (map_transparent_bg[y][x] == 'G'){
                     var tmp_bg = Crafty.e('BG').at(x+1, y+1);
-                    tmp_bg.sprite(0,5);
+                    tmp_bg.z = 1;
+                    tmp_bg.sprite(8,4);
+                }
+                
+                if (map_transparent_bg[y][x] == 'Y'){
+                    Crafty.e('Waterfall3_BG').at(x+1, y+1);
                 }
 
-                if (map_bg[y][x] == 'X'){
+                if (map_transparent_bg[y][x] == 'X'){
                     var tmp_bg = Crafty.e('BG').at(x+1, y+1);
-                    tmp_bg.sprite(1,5);
-                }
-                
-                if (map_bg[y][x] == 'C'){
-                    var tmp_bg = Crafty.e('BG').at(x+1, y+1);
-                    tmp_bg.sprite(2,5);
-                }
-                
-                if (map_bg[y][x] == 'V'){
-                    var tmp_bg = Crafty.e('BG').at(x+1, y+1);
-                    tmp_bg.sprite(3,5);
-                }
-                if (map_bg[y][x] == 'B'){
-                    var tmp_bg = Crafty.e('BG').at(x+1, y+1);
+                    tmp_bg.z = 1;
                     tmp_bg.sprite(4,5);
                 }
                 
-                if (map_bg[y][x] == 'N'){
+                if (map_transparent_bg[y][x] == 'C'){
                     var tmp_bg = Crafty.e('BG').at(x+1, y+1);
-                    tmp_bg.sprite(5,5);
-                }
-                
-                if (map_bg[y][x] == 'M'){
-                    var tmp_bg = Crafty.e('BG').at(x+1, y+1);
+                    tmp_bg.z = 1;
                     tmp_bg.sprite(6,5);
                 }
-                
-                if (map_bg[y][x] == ';'){
-                    var tmp_bg = Crafty.e('BG').at(x+1, y+1);
-                    tmp_bg.sprite(7,5);
-                }
-                
-                if (map_bg[y][x] == 'U'){
-                     Crafty.e('Torch_BG').at(x+1, y+1);
-                }
-                
-                if (map_bg[y][x] == 'I'){
-                    var tmp_bg = Crafty.e('BG').at(x+1, y+1);
-                    tmp_bg.sprite(0,7);
-                }
-                if (map_bg[y][x] == 'O'){
-                    Crafty.e('Torch2_BG').at(x+1, y+1);
-                }
-                
-                if (map_bg[y][x] == 'L'){
-                    var tmp_bg = Crafty.e('BG').at(x+1, y+1);
-                    tmp_bg.sprite(4,8);
-                }
-                
-                if (map_bg[y][x] == 'P'){
-                    var tmp_bg = Crafty.e('BG').at(x+1, y+1);
-                    tmp_bg.sprite(5,8);
-                }
-                
-                 if (map_bg[y][x] == ':'){
-                    var tmp_bg = Crafty.e('BG').at(x+1, y+1);
-                    tmp_bg.sprite(4,9);
-                }
-               
-               
-                /*if (map_bg[y][x] == '2'){
-                    Crafty.e('2_BG').at(x+1, y+1);
-                }
-                if (map_bg[y][x] == '3'){
-                    Crafty.e('3_BG').at(x+1, y+1);
-                }
-                if (map_bg[y][x] == '4'){
-                    Crafty.e('4_BG').at(x+1, y+1);
-                }
-                if (map_bg[y][x] == '5'){
-                    Crafty.e('5_BG').at(x+1, y+1);
-                }
-                if (map_bg[y][x] == '6'){
-                    Crafty.e('6_BG').at(x+1, y+1);
-                }
-                if (map_bg[y][x] == '7'){
-                    Crafty.e('7_BG').at(x+1, y+1);
-                }
-                if (map_bg[y][x] == '8'){
-                    Crafty.e('8_BG').at(x+1, y+1);
-                }
-                if (map_bg[y][x] == '9'){
-                    Crafty.e('9_BG').at(x+1, y+1);
-                }*/
-                
         } 
     }        
    
