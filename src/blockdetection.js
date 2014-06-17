@@ -221,6 +221,31 @@
             return map[mapCoordY-1][mapCoordX-1];  
         }
         
+        //.....
+        //.ppp.
+        //.ppp.
+        //.ppp.
+        //....x.
+        
+        function coord_CornerDownRight (x,y,h,w)
+        {
+            var mapCoord = {};
+            
+            mapCoord[0] = (x + w) / w;
+            mapCoord[1] = (y + h)/ h;
+            
+            mapCoord[0] = Math.floor(mapCoord[0]-1);
+            mapCoord[1] = Math.floor(mapCoord[1]-1);
+            
+            return mapCoord;
+        }
+        
+        //.....
+        //.ppp.
+        //.ppp.
+        //.ppp.
+        //.x...
+        
         function coord_DownLeft (x,y,h,w)
         {
             var mapCoord = {};
@@ -234,20 +259,14 @@
             return mapCoord;
         }
         
-        function coord_DownRight (x,y,h,w)
-        {
-            var mapCoord = {};
-            
-            mapCoord[0] = (x + w) / w;
-            mapCoord[1] = (y + h)/ h;
-            
-            mapCoord[0] = Math.floor(mapCoord[0]-1);
-            mapCoord[1] = Math.floor(mapCoord[1]-1);
-            
-            return mapCoord;
-        }
         
-         function coord_CurrentDownRight (x,y,h,w)
+        //.....
+        //.ppp.
+        //.ppp.
+        //.ppp.
+        //...x.
+        
+         function coord_DownRight (x,y,h,w)
         {
             var mapCoord = {};
             
@@ -270,8 +289,8 @@
         {
             var mapCoord = {};
             
-            var mapCoordY = (y + h -1)/ h;
-            var mapCoordX = (x) / w;
+             mapCoord[1] = (y + h -1)/ h;
+             mapCoord[0] = (x) / w;
             
             mapCoord[0] = Math.floor(mapCoord[0]-1);
             mapCoord[1] = Math.floor(mapCoord[1]-1);
@@ -289,8 +308,46 @@
         {
             var mapCoord = {};
             
-            var mapCoordY = (y + h -1)/ h;
-            var mapCoordX = (x + w -1) / w;
+             mapCoord[1] = (y + h -1)/ h;
+             mapCoord[0] = (x + w -1) / w;
+            
+            mapCoord[0] = Math.floor(mapCoord[0]-1);
+            mapCoord[1] = Math.floor(mapCoord[1]-1);
+            
+            return mapCoord;      
+        }
+        
+        //.....
+        //.xpp.
+        //.ppp.
+        //.ppp.
+        //.....
+        
+        function coord_CurrentLeft (x,y,h,w)
+        {
+            var mapCoord = {};
+            
+             mapCoord[1]= (y)/ h;
+             mapCoord[0] = (x) / w;
+            
+            mapCoord[0] = Math.floor(mapCoord[0]-1);
+            mapCoord[1] = Math.floor(mapCoord[1]-1);
+            
+            return mapCoord;
+        }
+        
+        //.....
+        //.ppx.
+        //.ppp.
+        //.ppp.
+        //.....
+        
+         function coord_CurrentRight (x,y,h,w)
+        {
+            var mapCoord = {};
+            
+             mapCoord[1] = (y)/ h;
+             mapCoord[0] = (x + w -1) / w;
             
             mapCoord[0] = Math.floor(mapCoord[0]-1);
             mapCoord[1] = Math.floor(mapCoord[1]-1);

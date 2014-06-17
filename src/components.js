@@ -48,30 +48,37 @@ Crafty.c('Stone', {   //ohne spritemapping
        
        checkDigging: function(){
            
-            if (this.digged == 1 && this.diggedTimer >= 500)
+           
+           
+            if (this.digged == 1 && this.diggedTimer >= 300)
+            {
+                this.sprite(2,9);
+                this.diggedTimer -= 1;
+            }
+            else if (this.digged == 1 && this.diggedTimer >= 150)
             {
                 this.sprite(0,2);
                 this.diggedTimer -= 1;
             }
-            else if (this.digged == 1 && this.diggedTimer >= 1 )
+            else if (this.digged == 1 && this.diggedTimer >= 2 )
             {
                 this.sprite(0,1);
                 this.diggedTimer -= 1;
+                console.log("under 50 " + this.digged);
             }
-            else if(this.digged == 1 && this.diggedTimer == 1)
+            else if(this.digged == 1 && this.diggedTimer >= 1)
             {
                 this.sprite(0,0);
                 this.digged = 0;
                 this.unbind('EnterFrame', this.checkDigging);
                 console.log("Else/Check Digging: " + this.digged);
             }
-            console.log("Check Digging: " + this.digged);
-            console.log("DiggedTimer: " + this.digged);
+            
         },
         
         dig: function (){
             this.digged = 1;
-            this.diggedTimer = 1000;
+            this.diggedTimer = 500;
             this.bind('EnterFrame', this.checkDigging);
         },
 });
@@ -96,33 +103,6 @@ Crafty.c('Pole', {
         this.z=2;
     },
 });
-
-
-
- /*Crafty.c('Eye_BG', {
-    init: function() {
-        this.requires('Actor, spr_eye')
-                .sprite(6,0);
-    },
-});
-
-
-
-Crafty.c('Hoe_BG', {
-    init: function() {
-        this.requires('Actor, spr_hoe')
-                .sprite(8,0);
-        this.z=0;
-    },
-});
-
-Crafty.c('Bowl_BG', {
-    init: function() {
-        this.requires('Actor, spr_bowl')
-                .sprite(9,0);
-        this.z=0;
-    },
-});*/
 
 Crafty.c('Torch_BG',{
     init: function(){
@@ -185,78 +165,7 @@ Crafty.c('BG', {
     },
 });
 
-  /*  Crafty.c('7_BG', {
-    init: function() {
-        this.requires('Actor, spr_bg')
-                .sprite(0,0);
-        this.z=0;
-    },
-});
-    
-Crafty.c('8_BG', {
-    init: function() {
-        this.requires('Actor, spr_bg')
-                .sprite(0,1);
-        this.z=0;
-    },
-});    
-   
-Crafty.c('9_BG', {
-    init: function() {
-        this.requires('Actor, spr_bg')
-                .sprite(0,2);
-        this.z=0;
-    },
-});   
-    
-Crafty.c('4_BG', {
-    init: function() {
-        this.requires('Actor, spr_bg')
-                .sprite(1,0);
-        this.z=0;
-    },
-});
-
-Crafty.c('5_BG', {
-    init: function() {
-        this.requires('Actor, spr_bg')
-                .sprite(1,1);
-        this.z=0;
-    },
-});
-
-Crafty.c('6_BG', {
-    init: function() {
-        this.requires('Actor, spr_bg')
-                .sprite(1,2);
-        this.z=0;
-    },
-});
- 
- Crafty.c('1_BG', {
-    init: function() {
-        this.requires('Actor, spr_bg')
-                .sprite(2,0);
-        this.z=0;
-    },
-});
-
-Crafty.c('2_BG', {
-    init: function() {
-        this.requires('Actor, spr_bg')
-                .sprite(2,1);
-        this.z=0;
-    },
-});
-
-Crafty.c('3_BG', {
-    init: function() {
-        this.requires('Actor, spr_bg')
-                .sprite(2,2);
-        this.z=0;
-    },
-});
- */
+  
 var playerX = 0;
 var playerY = 0;
 var playerW = 0;
@@ -389,8 +298,7 @@ var playerH = 0;
  
 
 
-var levelReady = 0;
-//var level = Scene.level1;
+
 
 
 var animation_speed = 15;
@@ -536,8 +444,8 @@ Crafty.c('PlayerCharacter', {
                         console.log("ungenau || Coord X: " + coord[0] + "   Y: " + coord[1] + "     ||    DetetectNextBlock: " + detectNextBlock_CornerDownLeft(playerX,playerY,playerH,playerW));
                         var diggedStone = map_comp[coord[1]][coord[0]];
                         diggedStone.dig();
-                        console.log(diggedStone.diggedTimer);
-                        console.log(diggedStone.digged);
+                        //console.log(diggedStone.diggedTimer);
+                        //console.log(diggedStone.digged);
                     }
                     
             }
@@ -580,10 +488,30 @@ Crafty.c('PlayerCharacter', {
             playerH = this.h;
         },
         
+        
+        
 	 // Respond to this player collecting a Treasure
 	collectTreasure: function(data) {
 	treasure = data[0].obj;
 		treasure.collect();
+        if (treasureCollected == map[22][0] )
+        {
+            for (var y = 0; y < 10; y++) {
+		
+                for (var x = 0; x < Game.map_grid.width; x++) {    
+																		           						
+                    if (map[y][x] == 'h'){
+                        Crafty.e('Ladder').at(x+1, y+1);
+                        map[y][x] = 'H';
+                    }
+                    if (map[y][x] == 'X'){
+                        Crafty.e('Exit').at(x+1, y+1);                           					
+                    }
+                    
+                } 
+            }
+            (console.log("treasureCollected"));
+        }
 	},
         
          // Respond to this player hitting the exit

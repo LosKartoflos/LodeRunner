@@ -14,7 +14,7 @@ var level1 =[
     '....H...............H...........',
     '....H...............H...........',
     'WWWWWWWWWWWWHWWWWWWWHWWWWWWWWWWW',
-    '............H.......H...........',
+    '............HWWW....H...........',
     '............H.......H...........',		
     '.........T..H-------H...........',
     '......HWWWWWWW......WWWWWWWWWWWH',
@@ -245,14 +245,12 @@ Crafty.scene('Game', function() {
                 }
                 
                 if (map_transparent_bg[y][x] == 't'){
-                    var tmp_bg = Crafty.e('BG').at(x+1, y+1);
-                    tmp_bg.z = 1;
+                    var tmp_bg = Crafty.e('BG_Front').at(x+1, y+1);
                     tmp_bg.sprite(4,0);
                 }
                 
                 if (map_transparent_bg[y][x] == 'z'){
-                    var tmp_bg = Crafty.e('BG').at(x+1, y+1);
-                    tmp_bg.z = 1;
+                    var tmp_bg = Crafty.e('BG_Front').at(x+1, y+1);
                     tmp_bg.sprite(5,0);
                 }
                 
@@ -292,20 +290,17 @@ Crafty.scene('Game', function() {
                 }
                 
                 if (map_transparent_bg[y][x] == 'f'){
-                    var tmp_bg = Crafty.e('BG').at(x+1, y+1);
-                    tmp_bg.z = 1;
+                    var tmp_bg = Crafty.e('BG_Front').at(x+1, y+1);
                     tmp_bg.sprite(3,1);
                 }
                 
                 if (map_transparent_bg[y][x] == 'g'){
-                    var tmp_bg = Crafty.e('BG').at(x+1, y+1);
-                    tmp_bg.z = 1;
+                    var tmp_bg = Crafty.e('BG_Front').at(x+1, y+1);
                     tmp_bg.sprite(4,1);
                 }
                 
                 if (map_transparent_bg[y][x] == 'h'){
-                    var tmp_bg = Crafty.e('BG').at(x+1, y+1);
-                    tmp_bg.z = 1;
+                    var tmp_bg = Crafty.e('BG_Front').at(x+1, y+1);
                     tmp_bg.sprite(5,1);
                 }
                 
@@ -345,19 +340,16 @@ Crafty.scene('Game', function() {
                 }
                 
                 if (map_transparent_bg[y][x] == 'v'){
-                    var tmp_bg = Crafty.e('BG').at(x+1, y+1);
-                    tmp_bg.z = 1;
+                    var tmp_bg = Crafty.e('BG_Front').at(x+1, y+1);
                     tmp_bg.sprite(3,2);
                 }
                 if (map_transparent_bg[y][x] == 'b'){
-                    var tmp_bg = Crafty.e('BG').at(x+1, y+1);
-                    tmp_bg.z = 1;
+                    var tmp_bg = Crafty.e('BG_Front').at(x+1, y+1);
                     tmp_bg.sprite(4,2);
                 }
                 
                 if (map_transparent_bg[y][x] == 'n'){
-                    var tmp_bg = Crafty.e('BG').at(x+1, y+1);
-                    tmp_bg.z = 1;
+                    var tmp_bg = Crafty.e('BG_Front').at(x+1, y+1);
                     tmp_bg.sprite(5,2);
                 }
                 
@@ -378,8 +370,7 @@ Crafty.scene('Game', function() {
                 }
                 
                 if (map_transparent_bg[y][x] == '-'){
-                    var tmp_bg = Crafty.e('BG').at(x+1, y+1);
-                    tmp_bg.z = 1;
+                    var tmp_bg = Crafty.e('BG_Front').at(x+1, y+1);
                     tmp_bg.sprite(9,2);
                 }
                 if (map_transparent_bg[y][x] == 'Q'){
@@ -387,8 +378,7 @@ Crafty.scene('Game', function() {
                 }
                 
                 if (map_bg[y][x] == 'W'){
-                    var tmp_bg = Crafty.e('BG').at(x+1, y+1);
-                    tmp_bg.z = 1;
+                    var tmp_bg = Crafty.e('BG_Front').at(x+1, y+1);
                     tmp_bg.sprite(4,3);
                 }
                 
@@ -402,26 +392,22 @@ Crafty.scene('Game', function() {
                 }
                 
                 if (map_transparent_bg[y][x] == 'S'){
-                    var tmp_bg = Crafty.e('BG').at(x+1, y+1);
-                    tmp_bg.z = 1;
+                    var tmp_bg = Crafty.e('BG_Front').at(x+1, y+1);
                     tmp_bg.sprite(4,4);
                 }
                 
                 if (map_transparent_bg[y][x] == 'D'){
-                    var tmp_bg = Crafty.e('BG').at(x+1, y+1);
-                    tmp_bg.z = 1;
+                    var tmp_bg = Crafty.e('BG_Front').at(x+1, y+1);
                     tmp_bg.sprite(6,4);
                 }
                 
                 if (map_transparent_bg[y][x] == 'F'){
-                   var tmp_bg = Crafty.e('BG').at(x+1, y+1);
-                   tmp_bg.z = 1;
+                   var tmp_bg = Crafty.e('BG_Front').at(x+1, y+1);
                     tmp_bg.sprite(7,4);
                 }
                 
                 if (map_transparent_bg[y][x] == 'G'){
-                    var tmp_bg = Crafty.e('BG').at(x+1, y+1);
-                    tmp_bg.z = 1;
+                    var tmp_bg = Crafty.e('BG_Front').at(x+1, y+1);
                     tmp_bg.sprite(8,4);
                 }
                 
@@ -430,19 +416,16 @@ Crafty.scene('Game', function() {
                 }
 
                 if (map_transparent_bg[y][x] == 'X'){
-                    var tmp_bg = Crafty.e('BG').at(x+1, y+1);
-                    tmp_bg.z = 1;
+                    var tmp_bg = Crafty.e('BG_Front').at(x+1, y+1);
                     tmp_bg.sprite(4,5);
                 }
                 
                 if (map_transparent_bg[y][x] == 'C'){
-                    var tmp_bg = Crafty.e('BG').at(x+1, y+1);
-                    tmp_bg.z = 1;
+                    var tmp_bg = Crafty.e('BG_Front').at(x+1, y+1);
                     tmp_bg.sprite(6,5);
                 }
         } 
     }        
-   
     
     this.show_ladder = this.bind('TreasureCollected', function() {   
         container.collectTreasure();
@@ -454,6 +437,7 @@ Crafty.scene('Game', function() {
 																		           						
                     if (map[y][x] == 'h'){
                         Crafty.e('Ladder').at(x+1, y+1);
+                        map[y][x] = 'H';
                     }
                     if (map[y][x] == 'X'){
                         Crafty.e('Exit').at(x+1, y+1);                           					
@@ -463,6 +447,9 @@ Crafty.scene('Game', function() {
             }                  
         }             
 });
+
+
+
 this.end_postion = this.bind('EndLevel', function() { 
 	   Crafty("2D").destroy();
 	console.log(levelcounter++);
@@ -481,6 +468,8 @@ this.game_over = this.bind('EnemyCollison', function() {
 }, function(){
    this.unbind('GameWon', this.end_postion);
 });
+
+
 
 Crafty.scene('NextLevel', function() {
     Crafty.e("2D, DOM, Text")

@@ -108,19 +108,87 @@
         
          function movePlayer(x,y,h,w, moveDirection, playerSpeed)
         { 
-            var coordLeft = coord_DownLeft(x,y,h,w); 
-            var coordRight = coord_DownRight(x,y,h,w);
+            
+            //check if block is digged
             var block_left, block_right;
-            //console.log("coordLeft: " + coordLeft[0] + ", " + coordLeft[1]);
+            var digged = 0;
+               
+            var coordLeft = coord_CurrentLeft(x,y,h,w); 
             block_left = map_comp[coordLeft[1]][coordLeft[0]];
+            
+            var coordRight = coord_CurrentRight(x,y,h,w);
             block_right = map_comp[coordRight[1]][coordRight[0]];
+            
+            if( detectNextBlock_CurrentLeftUp(x,y,h,w) == 'W' && detectNextBlock_CurrentLeftUp(x,y,h,w) == 'W')
+            {
+                if((block_left.digged == 1 || block_right.digged == 1)&&(block_left.diggedTimer <= 150 && block_right.diggedTimer <= 150))
+                {
+                    //töten
+                    console.log("Tot! Tot! Grausamer Tot!");
+                }
+                else if(detectNextBlock_DownLeft(x,y,h,w) == 'W')
+                {
+                     var coordLeft = coord_DownLeft(x,y,h,w); 
+                    block_left = map_comp[coordLeft[1]][coordLeft[0]];
+
+                    if(detectNextBlock_DownRight(x,y,h,w) == 'W' && block_left.digged == 1)
+                    {
+                        var coordRight = coord_DownRight(x,y,h,w);
+                        block_right = map_comp[coordRight[1]][coordRight[0]];
+
+                        if(block_right.digged == 1)
+                        {
+                            digged = 1;
+                        }
+                    }
+                    else
+                    {
+                        digged = 0;
+                    }
+
+                }
+                else
+                {
+                   digged = 0;
+                }
+            }
+            else if(detectNextBlock_DownLeft(x,y,h,w) == 'W')
+            {
+                 var coordLeft = coord_DownLeft(x,y,h,w); 
+                block_left = map_comp[coordLeft[1]][coordLeft[0]];
+                
+                if(detectNextBlock_DownRight(x,y,h,w) == 'W' && block_left.digged == 1)
+                {
+                    var coordRight = coord_DownRight(x,y,h,w);
+                    block_right = map_comp[coordRight[1]][coordRight[0]];
+                    
+                    if(block_right.digged == 1)
+                    {
+                        digged = 1;
+                    }
+                }
+                else
+                {
+                    digged = 0;
+                }
+
+            }
+            else
+            {
+               digged = 0;
+            }
+            
+            //console.log("coordLeft: " + coordLeft[0] + ", " + coordLeft[1]);
+                    
+            
             
             //console.log("Left digged: " + block_left.digged + ", Right digged: " + block_right.digged);
             //fall
             if (
-                (((detectNextBlock_DownLeft(x, y, h, w) == '.' && detectNextBlock_DownRight(x,y,h,w) == '.') || //when underneath is air
+                ((detectNextBlock_DownLeft(x, y, h, w) == '.' && detectNextBlock_DownRight(x,y,h,w) == '.') || //when underneath is air
                   (detectNextBlock_DownLeft(x,y,h,w) == '-' && detectNextBlock_DownRight(x,y,h,w) == '-') || //or a pole
-                  (detectNextBlock_DownLeft(x,y,h,w) == 'T' && detectNextBlock_DownRight(x,y,h,w) == 'T'))) &&// or a treasure
+                  (detectNextBlock_DownLeft(x,y,h,w) == 'T' && detectNextBlock_DownRight(x,y,h,w) == 'T') ||
+                   ( digged == 1)) &&// or a treasure
                   (detectNextBlock_CurrentLeftDown(x, y, h, w) != '-' || detectNextBlock_CurrentRightDown(x,y,h,w) != '-')//
                 ) 
             {
