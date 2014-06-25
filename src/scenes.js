@@ -148,7 +148,7 @@ Crafty.scene('Game', function() {
 
     //var map;
 	
-	container = Crafty.e('TreasureContainer');
+	//container = Crafty.e('TreasureContainer');
  
     if(levelcounter == 0){
 		map = level1;
@@ -167,7 +167,7 @@ Crafty.scene('Game', function() {
                 //map_bg = level1_bg;
     }
     
-	container.initialize();
+	//container.initialize();
 	
     for (var y = 0; y < Game.map_grid.height; y++) {
         map_comp[y] = new Array();
@@ -196,7 +196,7 @@ Crafty.scene('Game', function() {
                 }                                 		                
                 if (map[y][x] == 'T'){
                     map_comp[y][x] = Crafty.e('Treasure').at(x+1, y+1);
-					container.add();					
+					//container.add();					
                 }
                 if (map[y][x] == 'P'){
                 thePlayer  =  Crafty.e('PlayerCharacter').at(x+1, y+1);  
@@ -427,7 +427,7 @@ Crafty.scene('Game', function() {
         } 
     }        
     
-    this.show_ladder = this.bind('TreasureCollected', function() {   
+    /*this.show_ladder = this.bind('TreasureCollected', function() {   
         container.collectTreasure();
         if(container.checkTreasures() == true){
             
@@ -446,7 +446,7 @@ Crafty.scene('Game', function() {
                 } 
             }                  
         }             
-});
+});*/
 
 
 
@@ -479,7 +479,8 @@ Crafty.scene('NextLevel', function() {
           .textFont({ size: '15px', weight: 'bold' })
           .textColor("#FFFFFF");
 
-container.initialize();		  
+    //container.initialize();		  
+
 this.restart_game = function() {Crafty.scene('Game');}; //verbessurung
 this.bind('KeyDown', this.restart_game);
 }, function() {
@@ -495,7 +496,7 @@ Crafty.scene('Gameover', function() {
           .textFont({ size: '15px', weight: 'bold' })
           .textColor("#FFFFFF");
  
-container.reset();
+//container.reset();
 this.restart_game = function() {Crafty.scene('Game');}; //verbessurung
 this.bind('KeyDown', this.restart_game);
 }, function() {

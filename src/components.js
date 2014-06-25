@@ -71,7 +71,7 @@ Crafty.c('Stone', {   //ohne spritemapping
                 this.sprite(0,0);
                 this.digged = 0;
                 this.unbind('EnterFrame', this.checkDigging);
-                console.log("Else/Check Digging: " + this.digged);
+                //console.log("Else/Check Digging: " + this.digged);
             }
             
         },
@@ -429,6 +429,11 @@ Crafty.c('PlayerCharacter', {
                 this.stop();
             }
             
+            if(this.isDown('R'))
+            {
+                console.log("Block Above: " + detectNextBlock_UpLeft(this.x, this.y, this.h, this.w));
+            }
+            
             //Buddeln
             if(this.isDown('Q'))
             {       
@@ -436,12 +441,12 @@ Crafty.c('PlayerCharacter', {
 
                     if(coord_DownRight (playerX,playerY,playerH,playerW) == coord_DownLeft (playerX,playerY,playerH,playerW) && detectNextBlock_CornerDownLeft() == 'W')
                     {
-                        console.log("genau   || Coord X: " + coord[0] + "   Y: " + coord[1] + "     ||    DetetectNextBlock: " + detectNextBlock_CornerDownLeft(playerX,playerY,playerH,playerW)); 
+                        //console.log("genau   || Coord X: " + coord[0] + "   Y: " + coord[1] + "     ||    DetetectNextBlock: " + detectNextBlock_CornerDownLeft(playerX,playerY,playerH,playerW)); 
                         var diggedStone = map_comp[coord[1]][coord[0]];
                     }
                     else if(detectNextBlock_DownLeft(playerX,playerY,playerH,playerW) == 'W')
                     {
-                        console.log("ungenau || Coord X: " + coord[0] + "   Y: " + coord[1] + "     ||    DetetectNextBlock: " + detectNextBlock_CornerDownLeft(playerX,playerY,playerH,playerW));
+                        //console.log("ungenau || Coord X: " + coord[0] + "   Y: " + coord[1] + "     ||    DetetectNextBlock: " + detectNextBlock_CornerDownLeft(playerX,playerY,playerH,playerW));
                         var diggedStone = map_comp[coord[1]][coord[0]];
                         diggedStone.dig();
                         //console.log(diggedStone.diggedTimer);
@@ -503,6 +508,7 @@ Crafty.c('PlayerCharacter', {
                     if (map[y][x] == 'h'){
                         Crafty.e('Ladder').at(x+1, y+1);
                         map[y][x] = 'H';
+                        console.log(" map[y][x]: " + map[y][x]);
                     }
                     if (map[y][x] == 'X'){
                         Crafty.e('Exit').at(x+1, y+1);                           					
@@ -556,7 +562,7 @@ Crafty.c('Exit', {
 });
 
 //treasure container class. Saves number of treasures as the size of the array and the state of them as data in it.
-Crafty.c('TreasureContainer', {
+/*Crafty.c('TreasureContainer', {
 
     init: function() {
 		this._treasures  = new Array();
@@ -625,5 +631,5 @@ Crafty.c('TreasureContainer', {
 			}		
 		}
 	}
-});
+});*/
 
