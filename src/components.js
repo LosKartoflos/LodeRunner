@@ -242,7 +242,7 @@ var playerH = 0;
         },
 
         applyXandY: function(){
-            var xAndY = movePlayer(this.x, this.y, this.h, this.w, this.moveDirection, this.playerSpeed);
+            var xAndY = movePlayer(this.x, this.y, this.h, this.w, this.moveDirection, this.playerSpeed, this);
             this.x = xAndY[0];
             this.y = xAndY[1];
             
@@ -484,7 +484,7 @@ Crafty.c('PlayerCharacter', {
         },
         
         applyXandY: function(){
-            var xAndY = movePlayer(this.x, this.y, this.h, this.w, this.moveDirection, this.playerSpeed);
+            var xAndY = movePlayer(this.x, this.y, this.h, this.w, this.moveDirection, this.playerSpeed, this);
             this.x = xAndY[0];
             this.y = xAndY[1];
             playerX = this.x;
@@ -507,7 +507,10 @@ Crafty.c('PlayerCharacter', {
 																		           						
                     if (map[y][x] == 'h'){
                         Crafty.e('Ladder').at(x+1, y+1);
-                        map[y][x] = 'H';
+                        //map[y][x] = 'H';
+                        //map[x] = map[x].substring(0,y)+"H"+map[x].substring(y+1);
+                        //map[y][x]= map[y][x].substring(0,y)+"H"+map[y][x].substring(y+1);
+                        map[y] = map[y].substring(0,x)+"H"+map[y].substring(x+2, map[y].length-1);
                         console.log(" map[y][x]: " + map[y][x]);
                     }
                     if (map[y][x] == 'X'){
@@ -533,6 +536,10 @@ Crafty.c('PlayerCharacter', {
 	
         
 });
+
+/*String.prototype.replaceBetween = function(start, end, what) {
+    return this.substring(0, start) + what + this.substring(end);
+};*/
 
 var treasureCollected = 0;
 

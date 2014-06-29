@@ -107,7 +107,7 @@ var level1 =[
     'H............................H..',
     'H...............P............H..',
     'WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW',
-    '',
+    '5',
     ''
     ];  
     

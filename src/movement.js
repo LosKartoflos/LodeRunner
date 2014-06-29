@@ -106,11 +106,12 @@
         }
         
         
-         function movePlayer(x,y,h,w, moveDirection, playerSpeed)
+         function movePlayer(x,y,h,w, moveDirection, playerSpeed, player)
         { 
             
             //check if block is digged
             var block_left, block_right;
+            var block_leftDown, block_rightDown;
             var digged = 0;
                
             var coordLeft = coord_CurrentLeft(x,y,h,w); 
@@ -119,12 +120,17 @@
             var coordRight = coord_CurrentRight(x,y,h,w);
             block_right = map_comp[coordRight[1]][coordRight[0]];
             
+            var coordLeftDown = coord_CurrentLeftDown(x,y,h,w); 
+            block_leftDown = map_comp[coordLeftDown[1]][coordLeftDown[0]];
+            
+            var coordRightDown = coord_CurrentRightDown(x,y,h,w);
+            block_rightDown = map_comp[coordRightDown[1]][coordRightDown[0]];
+            
             if( detectNextBlock_CurrentLeftUp(x,y,h,w) == 'W' && detectNextBlock_CurrentLeftUp(x,y,h,w) == 'W')
             {
-                if((block_left.digged == 1 || block_right.digged == 1)&&(block_left.diggedTimer <= 150 && block_right.diggedTimer <= 150))
+                if((block_left.digged == 1 || block_right.digged == 1 || block_rightDown.digged == 1 || block_leftDown.digged == 1)&&(block_left.diggedTimer <= 150 && block_right.diggedTimer <= 150))
                 {
-                    //töten
-                    console.log("Tot! Tot! Grausamer Tot!");
+                    player.destroy();
                 }
                 else if(detectNextBlock_DownLeft(x,y,h,w) == 'W')
                 {
