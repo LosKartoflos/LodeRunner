@@ -1,6 +1,6 @@
 var level1 =[                     	
     '.........................X......',
-    '.E..T....................h......',
+    '....T....................h......',
     'WWWWWWWWWHWWWWWWW........h......',
     '.........H-------------..h......',
     '.........H....WWH........h......',
@@ -479,6 +479,8 @@ Crafty.scene('NextLevel', function() {
           .textFont({ size: '15px', weight: 'bold' })
           .textColor("#FFFFFF");
 
+
+     treasureCollected = 0;
     //container.initialize();		  
 
 this.restart_game = function() {Crafty.scene('Game');}; //verbessurung
@@ -496,6 +498,8 @@ Crafty.scene('Gameover', function() {
           .textFont({ size: '15px', weight: 'bold' })
           .textColor("#FFFFFF");
  
+ 
+ treasureCollected = 0;
 //container.reset();
 this.restart_game = function() {Crafty.scene('Game');}; //verbessurung
 this.bind('KeyDown', this.restart_game);

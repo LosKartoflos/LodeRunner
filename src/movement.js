@@ -128,9 +128,97 @@
             
             if( detectNextBlock_CurrentLeftUp(x,y,h,w) == 'W' && detectNextBlock_CurrentLeftUp(x,y,h,w) == 'W')
             {
-                if((block_left.digged == 1 || block_right.digged == 1 || block_rightDown.digged == 1 || block_leftDown.digged == 1)&&(block_left.diggedTimer <= 150 && block_right.diggedTimer <= 150))
+                if((block_left.digged == 1 || block_right.digged == 1 || block_rightDown.digged == 1 || block_leftDown.digged == 1)&&(block_left.diggedTimer <= 300 && block_right.diggedTimer <= 150))
                 {
                     player.destroy();
+                    
+                    console.log("X: " + x + "; Y: " + y + ";\nPX: " + playerX + "; PY: " + playerY);
+                   if ((x != playerX) || (y != playerY))
+                    {
+                        
+                         
+                        var newX, newY;
+                        
+                       
+                        
+                        if((playerX/h) < 16){
+                            this.newX = 32 -playerX/h;
+                            console.log("Enemy Dead1");
+                       }
+                        else
+                        {
+                            this.newX = playerX/h - 16;
+                            console.log("Enemy Dead2");
+                        }
+                        
+                        if((playerY/h) < 16){
+                            this.newY = 32 -playerY/h;
+                            console.log("Enemy Dead3");
+                            
+                            if(detectNextBlock_CurrentRightDown(x,y,h,w) != '.' ||  detectNextBlock_DownRight(x,y,h,w) != 'W')
+                            {
+                                var newXsave = this.newX;
+                                this.newY = 21;
+                                console.log("for while");
+                                while(detectNextBlock_CurrentRightDown(x,y,h,w) == '.' &&  detectNextBlock_DownRight(x,y,h,w) == 'W')
+                                {
+                                    this.newY -= 1;
+                                    
+                                    if(this.newY < 16)
+                                    {
+                                        this.newY = 32;
+                                        
+                                        if(this.newXsave <16)
+                                        {
+                                            this.newX +=1;
+                                        }
+                                        else
+                                        {
+                                            this.newX -= 1;
+                                        }
+                                    }
+                                      
+                                }
+                                 Crafty.e('Enemy').at(this.newX, this.newY);
+                            }
+                        }
+                        else
+                        {
+                            this.newY = playerY/h - 16;
+                            console.log("Enemy Dead4");
+                            
+                            if(detectNextBlock_CurrentRightDown(x,y,h,w) != '.' ||  detectNextBlock_DownRight(x,y,h,w) != 'W')
+                            {
+                                var newXsave = this.newX;
+                                this.newY = 21;
+                                console.log("for while");
+                                while(detectNextBlock_CurrentRightDown(x,y,h,w) == '.' ||  detectNextBlock_DownRight(x,y,h,w) == 'W')
+                                {
+                                    this.newY += 1;
+                                    
+                                    if(this.newY > 16)
+                                    {
+                                        this.newY = 32;
+                                        
+                                        if(this.newXsave <16)
+                                        {
+                                            this.newX +=1;
+                                        }
+                                        else
+                                        {
+                                            this.newX -= 1;
+                                        }
+                                    }
+                                    
+                                }
+                                Crafty.e('Enemy').at(this.newX, this.newY);   
+                            }
+                        }
+                        console.log("NewX: " + this.newX + "; NewY: " + this.newY);
+                        
+                        
+                        
+                    }
                 }
                 else if(detectNextBlock_DownLeft(x,y,h,w) == 'W')
                 {
