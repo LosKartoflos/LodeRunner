@@ -1,0 +1,156 @@
+body
+{
+	font-family:Calibri, Arial, sans-serif;
+	margin:0px;
+	padding:0px;
+}
+
+.navbar
+{
+	background-color:#555;
+	margin:0px;
+	padding:0px;
+	width:100%;
+}
+
+.navbar td
+{
+	
+	margin:0px;
+	padding-left:10px;
+	padding-right:10px;
+	white-space:pre;
+}
+
+.navbar a
+{
+	color:#AAA;
+	text-decoration:none;
+	font-size:x-large;
+}
+
+.navbar a:hover
+{
+	color:#DDD;
+}
+
+.fill
+{
+	width:100%;
+}
+
+.navbar-title a
+{
+	font-size:xx-large;
+}
+
+.navbar-title a:hover
+{
+	color:#AAA;
+}
+
+.levels
+{
+	margin:0px;
+	padding:0px;
+	background-color:#AAA;
+	float:left;
+	overflow:auto;
+	height:576px;
+	width:150px;
+	list-style-type:none;
+	text-align:center;
+}
+
+.levels li
+{
+	margin:0px;
+	padding:0px;
+	margin-top:10px;
+}
+
+.editor
+{
+	margin:0px;
+	padding:0px;
+	float:left;
+	width:816px;
+	height:576px;
+	background-color:#BBB;
+}
+
+.highscores
+{
+	margin:0px;
+	padding:0px;
+	float:left;
+	width:816px;
+	height:576px;
+	background-color:#BBB;
+}
+
+.levels a
+{
+	white-space:pre;
+	color:#222;
+	text-decoration:none;
+}
+
+.levels a:hover
+{
+	color:#DDD;
+}
+
+#cr-stage
+{
+	float:left;
+	width:816px;
+	height:576px;
+}
+
+.centered
+{
+	text-align:center;
+	font-size:xx-large;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
