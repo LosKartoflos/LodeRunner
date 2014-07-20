@@ -256,7 +256,7 @@ Crafty.c('Enemy', {
             var diggedStoneOccupied = map_comp[coord[1]][coord[0]];
             if (diggedStoneOccupied.digged == 1)
             {
-                console.log("set Occupied");
+                //console.log("set Occupied");
                 diggedStoneOccupied.setOccupied();
             }
         }

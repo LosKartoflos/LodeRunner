@@ -273,7 +273,7 @@ function movePlayer(x, y, h, w, moveDirection, playerSpeed, player)
     var coord = coord_DownLeft(x, y, h, w);
     var diggedStoneOccupied = map_comp[coord[1]][coord[0]];
     if (detectNextBlock_DownLeft(x, y, h, w) == 'W')
-        console.log("DiggedStone.occupied: " + diggedStoneOccupied.occupied);
+        //console.log("DiggedStone.occupied: " + diggedStoneOccupied.occupied);
 
     //console.log("Left digged: " + block_left.digged + ", Right digged: " + block_right.digged);
     //fall

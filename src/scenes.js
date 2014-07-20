@@ -3,27 +3,27 @@ src = "lib/jquery.js"
 var level1 = [
     '.........................X......',
     '....T....................h......',
-    'WWWWWWWWWHWWWWWWW........h......',
+    'SWWSWWWSSHSSSSSSW........h......',
     '.........H-------------..h......',
-    '.........H....WWH........h......',
-    '.........H....WWH......T.h......',
-    '.........H....WWH....WWWWHWWWWWW',
-    '.........H....WWH........H......',
-    '.........H....WWH........H......',
-    '.....P..TH....WWH........H......',
-    'WWWWHWWWWW....WWWSSSHWWWWWWWWWWW',
+    '.........H....SSH........h......',
+    '.........H....SSH......T.h......',
+    '.........H....SSH.....SSSHSSSSSS',
+    '.........H....SSH........H......',
+    '.........H....SSH........H......',
+    '.....P..TH....SSH.......TH......',
+    'SSSSHSSSSS....SSSSSSHSSSSSSSSSSS',
     '....H...............H...........',
     '....H...............H...........',
     '....H...............H...........',
-    'WWWWWWWWWWWWHWWWWWWWHWWWWWWWWWWW',
-    '............HWWW....H...........',
+    'SSSSSSSSSSSSHSSSSSSSHSSSSSSSSSSS',
+    '............H.......H...........',
     '............H.......H...........',
     '.........T..H-------H...........',
-    '......HWWWWWWW......WWWWWWWWWWWH',
+    '......HSSSSSSS.....SSSSSSSSSSSSH',
     '......H........................H',
     '..E...H........................H',
-    'WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW',
-    '4', // nicht entfernen!
+    'SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS',
+    '5', // nicht entfernen!
     ''   // nicht entfernen!   
 ];
 
@@ -148,39 +148,39 @@ var map_transparent_bg;
 var map_comp = new Array();
 
 /*var timeSaved;
-var time = new Date(0, 0, 0, 0, 1, 59, 9);
-var timerInterval;
-
-time.setSeconds(time.getSeconds() + 10);
-//document.write("<p id=timerBox style='font-family: sans-serif; font-weight: bold' > " + time.getMinutes().toString() + ":" + time.getSeconds().toString() + ":" + time.getMilliseconds().toString() + "<p>");
-//document.write("<p id=timerBox style='font-family: sans-serif; font-weight: bold' > " + time.parse("mm:ss") + "<p>");
-function timerStop() {
-    timeSaved = time;
-    time = new Date(0, 0, 0, 0, 0, 0, 0);
-    $("#timerBox").html("");
-    clearInterval(timerInterval);
-}
-
-function timerStart() {
-    timerInterval = window.setInterval(function() {
-        timer();
-    }, 10);
-}
-
-function timer()
-{   
-    time.setMilliseconds(time.getMilliseconds() + 10)
-    // time.setSeconds(10);
-    //var n = time.getSeconds() +":"+ time.getMilliseconds();
-    $("#timerBox").html(time.getMinutes().toString() + ":" + time.getSeconds().toString() + ":" + time.getMilliseconds().toString());
-    /*Crafty.e('2D, DOM, Text')
-     .text(time)
-     .attr({x: 0, y: Game.height() / 2 - 24, w: Game.width()})
-     .css({"text-align": "center"})
-     .textFont({size: '15px', weight: 'bold'})
-     .textColor("#FFFFFF");*/
+ var time = new Date(0, 0, 0, 0, 1, 59, 9);
+ var timerInterval;
+ 
+ time.setSeconds(time.getSeconds() + 10);
+ //document.write("<p id=timerBox style='font-family: sans-serif; font-weight: bold' > " + time.getMinutes().toString() + ":" + time.getSeconds().toString() + ":" + time.getMilliseconds().toString() + "<p>");
+ //document.write("<p id=timerBox style='font-family: sans-serif; font-weight: bold' > " + time.parse("mm:ss") + "<p>");
+ function timerStop() {
+ timeSaved = time;
+ time = new Date(0, 0, 0, 0, 0, 0, 0);
+ $("#timerBox").html("");
+ clearInterval(timerInterval);
+ }
+ 
+ function timerStart() {
+ timerInterval = window.setInterval(function() {
+ timer();
+ }, 10);
+ }
+ 
+ function timer()
+ {   
+ time.setMilliseconds(time.getMilliseconds() + 10)
+ // time.setSeconds(10);
+ //var n = time.getSeconds() +":"+ time.getMilliseconds();
+ $("#timerBox").html(time.getMinutes().toString() + ":" + time.getSeconds().toString() + ":" + time.getMilliseconds().toString());
+ /*Crafty.e('2D, DOM, Text')
+ .text(time)
+ .attr({x: 0, y: Game.height() / 2 - 24, w: Game.width()})
+ .css({"text-align": "center"})
+ .textFont({size: '15px', weight: 'bold'})
+ .textColor("#FFFFFF");*/
 /*
-}*/
+ }*/
 
 
 
@@ -226,8 +226,17 @@ Crafty.scene('Game', function() {
                 //console.log("Entity: " + map_comp[y][x].toString());
             }
             if (map[y][x] == 'S') {
+
                 map_comp[y][x] = Crafty.e('Stone').at(x + 1, y + 1);
                 map_comp[y][x].setSolid();
+
+                //map[y] = map[y].substring(0, x-1) + map[y].substring(x, map[y].length );
+                var stringContainer = map[y];
+                console.log(stringContainer);
+                stringContainer = setCharAt(stringContainer, x, 'W');
+                map[y] = stringContainer;
+                console.log("X: " + x + "; Y: " + y);
+                console.log(level1);
                 //console.log("Entity: " + map_comp[y][x].toString());
             }
             if (map[y][x] == 'C') {
@@ -452,6 +461,7 @@ Crafty.scene('Game', function() {
                 tmp_bg.sprite(6, 5);
             }
         }
+        //console.log(level1);
     }
 
     /*this.show_ladder = this.bind('TreasureCollected', function() {   
@@ -478,10 +488,10 @@ Crafty.scene('Game', function() {
 
 
     /*this.end_postion = this.bind('EndLevel', function() {
-        Crafty("2D").destroy();
-        console.log(levelcounter++);
-        Crafty.scene('NextLevel');
-    });*/
+     Crafty("2D").destroy();
+     console.log(levelcounter++);
+     Crafty.scene('NextLevel');
+     });*/
     this.game_over = this.bind('EnemyCollison', function() {
 
         Crafty("2D").destroy();
@@ -499,18 +509,19 @@ Crafty.scene('Game', function() {
 
 
 Crafty.scene('NextLevel', function() {
-    Crafty.e("2D, DOM, Text")
+    Crafty.e("2D, DOM, Text, Image")
             .attr({x: 0, y: Game.height() / 2 - 24, w: Game.width()})
             .text("You Won! Press Space For The Next Level")
             .css({"text-align": "center"})
             .textFont({size: '15px', weight: 'bold'})
-            .textColor("#FFFFFF");
+            .textColor("#FFFFFF")
+            .image("assets/winscreen2.png");
     //timerStop();
 
     treasureCollected = 0;
     //container.initialize();		  
 
-    
+
     $(document).keypress(function(e) {
         if (e.which == 32) {
             start_game();
@@ -531,7 +542,7 @@ Crafty.scene('Gameover', function() {
 
     treasureCollected = 0;
 //container.reset();
-    
+
     $(document).keypress(function(e) {
         if (e.which == 32) {
             start_game();
@@ -573,7 +584,7 @@ Crafty.scene('Loading', function() {
                 .textColor("#FFFFFF");
     })
 
-     //verbessurung
+    //verbessurung
 
     $(document).keypress(function(e) {
         if (e.which == 32) {
@@ -582,10 +593,16 @@ Crafty.scene('Loading', function() {
     });
 });
 
- function start_game() {
-        Crafty.scene('Game');
-        time = 0;
-        //setTimeout('timer()', 1000);
-        //timerStart();
+function start_game() {
+    Crafty.scene('Game');
+    time = 0;
+    //setTimeout('timer()', 1000);
+    //timerStart();
 
-    }
+}
+
+function setCharAt(str, index, chr) {
+    if (index > str.length - 1)
+        return str;
+    return str.substr(0, index) + chr + str.substr(index + 1);
+}
