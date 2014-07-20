@@ -11,7 +11,7 @@ var level1 = [
     '.........H....WWH........H......',
     '.........H....WWH........H......',
     '.....P..TH....WWH........H......',
-    'WWWWHWWWWW....WWWWWWHWWWWWWWWWWW',
+    'WWWWHWWWWW....WWWSSSHWWWWWWWWWWW',
     '....H...............H...........',
     '....H...............H...........',
     '....H...............H...........',
@@ -147,7 +147,7 @@ var map_bg;
 var map_transparent_bg;
 var map_comp = new Array();
 
-var timeSaved;
+/*var timeSaved;
 var time = new Date(0, 0, 0, 0, 1, 59, 9);
 var timerInterval;
 
@@ -179,9 +179,8 @@ function timer()
      .css({"text-align": "center"})
      .textFont({size: '15px', weight: 'bold'})
      .textColor("#FFFFFF");*/
-
-}
-
+/*
+}*/
 
 
 
@@ -224,6 +223,11 @@ Crafty.scene('Game', function() {
             }
             if (map[y][x] == 'W') {
                 map_comp[y][x] = Crafty.e('Stone').at(x + 1, y + 1);
+                //console.log("Entity: " + map_comp[y][x].toString());
+            }
+            if (map[y][x] == 'S') {
+                map_comp[y][x] = Crafty.e('Stone').at(x + 1, y + 1);
+                map_comp[y][x].setSolid();
                 //console.log("Entity: " + map_comp[y][x].toString());
             }
             if (map[y][x] == 'C') {
@@ -501,7 +505,7 @@ Crafty.scene('NextLevel', function() {
             .css({"text-align": "center"})
             .textFont({size: '15px', weight: 'bold'})
             .textColor("#FFFFFF");
-    timerStop();
+    //timerStop();
 
     treasureCollected = 0;
     //container.initialize();		  
@@ -582,6 +586,6 @@ Crafty.scene('Loading', function() {
         Crafty.scene('Game');
         time = 0;
         //setTimeout('timer()', 1000);
-        timerStart();
+        //timerStart();
 
     }

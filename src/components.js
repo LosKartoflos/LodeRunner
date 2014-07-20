@@ -42,6 +42,7 @@ Crafty.c('Stone', {//ohne spritemapping
         this.z = 2;
 
     },
+    diggeable: 1,
     digged: 0,
     occupied: 0,
     diggedTimer: 0,
@@ -76,13 +77,22 @@ Crafty.c('Stone', {//ohne spritemapping
 
     },
     dig: function() {
-        this.digged = 1;
-        this.diggedTimer = 500;
-        this.bind('EnterFrame', this.checkDigging);
+        if (this.diggeable == 1) {
+            this.digged = 1;
+            this.diggedTimer = 500;
+            this.bind('EnterFrame', this.checkDigging);
+        }
     },
-    setOccupied: function(){
+    setOccupied: function() {
         this.occupied = 1;
     },
+    setUnoccupied: function() {
+        this.occupied = 0;
+    },
+    setSolid: function(){
+        this.diggeable = 0;
+         this.sprite(0, 9);
+    }
 });
 /*Crafty.c('Concrete', {    not in use yet
  init: function() {
@@ -178,7 +188,7 @@ var playerH = 0;
 
 Crafty.c('Enemy', {
     init: function() {
-        this.requires('Actor, Collision, Gravity, spr_enemy, SpriteAnimation')
+        this.requires('Actor, Collision, spr_enemy, SpriteAnimation')
                 //.stopOnSolids()
                 .bind('EnterFrame', this.toDoList)
                 .animate("walk_right", 5, 0, 9)
@@ -238,13 +248,15 @@ Crafty.c('Enemy', {
             this.animate('walk_down', 20, -1);
         }
 
-        var coord = coord_DownLeft(this.x, this.y, this.h, this.w);
-        var diggedStoneOccupied = map_comp[coord[1]][coord[0]];
 
-        if (detectNextBlock_CurrentLeftUp(this.x, this.y, this.h, this.w))
+
+        if (detectNextBlock_CurrentLeftUp(this.x, this.y, this.h, this.w) == 'W')
         {
+            var coord = coord_DownLeft(this.x, this.y, this.h, this.w);
+            var diggedStoneOccupied = map_comp[coord[1]][coord[0]];
             if (diggedStoneOccupied.digged == 1)
             {
+                console.log("set Occupied");
                 diggedStoneOccupied.setOccupied();
             }
         }
@@ -312,7 +324,7 @@ var animation_speed = 15;
 // This is the player-controlled character
 Crafty.c('PlayerCharacter', {
     init: function() {
-        this.requires('Actor, Multiway, Collision, Gravity, spr_player, SpriteAnimation, Keyboard')// Multiway: Character goes in the direction of the degree number. Right Arrow = 0 (Clockwise). Number in the Beginnig is the speed.           
+        this.requires('Actor, Collision, spr_player, SpriteAnimation, Keyboard')// Multiway: Character goes in the direction of the degree number. Right Arrow = 0 (Clockwise). Number in the Beginnig is the speed.           
                 .bind('KeyDown', this.keyTester)
                 .bind('KeyUp', this.keyTester)
                 .bind('EnterFrame', this.toDoList)

@@ -128,11 +128,15 @@ function movePlayer(x, y, h, w, moveDirection, playerSpeed, player)
 
     if (detectNextBlock_CurrentLeftUp(x, y, h, w) == 'W' && detectNextBlock_CurrentLeftUp(x, y, h, w) == 'W')
     {
-        if ((block_left.diggedTimer <= 300 || block_right.diggedTimer <= 300))//|| block_rightDown.digged == 300 || block_leftDown.digged == 300 //(block_left.digged == 1 || block_right.digged == 1 || block_rightDown.digged == 1 || block_leftDown.digged == 1)&&
+        if(block_left.digged == 1 && block_left.occupied == 0)
+        {
+            block_left.setOccupied();
+        }
+        
+        if ((block_left.digged == 1 || block_right.digged == 1 || block_rightDown.digged == 1 || block_leftDown.digged == 1) && (block_left.diggedTimer <= 300 && block_right.diggedTimer <= 150))
         {
             player.destroy();
-
-
+            block_left.setUnoccupied();
 
             //console.log("X: " + x + "; Y: " + y + ";\nPX: " + playerX + "; PY: " + playerY);
             if ((x != playerX) || (y != playerY))
@@ -144,7 +148,7 @@ function movePlayer(x, y, h, w, moveDirection, playerSpeed, player)
 
 
                 if ((playerX / h) < 16) {
-                    this.newX = 32 - playerX / h;
+                    this.newX = 32 - playerX / h;               
                 }
                 else
                 {
@@ -153,7 +157,6 @@ function movePlayer(x, y, h, w, moveDirection, playerSpeed, player)
 
                 if ((playerY / h) < 16) {
                     this.newY = 32 - playerY / h;
-
 
                     if (detectNextBlock_CurrentRightDown(x, y, h, w) != '.' || detectNextBlock_DownRight(x, y, h, w) != 'W')
                     {
@@ -184,8 +187,6 @@ function movePlayer(x, y, h, w, moveDirection, playerSpeed, player)
                 else
                 {
                     this.newY = playerY / h - 16;
-                    //console.log("Enemy Dead4");
-
                     if (detectNextBlock_CurrentRightDown(x, y, h, w) != '.' || detectNextBlock_DownRight(x, y, h, w) != 'W')
                     {
                         var newXsave = this.newX;
@@ -213,14 +214,6 @@ function movePlayer(x, y, h, w, moveDirection, playerSpeed, player)
                     }
                 }
                 //console.log("NewX: " + this.newX + "; NewY: " + this.newY);
-
-
-            }
-            else
-            {
-               // console.log("Player Killed");
-                
-                Crafty.trigger('EnemyCollison', player);
             }
         }
         else if (detectNextBlock_DownLeft(x, y, h, w) == 'W')
@@ -249,7 +242,7 @@ function movePlayer(x, y, h, w, moveDirection, playerSpeed, player)
             digged = 0;
         }
     }
-    /*else if (detectNextBlock_DownLeft(x, y, h, w) == 'W')
+    else if (detectNextBlock_DownLeft(x, y, h, w) == 'W')
     {
         var coordLeft = coord_DownLeft(x, y, h, w);
         block_left = map_comp[coordLeft[1]][coordLeft[0]];
@@ -269,7 +262,7 @@ function movePlayer(x, y, h, w, moveDirection, playerSpeed, player)
             digged = 0;
         }
 
-    }*/
+    }
     else
     {
         digged = 0;
@@ -279,6 +272,8 @@ function movePlayer(x, y, h, w, moveDirection, playerSpeed, player)
 
     var coord = coord_DownLeft(x, y, h, w);
     var diggedStoneOccupied = map_comp[coord[1]][coord[0]];
+    if (detectNextBlock_DownLeft(x, y, h, w) == 'W')
+        console.log("DiggedStone.occupied: " + diggedStoneOccupied.occupied);
 
     //console.log("Left digged: " + block_left.digged + ", Right digged: " + block_right.digged);
     //fall
@@ -286,7 +281,7 @@ function movePlayer(x, y, h, w, moveDirection, playerSpeed, player)
             ((detectNextBlock_DownLeft(x, y, h, w) == '.' && detectNextBlock_DownRight(x, y, h, w) == '.') || //when underneath is air
                     (detectNextBlock_DownLeft(x, y, h, w) == '-' && detectNextBlock_DownRight(x, y, h, w) == '-') || //or a pole
                     (detectNextBlock_DownLeft(x, y, h, w) == 'T' && detectNextBlock_DownRight(x, y, h, w) == 'T') ||
-                    (digged == 1 && diggedStoneOccupied.occupied == 0 )) && // or a treasure
+                    (digged == 1 && diggedStoneOccupied.occupied == 0)) && // or a treasure 
             (detectNextBlock_CurrentLeftDown(x, y, h, w) != '-' || detectNextBlock_CurrentRightDown(x, y, h, w) != '-')//
             )
     {
@@ -322,7 +317,7 @@ function movePlayer(x, y, h, w, moveDirection, playerSpeed, player)
                 detectNextBlock_CurrentLeftDown(x, y, h, w) == 'H')
         {
             y -= playerSpeed;
-            //console.log("in ladder Top");
+            console.log("in ladder Top");
         }
         //ladder at bottom
         else if (detectNextBlock_Left(x, y, h, w) == 'W' &&
