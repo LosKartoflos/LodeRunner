@@ -3,35 +3,38 @@ body
 	font-family:Calibri, Arial, sans-serif;
 	margin:0px;
 	padding:0px;
+	background: #EEE;
 }
 
 .navbar
 {
-	background-color:#555;
+	background-color:#CCC;
 	margin:0px;
 	padding:0px;
 	width:100%;
+	border-bottom: 3px solid #444;
+	border-top: 1px solid #444;
 }
 
 .navbar td
 {
-	
 	margin:0px;
-	padding-left:10px;
+	padding-left:35px;
 	padding-right:10px;
 	white-space:pre;
 }
 
 .navbar a
 {
-	color:#AAA;
+	color:#888;
 	text-decoration:none;
-	font-size:x-large;
+	font-size:xx-large;
+	font-weight: bold;
 }
 
 .navbar a:hover
 {
-	color:#DDD;
+	color:#FFF;
 }
 
 .fill
@@ -41,19 +44,21 @@ body
 
 .navbar-title a
 {
-	font-size:xx-large;
+	padding-left: 12px;
+	padding-right: 15px;
+	font-size:x-large;
 }
 
 .navbar-title a:hover
 {
-	color:#AAA;
+	color:#FFF;
 }
 
 .levels
 {
 	margin:0px;
 	padding:0px;
-	background-color:#AAA;
+	/*background-color:#CCC;*/
 	float:left;
 	overflow:auto;
 	height:576px;
@@ -71,24 +76,29 @@ body
 
 .editor
 {
-	margin:0px;
-	padding:0px;
-	float:left;
+	margin:auto;
 	width:816px;
 	height:576px;
 	background-color:#BBB;
+}
+
+.editor p
+{
+	margin-top: 0px;
 }
 
 .highscores
 {
-	margin:0px;
-	padding:0px;
-	float:left;
+	margin:auto;
 	width:816px;
 	height:576px;
 	background-color:#BBB;
 }
 
+.highscores p
+{
+	margin-top: 0px;
+}
 .levels a
 {
 	white-space:pre;
@@ -98,12 +108,12 @@ body
 
 .levels a:hover
 {
-	color:#DDD;
+	color:#FFF;
 }
 
 #cr-stage
 {
-	float:left;
+	margin:auto;
 	width:816px;
 	height:576px;
 }
@@ -114,43 +124,41 @@ body
 	font-size:xx-large;
 }
 
+.centered img
+{
+	width:50%;
+}
+
+.centered b
+{
+	white-space:pre;
+}
 
 
+.impressum
+{
+	margin:0px;
+	padding:0px;
+	width:100%;
+	border-top: 3px solid #444;
+}
 
+.impressum td
+{
+	margin:0px;
+	padding-left:10px;
+	padding-right:10px;
+	white-space:pre;
+}
 
+.impressum a
+{
+	color:#888;
+	text-decoration:none;
+	font-size:large;
+}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+.impressum a:hover
+{
+	color:#FFF;
+}

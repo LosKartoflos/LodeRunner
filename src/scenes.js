@@ -152,7 +152,7 @@ var time = new Date(0, 0, 0, 0, 1, 59, 9);
 var timerInterval;
 
 time.setSeconds(time.getSeconds() + 10);
-document.write("<p id=timerBox style='font-family: sans-serif; font-weight: bold' > " + time.getMinutes().toString() + ":" + time.getSeconds().toString() + ":" + time.getMilliseconds().toString() + "<p>");
+//document.write("<p id=timerBox style='font-family: sans-serif; font-weight: bold' > " + time.getMinutes().toString() + ":" + time.getSeconds().toString() + ":" + time.getMilliseconds().toString() + "<p>");
 //document.write("<p id=timerBox style='font-family: sans-serif; font-weight: bold' > " + time.parse("mm:ss") + "<p>");
 function timerStop() {
     timeSaved = time;

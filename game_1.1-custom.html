@@ -9,45 +9,56 @@
 		<!-- Custom styles for this template -->
 		<link href="css/meineCss.css" rel="stylesheet">
 		
-		<title>LodeRunner Reloaded</title>
+		<title>LodeRunner Reloaded Game</title>
 	</head>
   
     <body>
+		<!-- Titel -->
+		<div class="centered">		
+			<img src="assets/Logo123-01-01.png"/>	
+		</div>
     	<!-- Navigation bar -->
         <table class="navbar">
            	<tr>
-               	<td class="navbar-title"><img src="assets/Schatz_24x19_72ppi.png"/><a href= "game_1.1-custom.html">LodeRunner Reloaded</a></td>
                	<td><a href= "game_1.1-custom.html">Spiel</a></td>		
                	<td><a href = "Editor.html">Editor</a></td>
-               	<td><a href = "Highscores.html">Highscores</a></td>
+               	<td><a href = "Highscores.html">Bestzeiten</a></td>
                	<td><a href = "UeberUns.html">Über uns</a></td>
                 <td class="fill"></td>
            	</tr>
        	</table>
         
-        <!-- Level navigation -->
-        <ul class="levels">
-            <li><a href="#">AktuellerLevel</a></li>
-            <li><a href="#">Anderer Level</a></li>
-            <li><a href="#">Anderer Level</a></li>
-        	<li><a href="#">Anderer Level</a></li>
-        	<li><a href="#">Anderer Level</a></li>
-        </ul>
+		<!-- Level navigation -->
+		<ul class="levels">
+			<li><a href="#">AktuellerLevel</a></li>
+			<li><a href="#">Anderer Level</a></li>
+			<li><a href="#">Anderer Level</a></li>
+			<li><a href="#">Anderer Level</a></li>
+			<li><a href="#">Anderer Level</a></li>
+		</ul>
+	
+		<!-- Game -->
+		<div id="cr-stage"></div>
         
-        <!-- Game -->
-        <div id="cr-stage"></div>
-        
-        <script src="lib/crafty.js"></script>
-        
-        <script  src="src/game.js"></script>
-        	<script src="src/components.js"></script>
-        	<script src="src/scenes.js"></script>
-        	<script src="src/movement.js"></script>
-        	<script src="src/blockdetection.js"></script>
+		<script src="lib/crafty.js"></script>
+		<script src="lib/jquery.js"></script>					
+		<script  src="src/game.js"></script>
+		<script src="src/components.js"></script>
+		<script src="src/scenes.js"></script>
+		<script src="src/movement.js"></script>
+		<script src="src/blockdetection.js"></script>
                 
-        <script>
-            window.addEventListener('load', Game.start);  
-        </script>
+		<script>
+			window.addEventListener('load', Game.start);  
+		</script>	
+		
+		<!-- Impressum -->
+		<table class="impressum">
+           	<tr>
+				<td class="fill"></td>
+               	<td><a href= "game_1.1-custom.html">Impressum</a></td>		
+           	</tr>
+       	</table>
     
     </body>
 </html>
