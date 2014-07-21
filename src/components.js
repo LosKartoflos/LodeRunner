@@ -254,7 +254,7 @@ Crafty.c('Enemy', {
         {
             var coord = coord_DownLeft(this.x, this.y, this.h, this.w);
             var diggedStoneOccupied = map_comp[coord[1]][coord[0]];
-            if (diggedStoneOccupied.digged == 1)
+            if (diggedStoneOccupied.digged != undefined && diggedStoneOccupied.digged == 1 )
             {
                 console.log("set Occupied");
                 diggedStoneOccupied.setOccupied();
@@ -506,7 +506,7 @@ Crafty.c('PlayerCharacter', {
     collectTreasure: function(data) {
         treasure = data[0].obj;
         treasure.collect();
-        if (treasureCollected == map[22][0])
+        if (treasureCollected == map[22]  )
         {
             for (var y = 0; y < 10; y++) {
 
@@ -514,9 +514,6 @@ Crafty.c('PlayerCharacter', {
 
                     if (map[y][x] == 'h') {
                         Crafty.e('Ladder').at(x + 1, y + 1);
-                        //map[y][x] = 'H';
-                        //map[x] = map[x].substring(0,y)+"H"+map[x].substring(y+1);
-                        //map[y][x]= map[y][x].substring(0,y)+"H"+map[y][x].substring(y+1);
                         map[y] = map[y].substring(0, x) + "H" + map[y].substring(x + 2, map[y].length - 1);
                         //console.log(" map[y][x]: " + map[y][x]);
                     }

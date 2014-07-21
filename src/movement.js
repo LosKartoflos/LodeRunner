@@ -128,14 +128,19 @@ function movePlayer(x, y, h, w, moveDirection, playerSpeed, player)
 
     if (detectNextBlock_CurrentLeftUp(x, y, h, w) == 'W' && detectNextBlock_CurrentLeftUp(x, y, h, w) == 'W')
     {
-        if(block_left.digged == 1 && block_left.occupied == 0)
+        if (block_left.digged == 1 && block_left.occupied == 0)
         {
             block_left.setOccupied();
         }
-        
-        if ((block_left.digged == 1 || block_right.digged == 1 || block_rightDown.digged == 1 || block_leftDown.digged == 1) && (block_left.diggedTimer <= 300 && block_right.diggedTimer <= 150))
+
+        if ((block_left.digged == 1 || block_right.digged == 1 || block_rightDown.digged == 1 || block_leftDown.digged == 1) && (block_left.diggedTimer <= 300 && block_right.diggedTimer <= 300))
         {
             player.destroy();
+              if ((x == playerX) || (y == playerY))
+             {
+                 console.log("PlayerKilled");
+                   Crafty.scene('Gameover');
+             }
             block_left.setUnoccupied();
 
             //console.log("X: " + x + "; Y: " + y + ";\nPX: " + playerX + "; PY: " + playerY);
@@ -148,7 +153,7 @@ function movePlayer(x, y, h, w, moveDirection, playerSpeed, player)
 
 
                 if ((playerX / h) < 16) {
-                    this.newX = 32 - playerX / h;               
+                    this.newX = 32 - playerX / h;
                 }
                 else
                 {
@@ -272,10 +277,13 @@ function movePlayer(x, y, h, w, moveDirection, playerSpeed, player)
 
     var coord = coord_DownLeft(x, y, h, w);
     var diggedStoneOccupied = map_comp[coord[1]][coord[0]];
-    if (detectNextBlock_DownLeft(x, y, h, w) == 'W')
-        console.log("DiggedStone.occupied: " + diggedStoneOccupied.occupied);
+    /*if (detectNextBlock_DownLeft(x, y, h, w) == 'W')
+     console.log("DiggedStone.occupied: " + diggedStoneOccupied.occupied);*/
 
     //console.log("Left digged: " + block_left.digged + ", Right digged: " + block_right.digged);
+    //Stuck
+   
+ 
     //fall
     if (
             ((detectNextBlock_DownLeft(x, y, h, w) == '.' && detectNextBlock_DownRight(x, y, h, w) == '.') || //when underneath is air

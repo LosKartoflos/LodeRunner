@@ -58,3 +58,4 @@ function start_loop()
   is_playing = true;
   loop();
 }
+

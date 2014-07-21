@@ -3,27 +3,27 @@ src = "lib/jquery.js"
 var level1 = [
     '.........................X......',
     '....T....................h......',
-    'WWWWWWWWWHWWWWWWW........h......',
+    'SWWSWWWSSHSSSSSSW........h......',
     '.........H-------------..h......',
-    '.........H....WWH........h......',
-    '.........H....WWH......T.h......',
-    '.........H....WWH....WWWWHWWWWWW',
-    '.........H....WWH........H......',
-    '.........H....WWH........H......',
-    '.....P..TH....WWH........H......',
-    'WWWWHWWWWW....WWWSSSHWWWWWWWWWWW',
+    '.........H....SSH........h......',
+    '.........H....SSH......T.h......',
+    '.........H....SSH.....SSSHSSSSSS',
+    '.........H....SSH........H......',
+    '.........H....SSH........H......',
+    '.....P..TH....SSH.......TH......',
+    'SSSSHWWWWW....SSSSSSHSSSSSSSSSSS',
     '....H...............H...........',
     '....H...............H...........',
     '....H...............H...........',
-    'WWWWWWWWWWWWHWWWWWWWHWWWWWWWWWWW',
-    '............HWWW....H...........',
+    'SSSSSSSSSSSSHSSSSSSSHSSSSSSSSSSS',
+    '............H.......H...........',
     '............H.......H...........',
     '.........T..H-------H...........',
-    '......HWWWWWWW......WWWWWWWWWWWH',
+    '......HSSSSSSS.....SSSSSSSSSSSSH',
     '......H........................H',
     '..E...H........................H',
-    'WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW',
-    '4', // nicht entfernen!
+    'SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS',
+    '', // nicht entfernen!
     ''   // nicht entfernen!   
 ];
 
@@ -143,69 +143,43 @@ var level3 = [
 var levelcounter = 0;
 
 var map;
-var map_bg;
-var map_transparent_bg;
+var map_bg = [];
+var map_transparent_bg = [];
 var map_comp = new Array();
 
-/*var timeSaved;
-var time = new Date(0, 0, 0, 0, 1, 59, 9);
-var timerInterval;
+var treasures = 0;
+var currentLevel = [];
 
-time.setSeconds(time.getSeconds() + 10);
-//document.write("<p id=timerBox style='font-family: sans-serif; font-weight: bold' > " + time.getMinutes().toString() + ":" + time.getSeconds().toString() + ":" + time.getMilliseconds().toString() + "<p>");
-//document.write("<p id=timerBox style='font-family: sans-serif; font-weight: bold' > " + time.parse("mm:ss") + "<p>");
-function timerStop() {
-    timeSaved = time;
-    time = new Date(0, 0, 0, 0, 0, 0, 0);
-    $("#timerBox").html("");
-    clearInterval(timerInterval);
+function assginCurrentLevel(mapArray, backgroundArray, backgroundTransparentArray) {
+    for (i = 0; i < 24; i++)
+    {
+        currentLevel[i] = mapArray[i];
+        map_bg[i] = backgroundArray[i];
+        map_transparent_bg[i] = backgroundTransparentArray[i];
+    }
 }
-
-function timerStart() {
-    timerInterval = window.setInterval(function() {
-        timer();
-    }, 10);
-}
-
-function timer()
-{   
-    time.setMilliseconds(time.getMilliseconds() + 10)
-    // time.setSeconds(10);
-    //var n = time.getSeconds() +":"+ time.getMilliseconds();
-    $("#timerBox").html(time.getMinutes().toString() + ":" + time.getSeconds().toString() + ":" + time.getMilliseconds().toString());
-    /*Crafty.e('2D, DOM, Text')
-     .text(time)
-     .attr({x: 0, y: Game.height() / 2 - 24, w: Game.width()})
-     .css({"text-align": "center"})
-     .textFont({size: '15px', weight: 'bold'})
-     .textColor("#FFFFFF");*/
-/*
-}*/
-
-
 
 Crafty.scene('Game', function() {
-
+    treasures = 0;
     //var map;
 
     //container = Crafty.e('TreasureContainer');
 
     if (levelcounter == 0) {
-        map = level1;
-        map_bg = level1_bg;
-        map_transparent_bg = level1_transparent_bg;
+        assginCurrentLevel(level1, level1_bg, level1_transparent_bg);
+
     }
     //console.log(levelcounter);
 
     if (levelcounter == 1) {
-        map = level2;
-        //map_bg = level1_bg;
+        assginCurrentLevel(level2, level1_bg, level1_transparent_bg);
     }
 
     if (levelcounter == 3) {
-        map = level3;
-        //map_bg = level1_bg;
+        assginCurrentLevel(level3, level1_bg, level1_transparent_bg);
     }
+    map = currentLevel;
+
 
     //container.initialize();
 
@@ -228,6 +202,11 @@ Crafty.scene('Game', function() {
             if (map[y][x] == 'S') {
                 map_comp[y][x] = Crafty.e('Stone').at(x + 1, y + 1);
                 map_comp[y][x].setSolid();
+
+                var stringContainer = map[y];
+                //console.log(stringContainer);
+                stringContainer = setCharAt(stringContainer, x, 'W');
+                map[y] = stringContainer;
                 //console.log("Entity: " + map_comp[y][x].toString());
             }
             if (map[y][x] == 'C') {
@@ -241,13 +220,26 @@ Crafty.scene('Game', function() {
             }
             if (map[y][x] == 'T') {
                 map_comp[y][x] = Crafty.e('Treasure').at(x + 1, y + 1);
-                //container.add();					
+                var stringContainer = map[y];
+                //console.log(stringContainer);
+                stringContainer = setCharAt(stringContainer, x, '.');
+                map[y] = stringContainer;
+                //container.add();	
+                treasures++;
             }
             if (map[y][x] == 'P') {
                 thePlayer = Crafty.e('PlayerCharacter').at(x + 1, y + 1);
+                var stringContainer = map[y];
+                //console.log(stringContainer);
+                stringContainer = setCharAt(stringContainer, x, '.');
+                map[y] = stringContainer;
             }
             if (map[y][x] == 'E') {
                 Crafty.e('Enemy').at(x + 1, y + 1);
+                var stringContainer = map[y];
+                //console.log(stringContainer);
+                stringContainer = setCharAt(stringContainer, x, '.');
+                map[y] = stringContainer;
             }
 
             if (map_bg[y][x] == 'q') {
@@ -454,6 +446,8 @@ Crafty.scene('Game', function() {
         }
     }
 
+    map[22] = treasures.toString();
+    console.log("Map: " + map[22] + ", Tr: " + treasures);
     /*this.show_ladder = this.bind('TreasureCollected', function() {   
      container.collectTreasure();
      if(container.checkTreasures() == true){
@@ -478,10 +472,10 @@ Crafty.scene('Game', function() {
 
 
     /*this.end_postion = this.bind('EndLevel', function() {
-        Crafty("2D").destroy();
-        console.log(levelcounter++);
-        Crafty.scene('NextLevel');
-    });*/
+     Crafty("2D").destroy();
+     console.log(levelcounter++);
+     Crafty.scene('NextLevel');
+     });*/
     this.game_over = this.bind('EnemyCollison', function() {
 
         Crafty("2D").destroy();
@@ -499,18 +493,23 @@ Crafty.scene('Game', function() {
 
 
 Crafty.scene('NextLevel', function() {
-    Crafty.e("2D, DOM, Text")
+    /*Crafty.e("2D, DOM, Text, Image")
             .attr({x: 0, y: Game.height() / 2 - 24, w: Game.width()})
             .text("You Won! Press Space For The Next Level")
             .css({"text-align": "center"})
             .textFont({size: '15px', weight: 'bold'})
-            .textColor("#FFFFFF");
+            .textColor("#FFFFFF")
+            .image("assets/winscreen.png");*/
+     var bgImage = Crafty.e('2D, DOM, Text, Image')
+                .image("assets/winscreen.png");
+        bgImage.y = 10;
+        bgImage.x =60; 
     //timerStop();
 
     treasureCollected = 0;
     //container.initialize();		  
 
-    
+
     $(document).keypress(function(e) {
         if (e.which == 32) {
             start_game();
@@ -520,18 +519,26 @@ Crafty.scene('NextLevel', function() {
 
 Crafty.scene('Gameover', function() {
     //console.log("hello");
-    Crafty.e("2D, DOM, Text")
+    /*Crafty.e("2D, DOM, Text, Image")
             .attr({x: 0, y: Game.height() / 2 - 24, w: Game.width()})
             .text("Game Over! Press Space To Restart")
             .css({"text-align": "center"})
             .textFont({size: '15px', weight: 'bold'})
-            .textColor("#FFFFFF");
+            .textColor("#FFFFFF")
+            .attr({x: 0, y: Game.height() / 2 - 24, w: Game.width()})
+            .image("assets/losescreen.png", "repeat", "center", "center");*/
+     var bgImage = Crafty.e('2D, DOM, Text, Image')
+                .image("assets/losescreen.png");
+        bgImage.y = 10;
+        bgImage.x =60; 
+
+
 
 
 
     treasureCollected = 0;
 //container.reset();
-    
+
     $(document).keypress(function(e) {
         if (e.which == 32) {
             start_game();
@@ -565,15 +572,21 @@ Crafty.scene('Loading', function() {
             spr_torch1: [0, 6], spr_torch2: [1, 6], spr_torch3: [2, 6], spr_torch4: [3, 6]
         });
 
-        Crafty.e('2D, DOM, Text')
+        var bgImage = Crafty.e('2D, DOM, Text, Image')
+                .image("assets/winscreen.png");
+        bgImage.y = 10;
+        bgImage.x =60; 
+       /* Crafty.e('2D, DOM, Text, Image')
                 .text("Press Space To Start! \n Although Press Space To Restart")
                 .attr({x: 0, y: Game.height() / 2 - 24, w: Game.width()})
-                .css({"text-align": "center"})
+                .css({"text-align": "bottom"})
                 .textFont({size: '15px', weight: 'bold'})
-                .textColor("#FFFFFF");
+                .textColor("#FFFFFF");*/
+
+
     })
 
-     //verbessurung
+    //verbessurung
 
     $(document).keypress(function(e) {
         if (e.which == 32) {
@@ -582,10 +595,19 @@ Crafty.scene('Loading', function() {
     });
 });
 
- function start_game() {
-        Crafty.scene('Game');
-        time = 0;
-        //setTimeout('timer()', 1000);
-        //timerStart();
+function start_game() {
+    // map = currentLevel;
+    Crafty.scene('Game');
+    console.log(currentLevel);
+    //time = 0;
+    //setTimeout('timer()', 1000);
+    //timerStart();
 
-    }
+}
+
+
+function setCharAt(str, index, chr) {
+    if (index > str.length - 1)
+        return str;
+    return str.substr(0, index) + chr + str.substr(index + 1);
+}
