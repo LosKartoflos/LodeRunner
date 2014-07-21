@@ -17,11 +17,15 @@ var level1 = [
     '....H...............H...........',
     'SSSSSSSSSSSSHSSSSSSSHSSSSSSSSSSS',
     '............H.......H...........',
+    'SSSSSSSSSSSSHSSSSSSSHSSSSSSSSSSS',
+    '............H.......H...........',
     '............H.......H...........',
     '.........T..H-------H...........',
     '......HSSSSSSS.....SSSSSSSSSSSSH',
+    '......HSSSSSSS.....SSSSSSSSSSSSH',
     '......H........................H',
     '..E...H........................H',
+    'SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS',
     'SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS',
     '', // nicht entfernen!
     ''   // nicht entfernen!   
@@ -149,6 +153,7 @@ var map_comp = new Array();
 
 var treasures = 0;
 var currentLevel = [];
+ 
 
 function assginCurrentLevel(mapArray, backgroundArray, backgroundTransparentArray) {
     for (i = 0; i < 24; i++)
@@ -157,6 +162,8 @@ function assginCurrentLevel(mapArray, backgroundArray, backgroundTransparentArra
         map_bg[i] = backgroundArray[i];
         map_transparent_bg[i] = backgroundTransparentArray[i];
     }
+ }
+ 
 }
 
 Crafty.scene('Game', function() {
