@@ -89,9 +89,9 @@ Crafty.c('Stone', {//ohne spritemapping
     setUnoccupied: function() {
         this.occupied = 0;
     },
-    setSolid: function(){
+    setSolid: function() {
         this.diggeable = 0;
-         this.sprite(0, 9);
+        this.sprite(0, 9);
     }
 });
 /*Crafty.c('Concrete', {    not in use yet
@@ -252,20 +252,41 @@ Crafty.c('Enemy', {
 
         if (detectNextBlock_CurrentLeftUp(this.x, this.y, this.h, this.w) == 'W')
         {
-            var coord = coord_DownLeft(this.x, this.y, this.h, this.w);
-            var diggedStoneOccupied = map_comp[coord[1]][coord[0]];
-            if (diggedStoneOccupied.digged != undefined && diggedStoneOccupied.digged == 1 )
+            if (detectNextBlock_CurrentLeftDown(this.x, this.y, this.h, this.w) == 'W')
             {
-                console.log("set Occupied");
-                diggedStoneOccupied.setOccupied();
+                var coord = coord_DownLeft(this.x, this.y, this.h, this.w);
+                var diggedStoneOccupied = map_comp[coord[1]][coord[0]];
+                if (detectNextBlock_CurrentLeftDown(this.x, this.y, this.h, this.w) == 'W')
+                {
+                    if (diggedStoneOccupied.digged == 1) {
+                        console.log("set Occupied");
+                        diggedStoneOccupied.setOccupied();
+                    }
+                }
             }
         }
     },
-    applyXandY: function() {
+    applyXandY: function() {//Frage
+        /*var coord = coord_CurrentLeft(this.x, this.y, this.h, this.w);
+         var diggedStoneOccupied = map_comp[coord[1]][coord[0]];
+         if (detectNextBlock_CurrentLeftUp(this.x, this.y, this.h, this.w) == 'W') {
+         if (diggedStoneOccupied.occupied == 1)
+         {
+         var xAndY = movePlayer(this.x, this.y, this.h, this.w, this.moveDirection, this.playerSpeed, this);
+         this.x = xAndY[0];
+         this.y = xAndY[1];
+         }
+         }
+         else {
+         var xAndY = movePlayer(this.x, this.y, this.h, this.w, this.moveDirection, this.playerSpeed, this);
+         this.x = xAndY[0];
+         this.y = xAndY[1];
+         
+         }*/
+
         var xAndY = movePlayer(this.x, this.y, this.h, this.w, this.moveDirection, this.playerSpeed, this);
         this.x = xAndY[0];
         this.y = xAndY[1];
-
 
         /* if(this.moveDirection == 1)
          {
@@ -506,7 +527,7 @@ Crafty.c('PlayerCharacter', {
     collectTreasure: function(data) {
         treasure = data[0].obj;
         treasure.collect();
-        if (treasureCollected == map[22]  )
+        if (treasureCollected == map[22])
         {
             for (var y = 0; y < 10; y++) {
 
