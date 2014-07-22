@@ -11,23 +11,27 @@ var level1 = [
     '.........H....SSH........H......',
     '.........H....SSH........H......',
     '.....P..TH....SSH.......TH......',
+<<<<<<< HEAD
     'SSSSHWWWWW....SSSSSSHSSSSSSSSSSS',
-    '....HWW.............H...........',
+=======
+    'SSSSHSSSSS....SSSSSSHSSSSSSSSSSS',
+>>>>>>> 8202e5558060a04155596d46aec0614a6f8c8f85
     '....H...............H...........',
     '....H...............H...........',
-    'SSSSSSSSSSSSHSSSSSSSHSSSSSSSSSSS',
-    '............H.......H...........',
+    '....H...............H...........',
     'SSSSSSSSSSSSHSSSSSSSHSSSSSSSSSSS',
     '............H.......H...........',
     '............H.......H...........',
     '.........T..H-------H...........',
     '......HSSSSSSS.....SSSSSSSSSSSSH',
-    '......HSSSSSSS.....SSSSSSSSSSSSH',
     '......H........................H',
     '..E...H........................H',
     'SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS',
-    'SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS',
+<<<<<<< HEAD
     '', // nicht entfernen!
+=======
+    '5', // nicht entfernen!
+>>>>>>> 8202e5558060a04155596d46aec0614a6f8c8f85
     ''   // nicht entfernen!   
 ];
 
@@ -151,9 +155,9 @@ var map_bg = [];
 var map_transparent_bg = [];
 var map_comp = new Array();
 
+<<<<<<< HEAD
 var treasures = 0;
 var currentLevel = [];
- 
 
 function assginCurrentLevel(mapArray, backgroundArray, backgroundTransparentArray) {
     for (i = 0; i < 24; i++)
@@ -162,9 +166,45 @@ function assginCurrentLevel(mapArray, backgroundArray, backgroundTransparentArra
         map_bg[i] = backgroundArray[i];
         map_transparent_bg[i] = backgroundTransparentArray[i];
     }
+}
+=======
+/*var timeSaved;
+ var time = new Date(0, 0, 0, 0, 1, 59, 9);
+ var timerInterval;
+ 
+ time.setSeconds(time.getSeconds() + 10);
+ //document.write("<p id=timerBox style='font-family: sans-serif; font-weight: bold' > " + time.getMinutes().toString() + ":" + time.getSeconds().toString() + ":" + time.getMilliseconds().toString() + "<p>");
+ //document.write("<p id=timerBox style='font-family: sans-serif; font-weight: bold' > " + time.parse("mm:ss") + "<p>");
+ function timerStop() {
+ timeSaved = time;
+ time = new Date(0, 0, 0, 0, 0, 0, 0);
+ $("#timerBox").html("");
+ clearInterval(timerInterval);
  }
  
-}
+ function timerStart() {
+ timerInterval = window.setInterval(function() {
+ timer();
+ }, 10);
+ }
+ 
+ function timer()
+ {   
+ time.setMilliseconds(time.getMilliseconds() + 10)
+ // time.setSeconds(10);
+ //var n = time.getSeconds() +":"+ time.getMilliseconds();
+ $("#timerBox").html(time.getMinutes().toString() + ":" + time.getSeconds().toString() + ":" + time.getMilliseconds().toString());
+ /*Crafty.e('2D, DOM, Text')
+ .text(time)
+ .attr({x: 0, y: Game.height() / 2 - 24, w: Game.width()})
+ .css({"text-align": "center"})
+ .textFont({size: '15px', weight: 'bold'})
+ .textColor("#FFFFFF");*/
+/*
+ }*/
+
+
+>>>>>>> 8202e5558060a04155596d46aec0614a6f8c8f85
 
 Crafty.scene('Game', function() {
     treasures = 0;
@@ -207,13 +247,24 @@ Crafty.scene('Game', function() {
                 //console.log("Entity: " + map_comp[y][x].toString());
             }
             if (map[y][x] == 'S') {
+
                 map_comp[y][x] = Crafty.e('Stone').at(x + 1, y + 1);
                 map_comp[y][x].setSolid();
 
+<<<<<<< HEAD
                 var stringContainer = map[y];
                 //console.log(stringContainer);
                 stringContainer = setCharAt(stringContainer, x, 'W');
                 map[y] = stringContainer;
+=======
+                //map[y] = map[y].substring(0, x-1) + map[y].substring(x, map[y].length );
+                var stringContainer = map[y];
+                console.log(stringContainer);
+                stringContainer = setCharAt(stringContainer, x, 'W');
+                map[y] = stringContainer;
+                console.log("X: " + x + "; Y: " + y);
+                console.log(level1);
+>>>>>>> 8202e5558060a04155596d46aec0614a6f8c8f85
                 //console.log("Entity: " + map_comp[y][x].toString());
             }
             if (map[y][x] == 'C') {
@@ -451,6 +502,7 @@ Crafty.scene('Game', function() {
                 tmp_bg.sprite(6, 5);
             }
         }
+        //console.log(level1);
     }
 
     map[22] = treasures.toString();
@@ -500,17 +552,25 @@ Crafty.scene('Game', function() {
 
 
 Crafty.scene('NextLevel', function() {
+<<<<<<< HEAD
     /*Crafty.e("2D, DOM, Text, Image")
+=======
+    Crafty.e("2D, DOM, Text, Image")
+>>>>>>> 8202e5558060a04155596d46aec0614a6f8c8f85
             .attr({x: 0, y: Game.height() / 2 - 24, w: Game.width()})
             .text("You Won! Press Space For The Next Level")
             .css({"text-align": "center"})
             .textFont({size: '15px', weight: 'bold'})
             .textColor("#FFFFFF")
+<<<<<<< HEAD
             .image("assets/winscreen.png");*/
      var bgImage = Crafty.e('2D, DOM, Text, Image')
                 .image("assets/winscreen.png");
         bgImage.y = 10;
         bgImage.x =60; 
+=======
+            .image("assets/winscreen2.png");
+>>>>>>> 8202e5558060a04155596d46aec0614a6f8c8f85
     //timerStop();
 
     treasureCollected = 0;
@@ -603,15 +663,23 @@ Crafty.scene('Loading', function() {
 });
 
 function start_game() {
+<<<<<<< HEAD
     // map = currentLevel;
     Crafty.scene('Game');
     console.log(currentLevel);
     //time = 0;
+=======
+    Crafty.scene('Game');
+    time = 0;
+>>>>>>> 8202e5558060a04155596d46aec0614a6f8c8f85
     //setTimeout('timer()', 1000);
     //timerStart();
 
 }
+<<<<<<< HEAD
 
+=======
+>>>>>>> 8202e5558060a04155596d46aec0614a6f8c8f85
 
 function setCharAt(str, index, chr) {
     if (index > str.length - 1)
