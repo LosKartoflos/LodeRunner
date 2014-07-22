@@ -24,7 +24,6 @@ function ki(moveDirection, x, y, h, w, plX, plY)
     else if (moveDirection == 1 &&
             (
                     (
-                            //( detectNextBlock_CurrentLeftUp() == '.' &&  detectNextBlock_CurrentRightUp() == '-') || 
                                     (detectNextBlock_CurrentLeftUp(x, y, h, w) == '.' && detectNextBlock_CurrentRightUp(x, y, h, w) == 'H')
                                     ) &&
                             (
@@ -39,7 +38,7 @@ function ki(moveDirection, x, y, h, w, plX, plY)
     else if (moveDirection == 3 &&
             (
                     (
-                            //( detectNextBlock_CurrentLeftUp() == '-' &&  detectNextBlock_CurrentRightUp() == '.') || 
+
                                     (detectNextBlock_CurrentLeftUp(x, y, h, w) == 'H' && detectNextBlock_CurrentRightUp(x, y, h, w) == '.')
                                     ) &&
                             (
@@ -130,17 +129,40 @@ function movePlayer(x, y, h, w, moveDirection, playerSpeed, player)
     {
         if (block_left.digged == 1 && block_left.occupied == 0)
         {
-            block_left.setOccupied();
-        }
-        if ((block_left.digged == 1 || block_right.digged == 1 || block_rightDown.digged == 1 || block_leftDown.digged == 1) && (block_left.diggedTimer >= 300 && block_right.diggedTimer >= 300)) {
             if ((x != playerX) || (y != playerY))
             {
-                x = x;//Frage
-                y = y;
+                block_left.setOccupied();
+                player.climbUpTimerSave = block_left.diggedTimer;
+                player.climbUpTimer = player.climbUpTimerSave;
+            }
+        }
+        if ((block_left.digged == 1 || block_right.digged == 1 || block_rightDown.digged == 1 || block_leftDown.digged == 1) && (block_left.diggedTimer >= 100 && block_right.diggedTimer >= 100)
+                && (detectNextBlock_Left(x, y, h, w) != '.' || detectNextBlock_Left(x, y, h, w) != 'H' || detectNextBlock_Left(x, y, h, w) != '-' ||
+                        detectNextBlock_Right(x, y, h, w) != '.' || detectNextBlock_Right(x, y, h, w) != 'H' || detectNextBlock_Right(x, y, h, w) != '-'))
+        {
+            if ((x != playerX) || (y != playerY))
+            {
+                player.climbUpTimer--;
+                if (player.climbUpTimerSave - player.climbUpTimer > 200) {
+                    
+                    
+                    var xAndY = new Array();
+                    xAndY[0] = x;
+                    xAndY[1] = y - 30 ;
+                    player.climbUpTimerSave = 0;
+                    player.climbUpTimer = 0;
+                    block_left.diggedTimer=1;
+                    console.log("in climb up");
+                    return(xAndY);
+                 
+                }
+                else {
+                    var xAndY = new Array();
+                    xAndY[0] = x;
+                    xAndY[1] = y;
+                    return(xAndY);
+                }
 
-                xAndY[0] = x;
-                xAndY[1] = y;
-                return(xAndY);
             }
         }
         else if ((block_left.digged == 1 || block_right.digged == 1 || block_rightDown.digged == 1 || block_leftDown.digged == 1) && (block_left.diggedTimer <= 300 && block_right.diggedTimer <= 300))
@@ -340,7 +362,7 @@ function movePlayer(x, y, h, w, moveDirection, playerSpeed, player)
         //ladder at bottom
         else if (detectNextBlock_Left(x, y, h, w) == 'W' &&
                 detectNextBlock_LeftDown(x, y, h, w) == '.' &&
-                detectNextBlock_CurrentLeftUp()(x, y, h, w) == 'H')
+                detectNextBlock_CurrentLeftUp(x, y, h, w) == 'H')
         {
             y += playerSpeed;
         }

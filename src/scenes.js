@@ -447,7 +447,7 @@ Crafty.scene('Game', function() {
     }
 
     map[22] = treasures.toString();
-    console.log("Map: " + map[22] + ", Tr: " + treasures);
+    //console.log("Map: " + map[22] + ", Tr: " + treasures);
     /*this.show_ladder = this.bind('TreasureCollected', function() {   
      container.collectTreasure();
      if(container.checkTreasures() == true){
@@ -557,7 +557,7 @@ Crafty.scene('Loading', function() {
         });
         Crafty.sprite(24, 'assets/enemysprite.png', {
             spr_enemy: [0, 0],
-        });
+        }); 
         Crafty.sprite(24, 'assets/assets-yellow.png', {
             spr_treasure: [0, 0], spr_stone: [1, 0], spr_ladder: [0, 1], spr_pole: [1, 1]
         });
@@ -573,7 +573,7 @@ Crafty.scene('Loading', function() {
         });
 
         var bgImage = Crafty.e('2D, DOM, Text, Image')
-                .image("assets/winscreen.png");
+                .image("assets/startscreen.png");
         bgImage.y = 10;
         bgImage.x =60; 
        /* Crafty.e('2D, DOM, Text, Image')

@@ -50,12 +50,12 @@ Crafty.c('Stone', {//ohne spritemapping
 
 
 
-        if (this.digged == 1 && this.diggedTimer >= 300)
+        if (this.digged == 1 && this.diggedTimer >= 100)
         {
             this.sprite(2, 9);
             this.diggedTimer -= 1;
         }
-        else if (this.digged == 1 && this.diggedTimer >= 150)
+        else if (this.digged == 1 && this.diggedTimer >= 50)
         {
             this.sprite(0, 2);
             this.diggedTimer -= 1;
@@ -79,7 +79,7 @@ Crafty.c('Stone', {//ohne spritemapping
     dig: function() {
         if (this.diggeable == 1) {
             this.digged = 1;
-            this.diggedTimer = 500;
+            this.diggedTimer = 450;
             this.bind('EnterFrame', this.checkDigging);
         }
     },
@@ -200,6 +200,8 @@ Crafty.c('Enemy', {
                 .onHit('PlayerCharacater', this.killPlayer);
         //.onHit('Treasure', this.collectTreasure);
     },
+    climbUpTimer: 0,
+    climbUpTimerSave: 0,
     name: "enemy",
     moveDirection: 0,
     playerSpeed: 1.5,
@@ -258,7 +260,7 @@ Crafty.c('Enemy', {
                 var diggedStoneOccupied = map_comp[coord[1]][coord[0]];
                 if (detectNextBlock_CurrentLeftDown(this.x, this.y, this.h, this.w) == 'W')
                 {
-                    if (diggedStoneOccupied.digged == 1) {
+                    if (diggedStoneOccupied && diggedStoneOccupied.digged == 1) {
                         console.log("set Occupied");
                         diggedStoneOccupied.setOccupied();
                     }
@@ -583,8 +585,11 @@ Crafty.c('Treasure', {
 
 Crafty.c('Exit', {
     init: function() {
-        this.requires('Actor, Image')
-                .image('assets/Ladder.png');
+        this.requires('Actor, spr_stone_normal')
+        .sprite(1, 9);
+               // .sprite(8, 1);
+                //.image('assets/Ladder.png');
+                this.z = 3;
     },
     digged: 0,
     collect: function() {
