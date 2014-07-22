@@ -30,32 +30,3 @@ Game = {
         //start_loop();// starts game loop (for player)
     } 
 }
-//shows x and y coordinate where the mouse is 
-function mouse(e)
-{
-  var x = e.pageX - document.getElementById('cr-stage').offsetLeft;
-  var y = e.pageY - document.getElementById('cr-stage').offsetTop;
-  document.getElementById('x').innerHTML = x;
-  document.getElementById('y').innerHTML = y;
-}
-
-function loop()
-{
-    
-    //Crafty.c('PlayerCharacter').climbTester();
-    //Crafty.c('Enemy').ai();
-    //Game.player.caseTester();
-    /*if (is_playing = true)
-    {
-        setTimeout(climbMaster, 10);
-    }*/
-    setTimeout(climbMaster, 1);
-}
-
-// start_loop wird in Game.start ausgeführt
-function start_loop()
-{
-  is_playing = true;
-  loop();
-}
-
